@@ -1,0 +1,782 @@
+:root {
+
+  color-scheme: light;
+
+  --oxford: #1B1830;
+  --oxford-2: #241F3D;
+
+  --teal: #46D18A;
+  --teal-dark: #2FAE6E;
+
+  --peach: #EAE1C8;
+  --peach-2: #F2EAD6;
+
+  --sandy: #D3AD5C;
+
+  --orange: #B8544E;
+  --orange-dark: #96403B;
+
+  --indigo: #6C6CE0;
+  --indigo-dark: #5551C4;
+
+
+
+  --ink: #14131F;
+  --paper: #F7F7FB;
+  --paper-dim: #EFEFF6;
+
+  --line: rgba(108, 108, 224, 0.14);
+  --line-strong: rgba(108, 108, 224, 0.3);
+
+
+  --bg: var(--paper);
+  --bg-alt: var(--paper-dim);
+  --bg-panel: #ffffff;
+
+  --text: var(--ink);
+  --text-muted: #5A5568;
+
+  --brand: var(--oxford);
+
+  --accent: var(--indigo);
+  --accent-dark: var(--indigo-dark);
+  --accent-2: var(--teal);
+  --accent-3: var(--sandy);
+
+  --border: var(--line);
+  --nav-bg: rgba(247, 242, 228, 0.92);
+  --card-bg: #ffffff;
+
+  --shadow: 0 1px 0 rgba(46, 35, 90, 0.08);
+  --focus-ring: 0 0 0 3px rgba(108, 108, 224, 0.45);
+
+  --font-display: "Space Grotesk", "IBM Plex Mono", monospace;
+  --font-quote: "Fraunces", "Iowan Old Style", Georgia, serif;
+  --font-body: "Inter", "Helvetica Neue", Arial, sans-serif;
+  --font-mono: "Space Grotesk", "IBM Plex Mono", monospace;
+
+  --step--1: 0.85rem;
+  --step-0: 1rem;
+  --step-1: 1.25rem;
+  --step-2: 1.6rem;
+  --step-3: 2.05rem;
+  --step-4: 2.75rem;
+  --step-5: 3.6rem;
+
+
+  --maxw: 1180px;
+
+  --pad: clamp(1.25rem, 4vw, 3rem);
+
+  --radius-sm: 6px;
+  --radius: 10px;
+  --radius-lg: 18px;
+
+  --nav-h: 76px;
+
+  /* Đường cong tốc độ cho transition và animation */
+  --ease: cubic-bezier(.2, .7, .3, 1);
+}
+
+[data-theme="dark"] {
+  color-scheme: dark;
+
+  /* Màu nền */
+  --bg: #121022;
+  --bg-alt: #181530;
+  --bg-panel: #1B1830;
+
+  /* Màu chữ */
+  --text: #E8E6F2;
+  --text-muted: #9B96AC;
+  --brand: #E8E6F2;
+
+  /* Đường viền, thanh điều hướng và thẻ nội dung */
+  --border: rgba(108, 108, 224, 0.18);
+  --nav-bg: rgba(18, 16, 34, 0.88);
+  --card-bg: #1B1830;
+
+  /* Bóng đổ trong chế độ tối */
+  --shadow: 0 1px 0 rgba(0, 0, 0, 0.4);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+/*
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+*************************************************************/ 
+
+/* ---------------------------------------------------------
+   3.1. Toàn bộ trang
+   --------------------------------------------------------- */
+
+body {
+  /* Xóa khoảng cách mặc định của trình duyệt */
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+
+  font-family: var(--font-body);
+  font-size: var(--step-0);
+  line-height: 1.6;
+
+  color: var(--text);
+  background: var(--bg);
+
+  transition:
+    background .25s var(--ease),
+    color .25s var(--ease);
+  -webkit-font-smoothing: antialiased;
+}
+
+main {
+  flex: 1;
+  padding-top: var(--nav-h);
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+button {
+  font: inherit;
+  cursor: pointer;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  line-height: 1.12;
+  margin: 0 0 0.5em;
+  color: var(--brand);
+}
+
+h1 {
+  font-size: var(--step-5);
+  letter-spacing: -0.02em;
+  font-weight: 700;
+}
+h2 {
+  font-size: var(--step-3);
+}
+h3 {
+  font-size: var(--step-2);
+}
+h4 {
+  font-size: var(--step-1);
+}
+
+p {
+  margin: 0 0 1em;
+  max-width: 68ch;
+  color: var(--text-muted);
+}
+
+
+  /* Hiển thị khi điều hướng bằng bàn phím (là cái viền hiện ra khi bấm tab á, chủ yếu cho đẹp hơn thôi)*/ 
+
+:focus-visible {
+  outline: none;
+  box-shadow: var(--focus-ring);
+  border-radius: 4px;
+}
+
+.container {
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding-inline: var(--pad);
+}
+
+/* NÚT BẤM */
+
+.btn {
+  /* Cho phép căn giữa chữ và icon bằng Flexbox */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5em;
+
+  padding: 0.85em 1.6em;
+  border-radius: 999px;
+  border: 2px solid transparent;
+
+  font-weight: 600;
+  font-size: var(--step--1);
+  letter-spacing: 0.01em;
+
+
+
+  /* Giữ chữ trên một dòng */
+  white-space: nowrap;
+}
+
+/* Dịch nút xuống nhẹ trong lúc nhấn */
+.btn:active {
+  transform: translateY(1px);
+}
+
+
+/* ---------------------------------------------------------
+   4.2. Nút chính
+   --------------------------------------------------------- */
+
+.btn-primary {
+  background: var(--accent);
+  color: #ffffff;
+  border-color: var(--accent);
+}
+
+/* Đổi sang màu đậm hơn khi rê chuột */
+.btn-primary:hover {
+  background: var(--accent-dark);
+  border-color: var(--accent-dark);
+}
+
+
+/* ---------------------------------------------------------
+   4.3. Nút phụ
+   --------------------------------------------------------- */
+
+.btn-secondary {
+  background: transparent;
+  color: var(--brand);
+  border-color: var(--line-strong);
+}
+
+/* Đổi màu chữ và viền khi rê chuột */
+.btn-secondary:hover {
+  border-color: var(--accent-2);
+  color: var(--accent-2);
+}
+
+
+/* ---------------------------------------------------------
+   4.4. Nút ghost: nền trong suốt
+   --------------------------------------------------------- */
+
+.btn-ghost {
+  background: transparent;
+  color: var(--teal);
+  border-color: rgba(70, 209, 138, 0.45);
+}
+
+/* Thêm nền xanh nhạt khi rê chuột */
+.btn-ghost:hover {
+  background: rgba(70, 209, 138, 0.1);
+  border-color: var(--teal);
+}
+
+
+/* ---------------------------------------------------------
+   4.5. Nút kích thước nhỏ
+   --------------------------------------------------------- */
+
+.btn-sm {
+  padding: 0.5em 1em;
+  font-size: 0.8rem;
+}
+
+
+/* =========================================================
+   5. HEADER (ĐẦU TRANG)
+   ========================================================= */
+
+
+/* ---------------------------------------------------------
+   5.1. Khung header cố định ở đầu màn hình
+   --------------------------------------------------------- */
+
+.site-header {
+  position: fixed;
+
+  /* Đặt sát cạnh trên và kéo dài hết chiều ngang */
+  inset-block-start: 0;
+  inset-inline: 0;
+
+  /* Đưa header lên phía trước các phần tử thông thường */
+  z-index: 500;
+
+  height: var(--nav-h);
+
+  /* Căn các phần tử con theo chiều ngang và giữa chiều dọc */
+  display: flex;
+  align-items: center;
+
+  /* Nền, hiệu ứng kính mờ và đường viền dưới */
+  background: var(--nav-bg);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--border);
+}
+
+
+/* ---------------------------------------------------------
+   5.2. Hàng điều hướng bên trong header
+   --------------------------------------------------------- */
+
+.navbar {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+}
+
+
+/* ---------------------------------------------------------
+   5.3. Logo và tên thương hiệu
+   --------------------------------------------------------- */
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.3rem;
+  color: var(--brand);
+
+  /* Không cho nhóm thương hiệu bị co nhỏ */
+  flex-shrink: 0;
+}
+
+.brand-logo {
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
+}
+
+
+/* ---------------------------------------------------------
+   5.4. Các liên kết điều hướng
+   --------------------------------------------------------- */
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 1.9rem;
+}
+
+/* Kiểu chữ và vị trí của từng liên kết */
+.nav-links a {
+  font-size: 0.94rem;
+  font-weight: 500;
+  color: var(--text);
+
+  padding-block: 0.35rem;
+
+  /* Làm mốc để định vị đường gạch chân ::after */
+  position: relative;
+}
+
+/* Đường gạch chân: ban đầu có chiều rộng bằng 0 */
+.nav-links a::after {
+  content: "";
+  position: absolute;
+
+  left: 0;
+  right: 100%;
+  bottom: -2px;
+
+  height: 2px;
+  background: var(--accent);
+
+  /* Tạo hiệu ứng đường gạch chân mở rộng */
+  transition: right .22s var(--ease);
+}
+
+/* Hiện đường gạch chân khi hover hoặc khi liên kết active */
+.nav-links a:hover::after,
+.nav-links a.active::after {
+  right: 0;
+}
+
+/* Đổi màu liên kết đang active */
+.nav-links a.active {
+  color: var(--accent);
+}
+
+
+/* ---------------------------------------------------------
+   5.5. Nhóm nút và phần tử dành cho mobile
+   --------------------------------------------------------- */
+
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+}
+
+/* Ẩn phần tử chỉ dành cho mobile trên màn hình lớn */
+.nav-only-mobile {
+  display: none;
+}
+
+
+/* ---------------------------------------------------------
+   5.6. Nút đổi giao diện sáng/tối
+   --------------------------------------------------------- */
+
+.theme-toggle {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+
+  border: 1px solid var(--border);
+  background: var(--bg-panel);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  color: var(--text);
+
+  transition: border-color .2s;
+}
+
+/* Đổi màu viền khi rê chuột */
+.theme-toggle:hover {
+  border-color: var(--accent-2);
+}
+
+/* Kích thước icon SVG */
+.theme-toggle svg {
+  width: 19px;
+  height: 19px;
+}
+
+/* Mặc định ẩn icon mặt trăng */
+.theme-toggle .icon-moon {
+  display: none;
+}
+
+/* Trong giao diện tối, ẩn icon mặt trời */
+[data-theme="dark"] .theme-toggle .icon-sun {
+  display: none;
+}
+
+/* Trong giao diện tối, hiện icon mặt trăng */
+[data-theme="dark"] .theme-toggle .icon-moon {
+  display: block;
+}
+
+
+/* ---------------------------------------------------------
+   5.7. Nút hamburger mở menu trên màn hình nhỏ
+   --------------------------------------------------------- */
+
+.hamburger {
+  /* Ẩn mặc định; sẽ hiện trong media query */
+  display: none;
+
+  /* Xếp ba thanh ngang theo chiều dọc */
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+
+  width: 42px;
+  height: 42px;
+
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--bg-panel);
+}
+
+/* Từng thanh ngang bên trong nút hamburger */
+.hamburger span {
+  width: 20px;
+  height: 2px;
+
+  background: var(--text);
+  margin-inline: auto;
+
+  transition:
+    transform .25s var(--ease),
+    opacity .2s;
+}
+
+/* Khi có class .open, thanh đầu tiên xoay */
+.hamburger.open span:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+
+/* Khi có class .open, ẩn thanh ở giữa */
+.hamburger.open span:nth-child(2) {
+  opacity: 0;
+}
+
+/* Khi có class .open, thanh cuối cùng xoay ngược lại */
+.hamburger.open span:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+
+/* ---------------------------------------------------------
+   5.8. Header và menu trên màn hình rộng tối đa 900px
+   --------------------------------------------------------- */
+
+@media (max-width: 900px) {
+
+  /* Ẩn các phần tử không cần trên màn hình nhỏ */
+  .hide-mobile {
+    display: none;
+  }
+
+  /* Hiện các phần tử chỉ dành cho mobile */
+  .nav-only-mobile {
+    display: block;
+  }
+
+  /* Hiện nút hamburger */
+  .hamburger {
+    display: flex;
+  }
+
+  /* Chuyển menu ngang thành menu dọc */
+  .nav-links {
+    position: fixed;
+
+    /* Menu nằm ngay dưới header */
+    top: var(--nav-h);
+    left: 0;
+    right: 0;
+
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+
+    background: var(--bg-panel);
+    border-bottom: 1px solid var(--border);
+
+    /* Thu gọn menu khi chưa mở */
+    max-height: 0;
+    overflow: hidden;
+
+    /* Tạo hiệu ứng mở/đóng menu */
+    transition: max-height .3s var(--ease);
+  }
+
+  /* Khi JavaScript thêm class .open, mở rộng menu */
+  .nav-links.open {
+    max-height: 480px;
+  }
+
+  /* Mỗi liên kết chiếm một hàng */
+  .nav-links a {
+    display: block;
+    padding: 1rem var(--pad);
+    border-top: 1px solid var(--border);
+  }
+
+  /* Tắt hiệu ứng gạch chân trong menu mobile */
+  .nav-links a::after {
+    display: none;
+  }
+}
+
+
+/* =========================================================
+   6. FOOTER (CHÂN TRANG)
+   ========================================================= */
+
+
+/* ---------------------------------------------------------
+   6.1. Màu nền và màu chữ chung của footer
+   --------------------------------------------------------- */
+
+.site-footer {
+  background: var(--oxford);
+  color: rgba(234, 225, 200, 0.85);
+}
+
+
+/* ---------------------------------------------------------
+   6.2. Khu vực trên của footer
+   ---------------------------------------------------------
+   Bố cục mặc định gồm 4 cột.
+*/
+
+.footer-top {
+  padding-block: 4rem 3rem;
+
+  display: grid;
+  grid-template-columns: 1.6fr 1fr 1fr 1fr;
+
+  gap: 2.4rem;
+}
+
+
+/* Tablet: chuyển footer thành 2 cột */
+@media (max-width: 980px) {
+  .footer-top {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+
+/* Điện thoại: chuyển footer thành 1 cột */
+@media (max-width: 560px) {
+  .footer-top {
+    grid-template-columns: 1fr;
+  }
+}
+
+
+/* ---------------------------------------------------------
+   6.3. Tiêu đề các cột trong footer
+   --------------------------------------------------------- */
+
+.footer-top h4 {
+  color: var(--peach);
+  font-size: 0.95rem;
+  font-family: var(--font-mono);
+
+  /* Hiển thị chữ in hoa và tăng khoảng cách ký tự */
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+
+  margin-bottom: 1.1rem;
+}
+
+
+/* ---------------------------------------------------------
+   6.4. Danh sách liên kết trong footer
+   --------------------------------------------------------- */
+
+.footer-top ul {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+/* Kiểu chữ của liên kết */
+.footer-top ul a {
+  font-size: 0.9rem;
+  color: rgba(234, 225, 200, 0.72);
+
+  transition: color .2s;
+}
+
+/* Đổi màu liên kết khi rê chuột */
+.footer-top ul a:hover {
+  color: var(--sandy);
+}
+
+
+/* ---------------------------------------------------------
+   6.5. Khu vực thương hiệu trong footer
+   --------------------------------------------------------- */
+
+.footer-brand .brand {
+  color: var(--peach);
+  margin-bottom: 1rem;
+}
+
+/* Đoạn giới thiệu thương hiệu */
+.footer-brand p {
+  color: rgba(234, 225, 200, 0.65);
+  font-size: 0.92rem;
+}
+
+
+/* ---------------------------------------------------------
+   6.6. Các liên kết mạng xã hội
+   --------------------------------------------------------- */
+
+.social-row {
+  display: flex;
+  gap: 0.7rem;
+  margin-top: 1.2rem;
+}
+
+/* Mỗi liên kết mạng xã hội có dạng hình tròn */
+.social-row a {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+
+  border: 1px solid rgba(234, 225, 200, 0.3);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  transition:
+    background .2s,
+    border-color .2s;
+}
+
+/* Đổi nền và viền khi rê chuột */
+.social-row a:hover {
+  background: var(--accent);
+  border-color: var(--accent);
+}
+
+/* Kích thước và màu tô của icon SVG */
+.social-row svg {
+  width: 16px;
+  height: 16px;
+  fill: var(--peach);
+}
+
+
+/* ---------------------------------------------------------
+   6.7. Khu vực cuối footer
+   ---------------------------------------------------------
+   Thường chứa bản quyền và các liên kết chính sách.
+*/
+
+.footer-bottom {
+  border-top: 1px solid rgba(234, 225, 200, 0.15);
+  padding-block: 1.4rem;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  /* Cho phép các nhóm nội dung xuống hàng khi thiếu chỗ */
+  flex-wrap: wrap;
+  gap: 1rem;
+
+  font-size: 0.8rem;
+  color: rgba(234, 225, 200, 0.55);
+}
+
+
+/* Các liên kết ở cuối footer */
+.footer-bottom-links {
+  display: flex;
+  gap: 1.4rem;
+}
