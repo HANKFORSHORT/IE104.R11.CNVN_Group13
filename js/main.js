@@ -37,8 +37,6 @@
 
     const tpl = document.createElement("template");
     tpl.innerHTML = text;
-
-    // Links inside components are written relative to the site root
     tpl.content.querySelectorAll("[href], [src]").forEach((el) => {
       ["href", "src"].forEach((attr) => {
         const value = el.getAttribute(attr);
