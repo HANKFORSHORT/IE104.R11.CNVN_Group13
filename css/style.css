@@ -613,3 +613,35 @@ p {
   display: flex;
   gap: 1.4rem;
 }
+
+
+.page-header {
+  margin-top: calc(-1 * var(--nav-h));
+  padding: calc(var(--nav-h) + 3.5rem) 0 3rem;
+  background: linear-gradient(180deg, var(--oxford) 0%, #14121f 100%);
+  color: var(--peach);
+  position: relative;
+  overflow: hidden;
+}
+
+
+.breadcrumb {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--sandy);
+  margin-bottom: 0.8rem;
+}
+
+.breadcrumb a {
+  color: rgba(255, 255, 255, 0.6);
+  text-decoration: none;
+}
+
+.breadcrumb a:hover {
+  text-decoration: underline;
+}
+
+div {
+  display: block;
+  unicode-bidi: isolate; 
+}
