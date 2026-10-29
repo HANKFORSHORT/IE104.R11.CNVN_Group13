@@ -3,16 +3,15 @@
 ```
 Project/
 ├── components/
-│   ├── header.html      # thanh điều hướng + nút đổi theme
-│   └── footer.html      # chân trang
+│   ├── header.html
+│   └── footer.html
 ├── css/
-│   └── style.css        # màu, font, light/dark, header, footer
+│   └── style.css 
 ├── images/
-│   ├── logo.svg         # logo Astra (hình tròn)
+│   ├── logo.svg
 │   └── favicon.svg
 ├── js/
-│   └── main.js          # nạp header/footer, đổi theme, menu mobile
-├── index.html           # trang chủ (bản sao của template)
+│   └── main.js
 └── template.html        # khung trống: header + <main> + footer
 ```
 
