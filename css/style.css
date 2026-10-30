@@ -76,6 +76,7 @@
 
   /* Đường cong tốc độ cho transition và animation */
   --ease: cubic-bezier(.2, .7, .3, 1);
+  --blackdiamond: "\25C6";
 }
 
 [data-theme="dark"] {
@@ -644,4 +645,51 @@ p {
 div {
   display: block;
   unicode-bidi: isolate; 
+}
+
+.section { 
+  padding-block: clamp(3rem, 7vw, 5.5rem); 
+}
+
+
+.card {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.8rem;
+  box-shadow: var(--shadow);
+  transition: transform .2s var(--ease), border-color .2s var(--ease);
+}
+.card:hover { 
+  transform: translateY(-3px);
+  border-color: var(--accent-2); 
+}
+.card-icon {
+  width: 46px; height: 46px; border-radius: var(--radius-sm);
+  display: flex; align-items: center; justify-content: center;
+  background: var(--bg-alt); color: var(--oxford); margin-bottom: 1.1rem;
+}
+
+.flex-between {
+  display: flex; 
+  align-items: center; 
+  justify-content: space-between; 
+  flex-wrap: wrap; 
+  gap: 1rem; 
+}
+
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: var(--step--1);
+  color: var(--accent-2);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5em;
+  margin-bottom: 0.6em;
+}
+
+.eyebrow::before { 
+  content: var(--blackdiamond); 
+  color: var(--accent); 
+  font-size: 0.7em; 
 }
