@@ -693,3 +693,12 @@ div {
   color: var(--accent); 
   font-size: 0.7em; 
 }
+
+
+.section-head { 
+  max-width: 62ch; 
+  margin-bottom: 2.4rem; 
+}
+.section-head.center { margin-inline: auto; 
+  text-align: center; 
+}
