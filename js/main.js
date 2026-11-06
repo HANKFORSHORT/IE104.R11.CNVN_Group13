@@ -88,3 +88,36 @@
     } else if (e.target.closest(".nav-links a")) setMenu(false);
   });
 })();
+
+document.addEventListener("DOMContentLoaded", () => {
+  const formatSel = document.getElementById("formatFilter");
+  const ratedSel  = document.getElementById("ratedFilter");
+  const searchInp = document.getElementById("searchInput");
+  const filterBtn = document.getElementById("filterBtn");
+  const emptyRow  = document.getElementById("emptyRow");
+  const rows      = document.querySelectorAll("#contestBody tr[data-format]");
+
+  if (!formatSel || !filterBtn) return; // trang này không có filter thì bỏ qua
+
+  function applyFilter() {
+    const format = formatSel.value;
+    const rated  = ratedSel.value;
+    const search = searchInp.value.trim().toLowerCase();
+    let visible = 0;
+
+    rows.forEach(row => {
+      const okFormat = format === "any" || row.dataset.format === format;
+      const okRated  = rated === "any" || row.dataset.rated === String(rated === "rated");
+      const okName   = row.cells[0].textContent.toLowerCase().includes(search);
+
+      const show = okFormat && okRated && okName;
+      row.hidden = !show;
+      if (show) visible++;
+    });
+
+    emptyRow.hidden = visible > 0;
+  }
+
+  filterBtn.addEventListener("click", applyFilter);
+  searchInp.addEventListener("keydown", e => { if (e.key === "Enter") applyFilter(); });
+});
