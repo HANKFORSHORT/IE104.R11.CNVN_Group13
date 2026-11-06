@@ -777,3 +777,14 @@ div {
 }
 
 .avatar-stack img:first-child { margin-left: 0; }
+
+.filters-bar {
+  display: flex; flex-wrap: wrap; gap: 0.8rem; align-items: center;
+  margin-bottom: 1.6rem; padding: 1rem 1.2rem; background: var(--bg-alt);
+  border-radius: var(--radius); border: 1px solid var(--border);
+}
+.filters-bar input, .filters-bar select {
+  padding: 0.55em 0.9em; border-radius: var(--radius-sm); border: 1px solid var(--line-strong);
+  background: var(--bg-panel); color: var(--text); min-width: 140px;
+}
+[data-theme="dark"] .filters-bar input, [data-theme="dark"] .filters-bar select { background: var(--card-bg); border-color: var(--border); }
