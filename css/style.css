@@ -271,6 +271,10 @@ p {
   color: var(--accent-2);
 }
 
+.btn-block{
+  display: flex;
+  width: 100%;
+}
 
 /* Nút nền trong suốt */
 .btn-ghost {
@@ -702,3 +706,74 @@ div {
 .section-head.center { margin-inline: auto; 
   text-align: center; 
 }
+
+.two-col{
+  display: grid;
+  grid-template-columns: 1fr 1fr; gap: 3rem; 
+  align-items: center; 
+}
+
+.table-wrap{
+  overflow-x: auto; 
+  border: 1px solid var(--border); 
+  border-radius: var(--radius); 
+  background: var(--card-bg);
+}
+
+.data-table{
+  width: 100%; 
+  border-collapse: collapse; 
+  min-width: 640px;
+}
+
+.data-table th, .data-table td { 
+  padding: 0.95rem 1.1rem; 
+  text-align: left; 
+  border-bottom: 1px solid var(--border); 
+  font-size: 0.92rem; 
+}
+
+.data-table th {
+  font-family: var(--font-mono); 
+  font-size: 0.72rem; 
+  text-transform: uppercase; 
+  letter-spacing: 0.06em;
+  color: var(--text-muted); 
+  background: var(--bg-alt);
+}
+
+[data-theme="dark"] .data-table th { background: rgba(255,255,255,0.03); }
+.data-table tr:last-child td { border-bottom: none; }
+.data-table tr:hover td { background: rgba(143, 168, 115,0.06); }
+.data-table a.problem-link { font-weight: 600; color: var(--oxford); }
+[data-theme="dark"] .data-table a.problem-link { color: var(--peach); }
+.data-table a.problem-link:hover { color: var(--accent-2); }
+.rank-cell { font-family: var(--font-mono); font-weight: 700; }
+.rank-1 { color: var(--orange); } .rank-2 { color: var(--sandy); } .rank-3 { color: var(--teal); }
+
+/* difficulties colors*/
+.pill { 
+  display: inline-flex; align-items: center; gap: .4em;
+  font-size: 0.72rem; font-weight: 700; letter-spacing: 0.03em;
+  padding: 0.3em 0.75em; border-radius: 999px;
+}
+.pill-easy { background: rgba(143, 168, 115,0.14); color: var(--teal-dark); }
+[data-theme="dark"] .pill-easy { color: var(--teal); }
+.pill-medium { background: rgba(211, 173, 92,0.2); color: #7C5A22; }
+[data-theme="dark"] .pill-medium { color: var(--sandy); }
+.pill-hard { background: rgba(184, 84, 78,0.14); color: var(--orange-dark); }
+[data-theme="dark"] .pill-hard { color: var(--orange); }
+
+.avatar-stack { 
+  display: flex; 
+}
+
+.avatar-stack img { 
+  width: 34px; 
+  height: 34px; 
+  border-radius: 50%; 
+  border: 2px solid var(--bg); 
+  margin-left: -10px; 
+}
+
+.avatar-stack img:first-child { margin-left: 0; }
