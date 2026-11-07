@@ -598,6 +598,12 @@ p {
   fill: var(--peach);
 }
 
+.social-icon {
+  width: 21px;
+  height: 21px;
+}
+
+
 .footer-bottom {
   border-top: 1px solid rgba(234, 225, 200, 0.15);
   padding-block: 1.4rem;

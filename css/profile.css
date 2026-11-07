@@ -1,4 +1,3 @@
-/* Astra · profile page. Scoped under .profile-page so it can't leak into other pages. */
 
 .profile-page {
   --pf-bg: #ffffff;
@@ -30,6 +29,9 @@ html[data-theme="dark"] .profile-page {
   }
 }
 
+/* Site CSS may set display on divs, which would override the hidden attribute */
+.profile-page [hidden] { display: none !important; }
+
 /* Title row */
 .pf-top {
   display: flex; align-items: flex-end; justify-content: space-between; gap: 16px;
@@ -59,8 +61,8 @@ html[data-theme="dark"] .profile-page {
 .pf-stats { margin: 16px 0 0; font-size: .9rem; line-height: 1.45; }
 .pf-stats div { margin: 0 0 2px; }
 .pf-stats dt { display: inline; font-weight: 700; }
-.pf-stats dd { display: inline; margin: 0; word-break: break-all; }
-.pf-stats div:first-child dd { display: block; }
+.pf-stats dd { display: inline; margin: 0 0 0 .35em; word-break: break-all; }
+.pf-stats div:first-child dd { display: block; margin-left: 0; }
 .pf-link { display: inline-block; margin-top: 18px; color: var(--pf-link); text-decoration: none; font-size: .95rem; }
 .pf-link:hover { text-decoration: underline; }
 

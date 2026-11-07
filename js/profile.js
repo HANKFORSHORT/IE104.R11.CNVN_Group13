@@ -3,6 +3,8 @@
 (function () {
   'use strict';
 
+  function init() {
+
   var PROFILE = {
     handle: 'oppixelnew246',
     email: 'you@example.com',
@@ -32,25 +34,30 @@
   }
 
   function $(id) { return document.getElementById(id); }
+  // Null-safe text setter: a missing element must never stop the rest of the page rendering.
+  function setText(id, text) { var el = $(id); if (el) el.textContent = text; }
   function iso(d) {
     return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
   }
   var MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
 
   /* ---------- Sidebar + text ---------- */
-  document.title = PROFILE.handle + ' · Astra';
-  $('pf-handle').textContent = PROFILE.handle;
-  $('nav-user').textContent = PROFILE.handle;
-  $('pf-email').textContent = PROFILE.email;
-  $('pf-solved').textContent = PROFILE.solved;
-  $('pf-rank').textContent = '#' + PROFILE.rank;
-  $('pf-points').textContent = Number(PROFILE.points).toFixed(2);
-  $('pf-contrib').textContent = PROFILE.contribution;
-  $('pf-bio').textContent = PROFILE.bio || 'You have not shared any information.';
-  if (PROFILE.bio) $('pf-bio').style.fontStyle = 'normal';
+  document.title = PROFILE.handle + ' \u00b7 Astra';
+  setText('pf-handle', PROFILE.handle);
+  setText('nav-user', PROFILE.handle);   // optional: only exists if the page header has it
+  setText('pf-email', PROFILE.email);
+  setText('pf-solved', PROFILE.solved);
+  setText('pf-rank', '#' + PROFILE.rank);
+  setText('pf-points', Number(PROFILE.points).toFixed(2));
+  setText('pf-contrib', PROFILE.contribution);
+  var bio = $('pf-bio');
+  if (bio) {
+    bio.textContent = PROFILE.bio || 'You have not shared any information.';
+    if (PROFILE.bio) bio.style.fontStyle = 'normal';
+  }
 
   /* ---------- Badges ---------- */
-  var badges = $('pf-badges');
+  var badges = $('pf-badges') || document.createElement('div');
   if (!PROFILE.badges.length) {
     badges.innerHTML = '<em>This user has not earned any badges or awards.</em>';
   } else {
@@ -67,6 +74,7 @@
     var h = 2166136261;
     for (var i = 0; i < PROFILE.handle.length; i++) { h ^= PROFILE.handle.charCodeAt(i); h = Math.imul(h, 16777619); }
     var hue = Math.abs(h) % 360, svg = $('pf-avatar'), out = '';
+    if (!svg) return;
     out += '<rect width="5" height="5" fill="hsl(' + hue + ',70%,95%)"/>';
     for (var y = 0; y < 5; y++) for (var x = 0; x < 3; x++) {
       if ((h >>> (y * 3 + x)) & 1) {
@@ -80,6 +88,7 @@
   /* ---------- Heatmap (53 weeks ending today, weeks start on Sunday) ---------- */
   (function heatmap() {
     var grid = $('pf-grid'), monthsEl = $('pf-months'), tip = $('pf-tip');
+    if (!grid || !monthsEl || !tip) return;
     var CELL = 14, GAP = 6, STEP = CELL + GAP;
     var today = new Date(); today.setHours(0, 0, 0, 0);
     var start = new Date(today); start.setDate(start.getDate() - 52 * 7 - today.getDay());
@@ -111,8 +120,8 @@
     monthsEl.style.height = '18px';
 
     var label = total + ' submission' + (total === 1 ? '' : 's');
-    $('pf-heat-title').textContent = label + ' in the last year';
-    $('pf-heat-total').textContent = total + ' total submissions';
+    setText('pf-heat-title', label + ' in the last year');
+    setText('pf-heat-total', total + ' total submissions');
 
     grid.addEventListener('mouseover', function (e) {
       var t = e.target.closest('.pf-cell'); if (!t) return;
@@ -136,4 +145,13 @@
       document.querySelectorAll('.pf-panel').forEach(function (p) { p.hidden = p.dataset.panel !== tab.dataset.tab; });
     });
   });
+  // Diagnostics: tell the developer which expected elements are missing from the page
+  ['pf-handle','pf-email','pf-solved','pf-rank','pf-points','pf-contrib','pf-bio','pf-badges','pf-heat-title','pf-grid','pf-months','pf-tip','pf-heat-total']
+    .forEach(function (id) { if (!$(id)) console.warn('[profile.js] missing element #' + id); });
+
+  } // end init
+
+  // Works whether the <script> sits in <head>, at the end of <body>, or is loaded with defer
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+  else init();
 })();
