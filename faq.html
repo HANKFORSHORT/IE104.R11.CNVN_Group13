@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FAQ · Astra</title>
+  <meta name="description" content="Frequently asked questions about Astra — platform, contests, ratings, and more." />
+  <link rel="icon" href="images/favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,500;0,600;0,700;1,500&family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+  <script src="js/main.js"></script>
+</head>
+<body>
+  <div data-include="header"></div>
+
+  <main>
+    <!-- CSS CỤC BỘ — CHỈ ÁP DỤNG CHO TRANG FAQ -->
+    <style>
+      /* ── Trang FAQ ──────────────────────────────────── */
+      .faq-page {
+        padding-bottom: 5rem;
+      }
+
+      /* ── Hero: nền tối, tiêu đề canh giữa ──────────── */
+      .faq-page .hero {
+        text-align: center;
+        padding: clamp(4rem, 8vw, 6rem) 0 2rem;
+        background: linear-gradient(180deg, var(--oxford) 0%, #14121f 100%);
+        margin-top: calc(-1 * var(--nav-h));
+        padding-top: calc(var(--nav-h) + clamp(3rem, 7vw, 5rem));
+        position: relative;
+        overflow: hidden;
+      }
+
+      /* Vòng trang trí nhẹ phía sau hero (giống about page) */
+      .faq-page .hero::after {
+        content: "";
+        position: absolute;
+        width: min(36vw, 28rem);
+        height: min(36vw, 28rem);
+        left: 50%;
+        top: -14rem;
+        transform: translateX(-50%);
+        border: 1px solid rgba(108, 108, 224, 0.15);
+        border-radius: 50%;
+        box-shadow: 0 0 0 4rem rgba(108, 108, 224, 0.03), 0 0 0 9rem rgba(70, 209, 138, 0.02);
+        pointer-events: none;
+      }
+
+      .faq-page .hero .breadcrumb {
+        justify-content: center;
+        margin-bottom: 1.25rem;
+      }
+      .faq-page .hero h1 {
+        font-size: clamp(2.5rem, 5vw, 3.8rem);
+        letter-spacing: -0.02em;
+        margin-bottom: 1rem;
+        color: var(--peach);
+        position: relative;
+        z-index: 1;
+      }
+      .faq-page .hero p {
+        margin: 0 auto;
+        color: rgba(234, 225, 200, 0.7);
+        font-size: 1.05rem;
+        max-width: 60ch;
+        position: relative;
+        z-index: 1;
+      }
+      .faq-page .hero p a {
+        color: var(--sandy);
+        text-decoration: none;
+        border-bottom: 1px solid rgba(211, 173, 92, 0.3);
+        transition: border-color 0.2s;
+      }
+      .faq-page .hero p a:hover {
+        border-color: var(--sandy);
+      }
+
+      /* ── Accordion container ────────────────────────── */
+      .faq-page .accordion {
+        max-width: 52rem;
+        margin: 0 auto;
+        display: grid;
+        gap: 0.8rem;
+      }
+
+      /* ── Mỗi item trong accordion ──────────────────── */
+      .faq-page .faq-item {
+        background: var(--oxford);
+        border: 1px solid transparent;
+        border-radius: var(--radius);
+        overflow: hidden;
+        transition: background 0.2s, border-color 0.2s;
+      }
+      .faq-page .faq-item:hover {
+        background: rgba(27, 24, 48, 0.8);
+        border-color: rgba(255, 255, 255, 0.15);
+      }
+
+      /* Khi item đang mở */
+      .faq-page .faq-item.open {
+        border-color: rgba(108, 108, 224, 0.3);
+        background: var(--oxford-2);
+      }
+
+      /* ── Nút bấm câu hỏi (header của item) ─────────── */
+      .faq-page .faq-trigger {
+        width: 100%;
+        padding: 1.25rem 1.5rem;
+        background: none;
+        border: none;
+        cursor: pointer;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 1rem;
+        text-align: left;
+      }
+      .faq-page .faq-trigger strong {
+        color: var(--peach);
+        font-weight: 600;
+        font-size: 1rem;
+        font-family: var(--font-body);
+      }
+
+      /* ── Nút icon + / × ────────────────────────────── */
+      .faq-page .faq-icon {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        width: 1.5rem;
+        height: 1.5rem;
+        border: 1px solid rgba(234, 225, 200, 0.2);
+        border-radius: 50%;
+        color: var(--peach);
+        font-family: var(--font-mono);
+        font-size: 0.85rem;
+        line-height: 1;
+        transition: transform 0.25s var(--ease), border-color 0.25s;
+      }
+      .faq-page .faq-item.open .faq-icon {
+        transform: rotate(45deg);
+        border-color: var(--indigo);
+        color: var(--indigo);
+      }
+
+      /* ── Phần câu trả lời (ẩn mặc định) ────────────── */
+      .faq-page .faq-body {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.35s var(--ease);
+      }
+      .faq-page .faq-item.open .faq-body {
+        max-height: 40rem; /* đủ lớn cho mọi câu trả lời */
+      }
+      .faq-page .faq-body-inner {
+        padding: 0 1.5rem 1.5rem;
+      }
+      .faq-page .faq-body-inner p {
+        margin: 0 0 0.75rem;
+        color: rgba(234, 225, 200, 0.65);
+        font-size: 0.95rem;
+        line-height: 1.7;
+        max-width: none;
+      }
+      .faq-page .faq-body-inner p:last-child {
+        margin-bottom: 0;
+      }
+      .faq-page .faq-body-inner a {
+        color: var(--sandy);
+        text-decoration: underline;
+        text-underline-offset: 2px;
+      }
+      .faq-page .faq-body-inner ul {
+        margin: 0.5rem 0 0.75rem 1.25rem;
+        list-style: disc;
+        color: rgba(234, 225, 200, 0.65);
+        font-size: 0.95rem;
+        line-height: 1.7;
+      }
+      .faq-page .faq-body-inner code {
+        font-family: var(--font-mono);
+        font-size: 0.88em;
+        padding: 0.15em 0.4em;
+        border-radius: 4px;
+        background: rgba(108, 108, 224, 0.12);
+        color: var(--indigo);
+      }
+
+      /* ── CTA cuối trang ─────────────────────────────── */
+      .faq-page .faq-cta {
+        max-width: 52rem;
+        margin: 3rem auto 0;
+        text-align: center;
+        padding: 2rem 1.5rem;
+        border-radius: var(--radius-lg);
+        background: var(--bg-alt);
+        border: 1px solid var(--border);
+      }
+      .faq-page .faq-cta p {
+        margin: 0 auto 1rem;
+        color: var(--text-muted);
+        font-size: 1rem;
+        max-width: none;
+      }
+    </style>
+
+    <div class="faq-page">
+
+      <!-- ═══ HERO: tiêu đề + breadcrumb ═══ -->
+      <section class="hero">
+        <div class="container">
+          <div class="breadcrumb">
+            <a href="index.html">Home</a> / <span style="color: var(--sandy);">FAQ</span>
+          </div>
+          <h1>Frequently asked questions</h1>
+          <p>Can't find your answer here? The <a href="contact.html">Contact page</a> reaches us directly.</p>
+        </div>
+      </section>
+
+      <!-- ═══ ACCORDION: danh sách câu hỏi ═══ -->
+      <section class="section" style="padding-top: 1rem;">
+        <div class="container">
+          <div class="accordion" id="faqAccordion">
+
+            <!-- Q1 -->
+            <div class="faq-item">
+              <button class="faq-trigger" type="button" aria-expanded="false">
+                <strong>Is Astra really free?</strong>
+                <span class="faq-icon" aria-hidden="true">+</span>
+              </button>
+              <div class="faq-body" role="region">
+                <div class="faq-body-inner">
+                  <p>Yes! The core platform — solving problems, joining contests, and tracking your rating — is completely free and always will be.</p>
+                  <p>We may offer optional premium features in the future (e.g., advanced analytics), but they will never gate-keep practice content.</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Q2 -->
+            <div class="faq-item">
+              <button class="faq-trigger" type="button" aria-expanded="false">
+                <strong>What languages can I submit in?</strong>
+                <span class="faq-icon" aria-hidden="true">+</span>
+              </button>
+              <div class="faq-body" role="region">
+                <div class="faq-body-inner">
+                  <p>Astra currently supports the most popular competitive-programming languages:</p>
+                  <ul>
+                    <li>C++ 17 / C++ 20</li>
+                    <li>Python 3.11</li>
+                    <li>Java 21</li>
+                    <li>Rust 1.75</li>
+                    <li>Go 1.21</li>
+                  </ul>
+                  <p>We're always evaluating new languages — feel free to <a href="contact.html">request one</a>.</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Q3 -->
+            <div class="faq-item">
+              <button class="faq-trigger" type="button" aria-expanded="false">
+                <strong>How is my rating calculated?</strong>
+                <span class="faq-icon" aria-hidden="true">+</span>
+              </button>
+              <div class="faq-body" role="region">
+                <div class="faq-body-inner">
+                  <p>We use a modified Elo system inspired by Codeforces. After each rated contest your rating changes based on your rank relative to expected performance.</p>
+                  <p>New accounts start at <code>1200</code> and need at least 3 rated contests before the rating stabilizes. Check the <a href="guide.html">Guide</a> for the full formula.</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Q4 -->
+            <div class="faq-item">
+              <button class="faq-trigger" type="button" aria-expanded="false">
+                <strong>Can I participate after a contest ends?</strong>
+                <span class="faq-icon" aria-hidden="true">+</span>
+              </button>
+              <div class="faq-body" role="region">
+                <div class="faq-body-inner">
+                  <p>Absolutely. Once a contest finishes, all problems move to the archive where you can practice them at your own pace.</p>
+                  <p>Virtual participation is also available — it simulates the real contest timer so you can measure yourself under time pressure.</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Q5 -->
+            <div class="faq-item">
+              <button class="faq-trigger" type="button" aria-expanded="false">
+                <strong>How do I report a wrong test case?</strong>
+                <span class="faq-icon" aria-hidden="true">+</span>
+              </button>
+              <div class="faq-body" role="region">
+                <div class="faq-body-inner">
+                  <p>Go to the problem page, click <strong>Report issue</strong> in the sidebar, and select "Wrong test case". Attach your solution and the failing test input if possible.</p>
+                  <p>Alternatively, head to our <a href="contact.html">Contact page</a> and choose "Report a wrong test case" as the topic — we'll investigate within 48 hours.</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Q6 -->
+            <div class="faq-item">
+              <button class="faq-trigger" type="button" aria-expanded="false">
+                <strong>Can I propose my own problems?</strong>
+                <span class="faq-icon" aria-hidden="true">+</span>
+              </button>
+              <div class="faq-body" role="region">
+                <div class="faq-body-inner">
+                  <p>Yes — we welcome community contributions! Use the <a href="contact.html">Contact form</a> with topic "Propose a problem" and include:</p>
+                  <ul>
+                    <li>Problem statement and constraints</li>
+                    <li>At least 3 sample test cases (with expected outputs)</li>
+                    <li>Your intended solution and time complexity</li>
+                  </ul>
+                  <p>Our editorial team will review and get back to you within a week.</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Q7 -->
+            <div class="faq-item">
+              <button class="faq-trigger" type="button" aria-expanded="false">
+                <strong>Is there a time limit for submissions?</strong>
+                <span class="faq-icon" aria-hidden="true">+</span>
+              </button>
+              <div class="faq-body" role="region">
+                <div class="faq-body-inner">
+                  <p>Each problem has its own time and memory limits, shown at the top of the problem page. Typical limits are <code>1–2 seconds</code> and <code>256 MB</code> of memory.</p>
+                  <p>During a contest, there's no limit on the number of submissions you can make — but only the last accepted submission counts for scoring.</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Q8 -->
+            <div class="faq-item">
+              <button class="faq-trigger" type="button" aria-expanded="false">
+                <strong>How do I delete my account?</strong>
+                <span class="faq-icon" aria-hidden="true">+</span>
+              </button>
+              <div class="faq-body" role="region">
+                <div class="faq-body-inner">
+                  <p>Go to <strong>Settings → Account → Delete account</strong>. You'll be asked to confirm by typing your username.</p>
+                  <p>This action is irreversible — all submissions, ratings, and contest history will be permanently removed. If you just want a break, consider deactivating instead.</p>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- CTA dẫn sang Contact -->
+          <div class="faq-cta">
+            <p>Still have questions? We're happy to help.</p>
+            <a href="contact.html" class="btn btn-primary">
+              Contact us <span aria-hidden="true">→</span>
+            </a>
+          </div>
+
+        </div>
+      </section>
+    </div>
+
+    <!-- ═══ JAVASCRIPT: TOGGLE ACCORDION ═══ -->
+    <script>
+      (function () {
+        "use strict";
+
+        var accordion = document.getElementById("faqAccordion");
+        if (!accordion) return;
+
+        accordion.addEventListener("click", function (e) {
+          var trigger = e.target.closest(".faq-trigger");
+          if (!trigger) return;
+
+          var item = trigger.closest(".faq-item");
+          var isOpen = item.classList.contains("open");
+
+          // Đóng tất cả item đang mở (chỉ cho phép 1 item mở cùng lúc)
+          accordion.querySelectorAll(".faq-item.open").forEach(function (openItem) {
+            openItem.classList.remove("open");
+            openItem.querySelector(".faq-trigger").setAttribute("aria-expanded", "false");
+          });
+
+          // Toggle item được bấm
+          if (!isOpen) {
+            item.classList.add("open");
+            trigger.setAttribute("aria-expanded", "true");
+          }
+        });
+      })();
+    </script>
+  </main>
+
+  <div data-include="footer"></div>
+</body>
+</html>
