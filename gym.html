@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gym · Astra</title>
+  <meta name="description" content="" />
+  <link rel="icon" href="images/favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,500;0,600;0,700;1,500&family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/contest.css" />
+  <link rel="stylesheet" href="css/table.css" />
+  <script src="js/main.js"></script>
+  <script src="js/table-filter.js" defer></script>
+</head>
+<body>
+  <div data-include="header"></div>
+
+  <main>
+    <div class="page-header">
+      <div class="container">
+        <div class="breadcrumb">
+          <a href="index.html">Home</a> / Gym
+        </div>
+        <h1 style="color: var(--peach);">Gym & practice</h1>
+        <p style="max-width: 60ch;">"Unrated training sets built from retired rounds and community mashups. Run them solo or race a friend — nothing here touches your rating."</p>
+      </div>
+    </div>
+
+    <section style="padding-top:2.5rem;">
+      <div class="container">
+
+        <div class="filters-bar" data-filter-table="#trainingList">
+          <input type="text" placeholder="Search trainings&hellip;" data-filter-search />
+
+          <select aria-label="Filter by difficulty" data-filter="difficulty">
+            <option value="any">Any difficulty</option>
+            <option value="beginner">Beginner</option>
+            <option value="intermediate">Intermediate</option>
+            <option value="advanced">Advanced</option>
+          </select>
+
+          <select aria-label="Filter by duration" data-filter="duration" data-filter-type="range">
+            <option value="any">Any duration</option>
+            <option value="0-119">Under 2 hours</option>
+            <option value="120-240">2&ndash;4 hours</option>
+            <option value="241-9999">4+ hours</option>
+          </select>
+
+          <button class="btn btn-primary btn-sm" type="button" data-filter-apply>Filter</button>
+        </div>
+
+        <div class="grid grid-3" id="trainingList">
+          <div class="card" data-difficulty="advanced" data-duration="300">
+            <h3 style="font-size:1.05rem;">ICPC Regional Training Camp Vol. 3</h3>
+            <p style="font-size:0.88rem;">10 problems &middot; 5:00:00 duration</p>
+            <p style="font-size:0.8rem;color:var(--text-muted);margin-bottom:1.1rem;">Prepared by NHQ0914</p>
+            <a href="contest.html" class="btn btn-secondary btn-sm">Start virtual run</a>
+          </div>
+
+          <div class="card" data-difficulty="beginner" data-duration="120">
+            <h3 style="font-size:1.05rem;">Div. 2 Warm-Up Mashup</h3>
+            <p style="font-size:0.88rem;">6 problems &middot; 2:00:00 duration</p>
+            <p style="font-size:0.8rem;color:var(--text-muted);margin-bottom:1.1rem;">Prepared by Sherwin</p>
+            <a href="contest.html" class="btn btn-secondary btn-sm">Start virtual run</a>
+          </div>
+
+          <div class="card" data-difficulty="advanced" data-duration="210">
+            <h3 style="font-size:1.05rem;">Segment Trees Deep Dive</h3>
+            <p style="font-size:0.88rem;">8 problems &middot; 3:30:00 duration</p>
+            <p style="font-size:0.8rem;color:var(--text-muted);margin-bottom:1.1rem;">Prepared by Cerq</p>
+            <a href="contest.html" class="btn btn-secondary btn-sm">Start virtual run</a>
+          </div>
+
+          <div class="card" data-difficulty="beginner" data-duration="240">
+            <h3 style="font-size:1.05rem;">Beginner Bootcamp Week 1</h3>
+            <p style="font-size:0.88rem;">12 problems &middot; 4:00:00 duration</p>
+            <p style="font-size:0.8rem;color:var(--text-muted);margin-bottom:1.1rem;">Prepared by harryleee</p>
+            <a href="contest.html" class="btn btn-secondary btn-sm">Start virtual run</a>
+          </div>
+
+          <div class="card" data-difficulty="intermediate" data-duration="150">
+            <h3 style="font-size:1.05rem;">Number Theory Sprint</h3>
+            <p style="font-size:0.88rem;">7 problems &middot; 2:30:00 duration</p>
+            <p style="font-size:0.8rem;color:var(--text-muted);margin-bottom:1.1rem;">Prepared by tuongll</p>
+            <a href="contest.html" class="btn btn-secondary btn-sm">Start virtual run</a>
+          </div>
+
+          <div class="card" data-difficulty="intermediate" data-duration="270">
+            <h3 style="font-size:1.05rem;">Graph Theory Marathon</h3>
+            <p style="font-size:0.88rem;">9 problems &middot; 4:30:00 duration</p>
+            <p style="font-size:0.8rem;color:var(--text-muted);margin-bottom:1.1rem;">Prepared by lenhanbo</p>
+            <a href="contest.html" class="btn btn-secondary btn-sm">Start virtual run</a>
+          </div>
+
+          <p id="emptyRow" data-filter-empty hidden>No trainings found.</p>
+        </div>
+
+        <div class="section-head center" style="margin-top:3.5rem;">
+          <span class="eyebrow">Your own mashup</span>
+          <h2>Build a custom practice set</h2>
+          <p style="margin-inline:auto;">Pick your own problems, set your own clock, and get a private mashup contest for you and your team.</p>
+          <a href="register.html" class="btn btn-primary" style="margin-top:1rem;">Create a mashup</a>
+        </div>
+
+      </div>
+    </section>
+  </main>
+
+  <div data-include="footer"></div>
+</body>
+</html>
