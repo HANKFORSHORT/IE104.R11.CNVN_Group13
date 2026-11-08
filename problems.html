@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Problemset · Astra</title>
+    <meta name="description" content="" />
+    <link rel="icon" href="images/favicon.svg" type="image/svg+xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,500;0,600;0,700;1,500&family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/problems.css">
+    <script src="js/main.js"></script>
+</head>
+
+<body>
+    <div data-include="header"></div>
+
+    <main>
+        <div class="page-header">
+            <div class="container">
+                <div class="breadcrumb">
+                    <a href="index.html">Home</a> / Problemset
+                </div>
+                <h1 style="color: var(--peach);">Problemset</h1>
+                <p style="max-width: 60ch;">
+                    Every problem Astra has ever run, searchable by topic and difficulty. Solve them rated, inside the
+                    Gym, or just for the satisfaction of a clean accepted verdict.
+                </p>
+            </div>
+        </div>
+
+        <section class="section" style="margin-top: calc(-1 * var(--nav-h));">
+            <div class="container">
+                <form class="filters-bar" data-validate novalidate>
+                    <input type="text" placeholder="Search by name or number..." aria-label="Search problems">
+                    <select aria-label="Filter-by-topic">
+                        <option value="">All topics</option>
+                        <option>Math</option>
+                        <option>Dynamic Programming</option>
+                        <option>Graphs</option>
+                        <option>Data Structures</option>
+                        <option>Greedy</option>
+                        <option>Strings</option>
+                    </select>
+                    <input type="number" placeholder="Min rating" aria-label="Minimum difficulty">
+                    <input type="number" placeholder="Max rating" aria-label="Maximum difficulty">
+                    <button class="btn btn-primary btn-sm" type="submit">Apply filters</button>
+                </form>
+
+                <div class="table-wrap">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Name</th>
+                                <th>Topics</th>
+                                <th>Difficulty</th>
+                                <th>Solve rate</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>2264F</td>
+                                <td><a class="problem-link" href="problem-detail.html">Deranged Calculator</a></td>
+                                <td><span class="tag">math</span><span class="tag">constructive</span></td>
+                                <td><span class="pill pill-medium">1900</span></td>
+                                <td>62.4%</td>
+                            </tr>
+                            <tr>
+                                <td>2264E2</td>
+                                <td><a class="problem-link" href="problem-detail.html">A Prime Flood (Hard Version)</a>
+                                </td>
+                                <td><span class="tag">combinatorics</span><span class="tag">dp</span></td>
+                                <td><span class="pill pill-hard">2600</span></td>
+                                <td>8.1%</td>
+                            </tr>
+                            <tr>
+                                <td>2264E1</td>
+                                <td><a class="problem-link" href="problem-detail.html">A Prime Flood (Easy Version)</a>
+                                </td>
+                                <td><span class="tag">combinatorics</span><span class="tag">dp</span></td>
+                                <td><span class="pill pill-hard">2100</span></td>
+                                <td>21.7%</td>
+                            </tr>
+                            <tr>
+                                <td>2264D</td>
+                                <td><a class="problem-link" href="problem-detail.html">Dr. Agos's Dark Mode</a></td>
+                                <td><span class="tag">brute force</span><span class="tag">strings</span></td>
+                                <td><span class="pill pill-medium">1400</span></td>
+                                <td>58.9%</td>
+                            </tr>
+                            <tr>
+                                <td>2264C</td>
+                                <td><a class="problem-link" href="problem-detail.html">Madamant's Skating Dynasty</a>
+                                </td>
+                                <td><span class="tag">combinatorics</span><span class="tag">sortings</span></td>
+                                <td><span class="pill pill-medium">1600</span></td>
+                                <td>44.2%</td>
+                            </tr>
+                            <tr>
+                                <td>2264B</td>
+                                <td><a class="problem-link" href="problem-detail.html">Knife's Pill Farm</a></td>
+                                <td><span class="tag">data structures</span><span class="tag">greedy</span></td>
+                                <td><span class="pill pill-easy">1300</span></td>
+                                <td>67.0%</td>
+                            </tr>
+                            <tr>
+                                <td>2264A</td>
+                                <td><a class="problem-link" href="problem-detail.html">Rumb Needs a Hand</a></td>
+                                <td><span class="tag">implementation</span><span class="tag">two pointers</span></td>
+                                <td><span class="pill pill-easy">900</span></td>
+                                <td>88.4%</td>
+                            </tr>
+                            <tr>
+                                <td>2263B</td>
+                                <td><a class="problem-link" href="problem-detail.html">Min Matrices</a></td>
+                                <td><span class="tag">constructive algorithms</span></td>
+                                <td><span class="pill pill-medium">1700</span></td>
+                                <td>39.6%</td>
+                            </tr>
+                            <tr>
+                                <td>2263A</td>
+                                <td><a class="problem-link" href="problem-detail.html">Min Max Game</a></td>
+                                <td><span class="tag">greedy</span></td>
+                                <td><span class="pill pill-easy">1100</span></td>
+                                <td>74.3%</td>
+                            </tr>
+                            <tr>
+                                <td>2262F</td>
+                                <td><a class="problem-link" href="problem-detail.html">Rank Removal</a></td>
+                                <td><span class="tag">math</span></td>
+                                <td><span class="pill pill-hard">2500</span></td>
+                                <td>6.4%</td>
+                            </tr>
+                            <tr>
+                                <td>2262E</td>
+                                <td><a class="problem-link" href="problem-detail.html">Paired Bracket Sequences</a></td>
+                                <td><span class="tag">combinatorics</span><span class="tag">math</span></td>
+                                <td><span class="pill pill-hard">2200</span></td>
+                                <td>12.9%</td>
+                            </tr>
+                            <tr>
+                                <td>2262D</td>
+                                <td><a class="problem-link" href="problem-detail.html">PLUSworld</a></td>
+                                <td><span class="tag">graphs</span><span class="tag">greedy</span></td>
+                                <td><span class="pill pill-medium">2000</span></td>
+                                <td>18.5%</td>
+                            </tr>
+                            <tr>
+                                <td>2262C</td>
+                                <td><a class="problem-link" href="problem-detail.html">Traveling the World</a></td>
+                                <td><span class="tag">graphs</span><span class="tag">math</span></td>
+                                <td><span class="pill pill-medium">1800</span></td>
+                                <td>31.2%</td>
+                            </tr>
+                            <tr>
+                                <td>2262B</td>
+                                <td><a class="problem-link" href="problem-detail.html">Culling Game</a></td>
+                                <td><span class="tag">binary search</span><span class="tag">two pointers</span></td>
+                                <td><span class="pill pill-medium">1500</span></td>
+                                <td>49.8%</td>
+                            </tr>
+                            <tr>
+                                <td>2262A2</td>
+                                <td><a class="problem-link" href="problem-detail.html">Floor of MEX (Hard Version)</a>
+                                </td>
+                                <td><span class="tag">dp</span><span class="tag">implementation</span></td>
+                                <td><span class="pill pill-medium">1600</span></td>
+                                <td>27.6%</td>
+                            </tr>
+                            <tr>
+                                <td>2262A1</td>
+                                <td><a class="problem-link" href="problem-detail.html">Floor of MEX (Easy Version)</a>
+                                </td>
+                                <td><span class="tag">constructive</span><span class="tag">greedy</span></td>
+                                <td><span class="pill pill-easy">1200</span></td>
+                                <td>63.1%</td>
+                            </tr>
+                            <tr>
+                                <td>499</td>
+                                <td><a class="problem-link" href="problem-detail.html">Loop</a></td>
+                                <td><span class="tag">basic</span><span class="tag">for loops</span></td>
+                                <td><span class="pill pill-easy">800</span></td>
+                                <td>97.6%</td>
+                            </tr>
+                            <tr>
+                                <td>500</td>
+                                <td><a class="problem-link" href="problem-detail.html">Even Numbers</a></td>
+                                <td><span class="tag">basic</span><span class="tag">math</span></td>
+                                <td><span class="pill pill-easy">800</span></td>
+                                <td>93.4%</td>
+                            </tr>
+                            <tr>
+                                <td>501</td>
+                                <td><a class="problem-link" href="problem-detail.html">Factorial</a></td>
+                                <td><span class="tag">math</span><span class="tag">recursion</span></td>
+                                <td><span class="pill pill-easy">800</span></td>
+                                <td>89.7%</td>
+                            </tr>
+                            <tr>
+                                <td>502</td>
+                                <td><a class="problem-link" href="problem-detail.html">Star Triangle</a></td>
+                                <td><span class="tag">implementation</span></td>
+                                <td><span class="pill pill-easy">800</span></td>
+                                <td>91.2%</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="flex-between" style="margin-top: 1.6rem;">
+                    <p style="margin: 0; font-size: 0.85rem;">Showing 20 of 2,634 problems</p>
+                    <div style="display: flex; gap: 0.5rem;">
+                        <button class="btn btn-secondary btn-sm" type="button">Previous</button>
+                        <button class="btn btn-secondary btn-sm" type="button">Next</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <div data-include="footer"></div>
+</body>
+
+</html>
