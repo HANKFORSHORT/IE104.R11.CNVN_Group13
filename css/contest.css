@@ -1,11 +1,35 @@
-.two-col {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 3rem;
-    align-items: center;
+.two-col { display: grid; 
+    grid-template-columns: 1fr 1fr; 
+    gap: 3rem; 
+    align-items: center; 
 }
 
-.table-wrap {
-    overflow-x: auto;
-    margin-top: 2rem;
+@media (max-width: 860px) { .two-col { grid-template-columns: 1fr; gap: 2rem; } }
+
+.rank-cell { 
+    font-family: var(--font-mono);
+    font-weight: 700; 
 }
+
+.card {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.8rem;
+  box-shadow: var(--shadow);
+  transition: transform .2s var(--ease), border-color .2s var(--ease);
+}
+.card:hover { transform: translateY(-3px); border-color: var(--accent-2); }
+.card-icon {
+  width: 46px; height: 46px; border-radius: var(--radius-sm);
+  display: flex; align-items: center; justify-content: center;
+  background: var(--bg-alt); color: var(--oxford); margin-bottom: 1.1rem;
+}
+[data-theme="dark"] .card-icon { background: rgba(143, 168, 115,0.18); color: var(--teal); }
+.card-icon svg { width: 22px; height: 22px; }
+.card h3 { font-size: 1.15rem; margin-bottom: 0.4rem; }
+.card p { font-size: 0.94rem; margin-bottom: 0; }
+
+.avatar-stack { display: flex; }
+.avatar-stack img { width: 34px; height: 34px; border-radius: 50%; border: 2px solid var(--bg); margin-left: -10px; }
+.avatar-stack img:first-child { margin-left: 0; }

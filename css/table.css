@@ -1,12 +1,3 @@
-/* ==========================================================
-   table.css - bảng dữ liệu + thanh filter
-   Nạp SAU style.css để có thể dùng chung biến màu của theme.
-   Mỗi biến có giá trị dự phòng (sau dấu phẩy), nếu style.css
-   của bạn đã có biến cùng tên thì nó sẽ tự dùng biến đó.
-   Muốn khớp theme thì đổi tên biến bên dưới cho đúng với
-   biến trong style.css của bạn.
-   ========================================================== */
-
 :root {
   --tbl-surface:   var(--surface, #1c1930);
   --tbl-head-bg:   var(--surface-2, #24203a);
@@ -18,10 +9,9 @@
   --tbl-radius:    12px;
 }
 
-/* Ẩn dòng bằng thuộc tính hidden (dùng cho filter) */
 [hidden] { display: none !important; }
 
-/* ---------- Thanh filter ---------- */
+/* filter */
 .filters-bar {
   display: flex;
   flex-wrap: wrap;
@@ -146,3 +136,16 @@
   .data-table thead th,
   .data-table tbody td { padding: 14px 12px; }
 }
+
+
+.pill {
+  display: inline-flex; align-items: center; gap: .4em;
+  font-size: 0.72rem; font-weight: 700; letter-spacing: 0.03em;
+  padding: 0.3em 0.75em; border-radius: 999px;
+}
+.pill-easy { background: rgba(143, 168, 115,0.14); color: var(--teal-dark); }
+[data-theme="dark"] .pill-easy { color: var(--teal); }
+.pill-medium { background: rgba(211, 173, 92,0.2); color: #7C5A22; }
+[data-theme="dark"] .pill-medium { color: var(--sandy); }
+.pill-hard { background: rgba(184, 84, 78,0.14); color: var(--orange-dark); }
+[data-theme="dark"] .pill-hard { color: var(--orange); }
