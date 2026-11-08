@@ -149,3 +149,10 @@
 [data-theme="dark"] .pill-medium { color: var(--sandy); }
 .pill-hard { background: rgba(184, 84, 78,0.14); color: var(--orange-dark); }
 [data-theme="dark"] .pill-hard { color: var(--orange); }
+
+.grid { display: grid; gap: 1.6rem; }
+.grid-3 { grid-template-columns: repeat(3, 1fr); }
+.grid-4 { grid-template-columns: repeat(4, 1fr); }
+.grid-2 { grid-template-columns: repeat(2, 1fr); }
+@media (max-width: 980px) { .grid-4 { grid-template-columns: repeat(2,1fr); } .grid-3 { grid-template-columns: repeat(2,1fr); } }
+@media (max-width: 640px) { .grid-4, .grid-3, .grid-2 { grid-template-columns: 1fr; } }
