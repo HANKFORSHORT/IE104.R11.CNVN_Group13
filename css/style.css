@@ -631,10 +631,6 @@ p {
   overflow: hidden;
 }
 
-.page-header p {
-  color: rgba(234, 225, 200, 0.75);
-}
-
 
 .breadcrumb {
   font-family: var(--font-mono);
