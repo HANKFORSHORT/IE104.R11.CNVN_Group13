@@ -4,88 +4,89 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Guide · Astra</title>
-  <meta name="description" content="" />
+  <meta name="description" content="A practical guide to choosing problems, submitting solutions, and learning from every verdict on Astra." />
   <link rel="icon" href="images/favicon.svg" type="image/svg+xml" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,500;0,600;0,700;1,500&family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/guide.css" />
   <script src="js/main.js"></script>
 </head>
 <body>
   <div data-include="header"></div>
 
   <main>
-    <!-- GUIDE HERO: giới thiệu ngắn gọn và định hướng đọc nội dung -->
+    <!-- Guide hero: a concise introduction and reading path. -->
     <section class="page-header">
       <div class="container">
         <div class="breadcrumb"><a href="index.html">Home</a> / Guide</div>
-        <h1 style="color: var(--peach); max-width: 12ch;">Start solving with confidence.</h1>
-        <p style="color: rgba(234, 225, 200, .78); font-size: 1.08rem; max-width: 60ch;">
+        <h1 class="guide-title">Start solving with confidence.</h1>
+        <p class="guide-lede">
           A short field guide to finding the right problem, writing a submission, and learning from every verdict on Astra.
         </p>
       </div>
     </section>
 
-    <!-- GUIDE BODY: mục lục cố định theo cột và phần hướng dẫn chính -->
+    <!-- Guide body: a sticky table of contents and the main instructions. -->
     <section class="section">
-      <div class="container" style="display: grid; grid-template-columns: minmax(180px, .34fr) minmax(0, 1fr); gap: clamp(2.5rem, 7vw, 6rem); align-items: start;">
-        <!-- TABLE OF CONTENTS: liên kết nhanh tới từng phần -->
-        <aside style="position: sticky; top: calc(var(--nav-h) + 1.5rem);">
+      <div class="container guide-layout">
+        <!-- Table of contents: quick links to each section. -->
+        <aside class="guide-aside">
           <span class="eyebrow">On this page</span>
           <nav aria-label="Guide sections">
-            <ol style="display: grid; gap: .75rem; padding-left: 1.15rem; margin: 0; color: var(--text-muted); font: 500 .9rem var(--font-mono);">
+            <ol class="guide-toc">
               <li><a href="#first-steps">First steps</a></li>
               <li><a href="#submit">Submit a solution</a></li>
               <li><a href="#verdicts">Read verdicts</a></li>
               <li><a href="#next">Keep going</a></li>
             </ol>
           </nav>
-          <div class="card" style="margin-top: 2rem; padding: 1.25rem; background: var(--oxford); border-color: rgba(70, 209, 138, .28);">
-            <p style="color: rgba(234, 225, 200, .7); font-size: .88rem; margin-bottom: .8rem;">New here?</p>
+          <div class="card guide-new-card">
+            <p>New here?</p>
             <a href="problems.html" class="btn btn-ghost btn-sm">Browse problems <span aria-hidden="true">&rarr;</span></a>
           </div>
         </aside>
 
-        <div style="max-width: 70ch;">
-          <!-- SECTION 1: cách chọn bài đầu tiên -->
-          <article id="first-steps" style="scroll-margin-top: 6rem;">
+        <div class="guide-content">
+          <!-- Section 1: choosing a first problem. -->
+          <article id="first-steps" class="guide-article">
             <span class="eyebrow">01 / Find your entry point</span>
             <h2>Start with one problem you can finish.</h2>
             <p>
               Choose a difficulty that feels slightly uncomfortable, not impossible. Read the statement twice,
               write down the input and output shape, then test your idea on the sample before opening the editor.
             </p>
-            <div style="display: grid; gap: .85rem; margin: 1.8rem 0 0;">
-              <div style="display: flex; gap: 1rem; align-items: baseline; border-top: 1px solid var(--border); padding-top: 1rem;">
-                <strong style="font: 700 1rem var(--font-mono); color: var(--accent);">01</strong>
+            <div class="guide-steps">
+              <div class="guide-step">
+                <strong>01</strong>
                 <span><strong>Scan the constraints.</strong> They usually reveal the intended complexity.</span>
               </div>
-              <div style="display: flex; gap: 1rem; align-items: baseline; border-top: 1px solid var(--border); padding-top: 1rem;">
-                <strong style="font: 700 1rem var(--accent); color: var(--accent);">02</strong>
+              <div class="guide-step">
+                <strong>02</strong>
                 <span><strong>Plan before coding.</strong> Name the state, transitions, or data structure first.</span>
               </div>
-              <div style="display: flex; gap: 1rem; align-items: baseline; border-top: 1px solid var(--border); padding-top: 1rem;">
-                <strong style="font: 700 1rem var(--font-mono); color: var(--accent);">03</strong>
+              <div class="guide-step">
+                <strong>03</strong>
                 <span><strong>Make a tiny test.</strong> Include the smallest and the strangest case you can imagine.</span>
               </div>
             </div>
           </article>
 
-          <!-- SECTION 2: quy trình submit và code mẫu -->
-          <article id="submit" style="scroll-margin-top: 6rem; margin-top: clamp(4rem, 8vw, 6rem);">
+          <!-- Section 2: the submission flow and a code sample. -->
+          <article id="submit" class="guide-article">
             <span class="eyebrow">02 / Submit cleanly</span>
             <h2>Keep the first submission small.</h2>
             <p>
               Select a supported language, paste only the solution you need, and submit. Astra runs your program
               against hidden tests and reports the first useful signal — the verdict.
             </p>
-            <div class="card" style="margin-top: 1.8rem; padding: 0; overflow: hidden; background: var(--oxford); border-color: rgba(70, 209, 138, .28);">
-              <div style="display: flex; justify-content: space-between; align-items: center; padding: .8rem 1.2rem; border-bottom: 1px solid rgba(234, 225, 200, .14);">
-                <span style="font: 600 .78rem var(--font-mono); color: var(--peach);">solution.cpp</span>
-                <span style="font: .75rem var(--font-mono); color: var(--teal);">C++17</span>
+            <div class="card guide-code-card">
+              <div class="guide-code-header">
+                <span>solution.cpp</span>
+                <span>C++17</span>
               </div>
-              <pre style="margin: 0; padding: 1.35rem 1.2rem; overflow-x: auto; color: rgba(234, 225, 200, .86); font: .86rem/1.7 var(--font-mono);"><code>#include &lt;iostream&gt;
+              <pre class="guide-code"><code>#include &lt;iostream&gt;
 using namespace std;
 
 int main() {
@@ -95,46 +96,46 @@ int main() {
     return 0;
 }</code></pre>
             </div>
-            <p style="font-size: .9rem; margin-top: .9rem;">
+            <p class="guide-note">
               This example reads two integers and prints their sum. Replace the logic with your own solution,
               then use <strong>Submit</strong> when the program is ready.
             </p>
           </article>
 
-          <!-- SECTION 3: giải thích các verdict thường gặp -->
-          <article id="verdicts" style="scroll-margin-top: 6rem; margin-top: clamp(4rem, 8vw, 6rem);">
+          <!-- Section 3: common verdicts and what they mean. -->
+          <article id="verdicts" class="guide-article">
             <span class="eyebrow">03 / Learn from feedback</span>
             <h2>Every verdict is a clue.</h2>
             <p>Use the result to narrow the next action instead of rewriting everything at once.</p>
-            <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; margin-top: 1.8rem;">
-              <div class="card" style="padding: 1.35rem; border-top: 1px solid var(--teal);">
-                <strong style="display: block; color: var(--oxford); font: 700 .9rem var(--font-mono);">AC / Accepted</strong>
-                <p style="font-size: .9rem; margin: .55rem 0 0;">Your output passed every test. Review the idea once before moving on.</p>
+            <div class="guide-verdict-grid">
+              <div class="card guide-verdict guide-verdict--accepted">
+                <strong>AC / Accepted</strong>
+                <p>Your output passed every test. Review the idea once before moving on.</p>
               </div>
-              <div class="card" style="padding: 1.35rem; border-top: 1px solid var(--orange);">
-                <strong style="display: block; color: var(--orange); font: 700 .9rem var(--font-mono);">WA / Wrong answer</strong>
-                <p style="font-size: .9rem; margin: .55rem 0 0;">Find a counterexample. Check boundaries, duplicates, and integer overflow.</p>
+              <div class="card guide-verdict guide-verdict--wrong">
+                <strong>WA / Wrong answer</strong>
+                <p>Find a counterexample. Check boundaries, duplicates, and integer overflow.</p>
               </div>
-              <div class="card" style="padding: 1.35rem; border-top: 1px solid var(--sandy);">
-                <strong style="display: block; color: var(--oxford); font: 700 .9rem var(--font-mono);">TLE / Time limit</strong>
-                <p style="font-size: .9rem; margin: .55rem 0 0;">Estimate the complexity again and look for repeated work inside loops.</p>
+              <div class="card guide-verdict guide-verdict--time">
+                <strong>TLE / Time limit</strong>
+                <p>Estimate the complexity again and look for repeated work inside loops.</p>
               </div>
-              <div class="card" style="padding: 1.35rem; border-top: 1px solid var(--indigo);">
-                <strong style="display: block; color: var(--oxford); font: 700 .9rem var(--font-mono);">RE / Runtime error</strong>
-                <p style="font-size: .9rem; margin: .55rem 0 0;">Inspect indexes, empty input, division by zero, and memory usage.</p>
+              <div class="card guide-verdict guide-verdict--runtime">
+                <strong>RE / Runtime error</strong>
+                <p>Inspect indexes, empty input, division by zero, and memory usage.</p>
               </div>
             </div>
           </article>
 
-          <!-- SECTION 4: lời kêu gọi tiếp tục luyện tập -->
-          <article id="next" style="scroll-margin-top: 6rem; margin-top: clamp(4rem, 8vw, 6rem); padding-top: 2rem; border-top: 1px solid var(--border);">
+          <!-- Section 4: continuing the practice habit. -->
+          <article id="next" class="guide-article guide-next">
             <span class="eyebrow">04 / Build the habit</span>
             <h2>One solved problem is a useful start.</h2>
             <p>
               After each solve, write one sentence about the key idea. Return to it later, join a contest,
               and let your rating reflect the practice you are building.
             </p>
-            <div style="display: flex; flex-wrap: wrap; gap: .8rem; margin-top: 1.5rem;">
+            <div class="guide-actions">
               <a href="problems.html" class="btn btn-primary">Explore problems <span aria-hidden="true">&rarr;</span></a>
               <a href="contests.html" class="btn btn-secondary">See upcoming contests</a>
             </div>
@@ -143,26 +144,7 @@ int main() {
       </div>
     </section>
 
-    <!-- RESPONSIVE NOTE: chuyển mục lục lên đầu và các verdict thành một cột trên mobile -->
-    <style>
-      main .section .eyebrow {
-        color: var(--orange-dark);
-      }
-
-      @media (max-width: 760px) {
-        main .section > .container {
-          grid-template-columns: 1fr !important;
-        }
-
-        main aside {
-          position: static !important;
-        }
-
-        main [id="verdicts"] > div {
-          grid-template-columns: 1fr !important;
-        }
-      }
-    </style>
+    <!-- Responsive layout: move the contents above the guide and stack verdicts on mobile. -->
   </main>
 
   <div data-include="footer"></div>
