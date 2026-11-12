@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rankings · Astra</title>
+  <meta name="description" content="Track Astra competitors, ratings, solved problems, and recent ranking changes." />
+  <link rel="icon" href="images/favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,500;0,600;0,700;1,500&family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/rankings.css" />
+  <script src="js/main.js"></script>
+</head>
+<body>
+  <div data-include="header"></div>
+
+  <main>
+    <!-- Page-specific styles scoped to .rankings-page. -->
+
+    <div class="rankings-page">
+      <div class="rankings-shell">
+        <!-- Page title and season context. -->
+        <header class="rankings-intro">
+          <div>
+            <h1>Rankings</h1>
+            <p>See who is leading the field and track the ratings, progress, and momentum of the Astra community.</p>
+          </div>
+          <div class="season-note">Season 04 · Updated 2m ago</div>
+        </header>
+
+        <!-- Top-three podium. -->
+        <section class="podium" aria-label="Top three competitors">
+          <article class="podium-card">
+            <span class="podium-rank">01</span>
+            <div>
+              <h2>minhtriet</h2>
+              <p class="podium-handle">Nguyen Minh Triet · Vietnam</p>
+            </div>
+            <div class="podium-score"><strong>2,984</strong><span>rating</span></div>
+          </article>
+          <article class="podium-card">
+            <span class="podium-rank">02</span>
+            <div>
+              <h2>khangdev</h2>
+              <p class="podium-handle">Tran Gia Khang · Vietnam</p>
+            </div>
+            <div class="podium-score"><strong>2,741</strong><span>rating</span></div>
+          </article>
+          <article class="podium-card">
+            <span class="podium-rank">03</span>
+            <div>
+              <h2>lemontea</h2>
+              <p class="podium-handle">Le Hoang Anh · Vietnam</p>
+            </div>
+            <div class="podium-score"><strong>2,608</strong><span>rating</span></div>
+          </article>
+        </section>
+
+        <!-- Data filters. -->
+        <div class="rankings-toolbar">
+          <div class="ranking-tabs" role="tablist" aria-label="Ranking scope">
+            <button class="ranking-tab" type="button" role="tab" aria-selected="true">Global</button>
+            <button class="ranking-tab" type="button" role="tab" aria-selected="false">Friends</button>
+            <button class="ranking-tab" type="button" role="tab" aria-selected="false">Country</button>
+          </div>
+          <div class="ranking-filters">
+            <label for="ranking-period">Ranking period</label>
+            <select id="ranking-period">
+              <option>Season 04</option>
+              <option>Season 03</option>
+              <option>All time</option>
+            </select>
+            <label for="ranking-region">Region</label>
+            <select id="ranking-region">
+              <option>All regions</option>
+              <option>Vietnam</option>
+              <option>Asia Pacific</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Rankings table data. -->
+        <div class="ranking-table-wrap">
+          <table class="ranking-table">
+            <caption class="sr-only">Astra competitor rankings</caption>
+            <thead>
+              <tr>
+                <th scope="col">Rank</th>
+                <th scope="col">Competitor</th>
+                <th scope="col">Rating</th>
+                <th scope="col">Solved</th>
+                <th scope="col">Change</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="rank-number">04</td>
+                <td><div class="user-cell"><span class="user-avatar">QD</span><span><span class="user-name">quangdo</span><span class="user-country">Da Nang, Vietnam</span></span></div></td>
+                <td class="rating">2,487</td><td class="solved">186</td><td class="trend-up">+3</td>
+              </tr>
+              <tr>
+                <td class="rank-number">05</td>
+                <td><div class="user-cell"><span class="user-avatar">HA</span><span><span class="user-name">huyanh</span><span class="user-country">Hanoi, Vietnam</span></span></div></td>
+                <td class="rating">2,392</td><td class="solved">174</td><td class="trend-up">+1</td>
+              </tr>
+              <tr>
+                <td class="rank-number">06</td>
+                <td><div class="user-cell"><span class="user-avatar">NT</span><span><span class="user-name">nami_t</span><span class="user-country">Ho Chi Minh City, Vietnam</span></span></div></td>
+                <td class="rating">2,315</td><td class="solved">168</td><td class="trend-down">−2</td>
+              </tr>
+              <tr>
+                <td class="rank-number">07</td>
+                <td><div class="user-cell"><span class="user-avatar">BL</span><span><span class="user-name">baolong</span><span class="user-country">Can Tho, Vietnam</span></span></div></td>
+                <td class="rating">2,264</td><td class="solved">159</td><td class="trend-up">+4</td>
+              </tr>
+              <tr>
+                <td class="rank-number">08</td>
+                <td><div class="user-cell"><span class="user-avatar">MK</span><span><span class="user-name">mkhanh</span><span class="user-country">Hai Phong, Vietnam</span></span></div></td>
+                <td class="rating">2,187</td><td class="solved">151</td><td class="trend-up">+2</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Data summary. -->
+        <div class="rankings-footer">
+          <span>Showing 8 of 1,248 competitors</span>
+          <span>Rating updates after each contest</span>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <div data-include="footer"></div>
+</body>
+</html>
