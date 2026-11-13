@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FAQ · Astra</title>
+  <meta name="description" content="Frequently asked questions about Astra — platform features, contests, ratings, and problem submissions." />
+  <link rel="icon" href="images/favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,500;0,600;0,700;1,500&family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/faq.css" />
+  <script src="js/main.js"></script>
+  <script src="js/faq.js" defer></script>
+</head>
+
+<body>
+  <div data-include="header"></div>
+
+
+  <main class="faq-page">
+
+    <!-- 1. Hero Header -->
+    <section class="faq-hero">
+      <div class="container">
+        <div class="breadcrumb">
+          <a href="index.html">Home</a> / <span class="breadcrumb-current">FAQ</span>
+        </div>
+
+        <h1>Frequently asked questions</h1>
+
+        <p>
+          Can't find your answer here? The <a href="contact.html">Contact page</a> reaches us directly.
+        </p>
+      </div>
+    </section>
+
+
+    <!-- 2. FAQ Accordion List -->
+    <section class="section faq-section">
+      <div class="container">
+        <div class="faq-accordion" id="faqAccordion">
+
+          <!-- Question 1 -->
+          <div class="faq-item">
+            <button class="faq-trigger" id="faq-btn-1" type="button" aria-expanded="false" aria-controls="faq-panel-1">
+              <strong>Is Astra really free?</strong>
+              <span class="faq-icon" aria-hidden="true">+</span>
+            </button>
+
+            <div class="faq-body" id="faq-panel-1" role="region" aria-labelledby="faq-btn-1">
+              <div class="faq-body-inner">
+                <p>
+                  Yes! The core platform — solving problems, joining rated contests, practicing in the Gym, and tracking your rating — is completely free and always will be.
+                </p>
+                <p>
+                  We may offer optional supporter perks in the future, but we will never gatekeep practice content or contest participation.
+                </p>
+              </div>
+            </div>
+          </div>
+
+
+          <!-- Question 2 -->
+          <div class="faq-item">
+            <button class="faq-trigger" id="faq-btn-2" type="button" aria-expanded="false" aria-controls="faq-panel-2">
+              <strong>What languages can I submit in?</strong>
+              <span class="faq-icon" aria-hidden="true">+</span>
+            </button>
+
+            <div class="faq-body" id="faq-panel-2" role="region" aria-labelledby="faq-btn-2">
+              <div class="faq-body-inner">
+                <p>
+                  Astra currently supports the most popular competitive programming languages on our judge servers:
+                </p>
+                <ul>
+                  <li>C++ 17 and C++ 20 (<code>g++ -O2</code>)</li>
+                  <li>Python 3.11 and PyPy 3</li>
+                  <li>Java 21</li>
+                  <li>Rust 1.75</li>
+                  <li>Go 1.21</li>
+                </ul>
+                <p>
+                  We regularly evaluate new compilers and runtimes — feel free to <a href="contact.html">contact us</a> if you would like to request another language.
+                </p>
+              </div>
+            </div>
+          </div>
+
+
+          <!-- Question 3 -->
+          <div class="faq-item">
+            <button class="faq-trigger" id="faq-btn-3" type="button" aria-expanded="false" aria-controls="faq-panel-3">
+              <strong>How is my rating calculated?</strong>
+              <span class="faq-icon" aria-hidden="true">+</span>
+            </button>
+
+            <div class="faq-body" id="faq-panel-3" role="region" aria-labelledby="faq-btn-3">
+              <div class="faq-body-inner">
+                <p>
+                  We use an Elo-based rating system tailored for multi-participant contests. After each rated round, your rating updates according to your actual standing compared to your expected seed.
+                </p>
+                <p>
+                  New accounts start at <code>1200</code> and typically stabilize after 3 to 5 rated contests. Visit the <a href="guide.html">Guide</a> for a full breakdown of ranks and rating formulas.
+                </p>
+              </div>
+            </div>
+          </div>
+
+
+          <!-- Question 4 -->
+          <div class="faq-item">
+            <button class="faq-trigger" id="faq-btn-4" type="button" aria-expanded="false" aria-controls="faq-panel-4">
+              <strong>Can I participate after a contest ends?</strong>
+              <span class="faq-icon" aria-hidden="true">+</span>
+            </button>
+
+            <div class="faq-body" id="faq-panel-4" role="region" aria-labelledby="faq-btn-4">
+              <div class="faq-body-inner">
+                <p>
+                  Absolutely. As soon as a round concludes, all of its problems are added to the public <a href="problems.html">Problemset</a> for upsolving at your own pace.
+                </p>
+                <p>
+                  You can also launch a virtual participation session from the <a href="contests.html">Contests</a> archive to simulate the live scoreboard and timer under real contest conditions.
+                </p>
+              </div>
+            </div>
+          </div>
+
+
+          <!-- Question 5 -->
+          <div class="faq-item">
+            <button class="faq-trigger" id="faq-btn-5" type="button" aria-expanded="false" aria-controls="faq-panel-5">
+              <strong>How do I report a wrong test case?</strong>
+              <span class="faq-icon" aria-hidden="true">+</span>
+            </button>
+
+            <div class="faq-body" id="faq-panel-5" role="region" aria-labelledby="faq-btn-5">
+              <div class="faq-body-inner">
+                <p>
+                  If you suspect a broken test case, weak checker, or inaccurate problem statement, please head over to our <a href="report-an-issue.html">Report an issue</a> page and select <strong>Wrong test case / verdict</strong>.
+                </p>
+                <p>
+                  Include the problem code (for example, <code>2264F</code>), your submission ID, and the counterexample input so our problem setters can verify and rejudge within 48 hours.
+                </p>
+              </div>
+            </div>
+          </div>
+
+
+          <!-- Question 6 -->
+          <div class="faq-item">
+            <button class="faq-trigger" id="faq-btn-6" type="button" aria-expanded="false" aria-controls="faq-panel-6">
+              <strong>Can I propose my own problems?</strong>
+              <span class="faq-icon" aria-hidden="true">+</span>
+            </button>
+
+            <div class="faq-body" id="faq-panel-6" role="region" aria-labelledby="faq-btn-6">
+              <div class="faq-body-inner">
+                <p>
+                  Yes — we welcome original problem proposals from the community! Use the <a href="report-an-issue.html">Report an issue</a> form and select <strong>Propose a problem</strong>, or reach out via our <a href="contact.html">Contact page</a> with:
+                </p>
+                <ul>
+                  <li>A clear problem statement and input/output constraints</li>
+                  <li>At least 3 sample test cases with explanations</li>
+                  <li>Your model solution and intended time/memory complexity</li>
+                </ul>
+                <p>
+                  Our coordinator team reviews new proposals every week and will follow up with you by email.
+                </p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+
+        <!-- 3. Bottom Call To Action -->
+        <div class="faq-cta">
+          <p>Still have questions or need to report a platform bug?</p>
+
+          <div class="faq-cta-actions">
+            <a href="contact.html" class="btn btn-secondary">Contact the team</a>
+            <a href="report-an-issue.html" class="btn btn-primary">Report an issue <span aria-hidden="true">&rarr;</span></a>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+
+  <div data-include="footer"></div>
+</body>
+
+</html>

@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Report an issue · Astra</title>
+  <meta name="description" content="Report an issue on Astra — account issues, broken test cases, problem contributions, or platform bugs." />
+  <link rel="icon" href="images/favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,500;0,600;0,700;1,500&family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/report-an-issue.css" />
+  <script src="js/main.js"></script>
+  <script src="js/report-an-issue.js" defer></script>
+</head>
+
+<body>
+  <div data-include="header"></div>
+
+
+  <main class="report-page">
+
+    <!-- 1. Page Header -->
+    <section class="page-header report-header">
+      <div class="container">
+        <div class="breadcrumb">
+          <a href="index.html">Home</a> / <span class="breadcrumb-current">Report an issue</span>
+        </div>
+
+        <h1 class="report-title">Report an issue</h1>
+
+        <p class="report-lead">
+          Account issues, a broken test case, a problem you'd like to contribute, or just something on your mind &mdash; we read every message.
+        </p>
+      </div>
+    </section>
+
+
+    <!-- 2. Main Content: Form + Reach Us Cards -->
+    <section class="section report-section">
+      <div class="container report-grid">
+
+        <!-- Left Column: Issue Submission Form -->
+        <div class="report-form-card">
+
+          <div class="success-banner" id="successBanner" role="status" aria-live="polite">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <polyline points="20 6 9 17 4 12" />
+            </svg>
+            <span>Report submitted! We will review it and get back to you soon.</span>
+          </div>
+
+          <form id="reportForm" class="report-form" novalidate>
+
+            <!-- First Name & Last Name -->
+            <div class="form-row-two">
+              <div class="input-wrapper" id="wrap-fname">
+                <label for="fname" class="form-label">First name</label>
+                <input type="text" id="fname" class="form-control" autocomplete="given-name" />
+                <p class="error-message">This field can't be empty.</p>
+              </div>
+
+              <div class="input-wrapper" id="wrap-lname">
+                <label for="lname" class="form-label">Last name</label>
+                <input type="text" id="lname" class="form-control" autocomplete="family-name" />
+                <p class="error-message">This field can't be empty.</p>
+              </div>
+            </div>
+
+
+            <!-- Email Address -->
+            <div class="input-wrapper" id="wrap-email">
+              <label for="email" class="form-label">Email address</label>
+              <input type="email" id="email" class="form-control" autocomplete="email" />
+              <p class="error-message">Please enter a valid email address.</p>
+            </div>
+
+
+            <!-- Issue Topic -->
+            <div class="input-wrapper" id="wrap-topic">
+              <label for="topic" class="form-label">Topic</label>
+              <select id="topic" class="form-control">
+                <option value="account">Account issue</option>
+                <option value="testcase">Report a wrong test case</option>
+                <option value="propose">Propose a problem</option>
+                <option value="bug">UI or platform bug</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+
+
+            <!-- Message / Description -->
+            <div class="input-wrapper" id="wrap-message">
+              <label for="message" class="form-label">Message</label>
+              <textarea id="message" rows="5" class="form-control" placeholder="Tell us what's going on..."></textarea>
+              <p class="error-message">This field can't be empty.</p>
+            </div>
+
+
+            <!-- Submit Button -->
+            <button type="submit" class="btn btn-primary submit-btn">
+              Send message
+            </button>
+
+          </form>
+        </div>
+
+
+        <!-- Right Column: Other Ways to Reach Us -->
+        <aside>
+          <h2 class="reach-heading">Other ways to reach us</h2>
+
+          <div class="info-stack">
+
+            <div class="info-card">
+              <strong>Email</strong>
+              <p><a href="mailto:hello@astra.dev">hello@astra.dev</a> &mdash; general questions and partnerships.</p>
+            </div>
+
+
+            <div class="info-card">
+              <strong>Discord</strong>
+              <p>The fastest way to get help from <a href="https://discord.com" target="_blank" rel="noopener">setters</a> and the community directly.</p>
+            </div>
+
+
+            <div class="info-card">
+              <strong>Find us</strong>
+              <div class="map-box">
+                <iframe
+                  class="map-iframe"
+                  src="https://www.openstreetmap.org/export/embed.html?bbox=106.6%2C10.7%2C106.8%2C10.9&amp;layer=mapnik"
+                  title="Astra location map"
+                  loading="lazy">
+                </iframe>
+              </div>
+            </div>
+
+          </div>
+        </aside>
+
+      </div>
+    </section>
+
+  </main>
+
+
+  <div data-include="footer"></div>
+</body>
+
+</html>

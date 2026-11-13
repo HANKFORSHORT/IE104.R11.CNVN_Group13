@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Astra Docs · Site Policy Documentation</title>
+  <meta name="description" content="Official Astra documentation hub — site policies, terms of service, privacy policies, security standards, and glossary." />
+  <link rel="icon" href="images/favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,500;0,600;0,700;1,500&family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/docs.css" />
+  <script src="js/main.js"></script>
+  <script src="js/docs.js" defer></script>
+</head>
+
+<body>
+  <div data-include="header"></div>
+
+
+  <main class="docs-page">
+
+    <!-- Sub-header Bar (Astra Docs) -->
+    <div class="docs-topbar">
+      <div class="docs-topbar-brand">
+        <span>Astra Docs</span>
+        <span class="docs-topbar-divider" aria-hidden="true"></span>
+        <span class="docs-topbar-tag">Reference Hub</span>
+      </div>
+    </div>
+
+
+    <!-- Two-Column Layout: Left Sidebar + Right Content -->
+    <div class="docs-layout">
+
+      <!-- Left Navigation Sidebar -->
+      <aside class="docs-sidebar" aria-label="Documentation navigation">
+        <div class="docs-sidebar-top">
+          <a href="index.html" class="docs-back-link">
+            <span aria-hidden="true">&larr;</span> Home
+          </a>
+
+          <button type="button" class="docs-nav-overview active" data-doc-target="overview" aria-current="true">
+            Site policy
+          </button>
+        </div>
+
+        <nav class="docs-nav-list">
+          <button type="button" class="docs-nav-btn" data-doc-target="terms">
+            Terms
+          </button>
+
+          <button type="button" class="docs-nav-btn" data-doc-target="privacy">
+            Privacy Policies
+          </button>
+
+          <button type="button" class="docs-nav-btn" data-doc-target="security">
+            Security Policies
+          </button>
+
+          <button type="button" class="docs-nav-btn" data-doc-target="glossary">
+            Glossary
+          </button>
+
+          <button type="button" class="docs-nav-btn" data-doc-target="faqs">
+            FAQs
+          </button>
+        </nav>
+      </aside>
+
+
+      <!-- Right Content Area -->
+      <div class="docs-content">
+
+        <!-- Panel: Site Policy Overview (Default) -->
+        <section class="docs-panel" data-doc-panel="overview">
+          <div class="docs-overview-wrap">
+            <h1 class="docs-hero-title">
+              Site policy<br />documentation
+            </h1>
+
+            <p class="docs-intro-text">
+              The purpose of this site is to provide a centralized and transparent place where users can access and review all essential documentation, including policies, terms of service, privacy policies, and security policies. From the perspective of this site, it acts as a formal reference hub that clearly communicates how the platform operates, what rules users must follow, and how user data is collected, used, and protected. It also outlines the legal agreement between the user and the service, ensuring that expectations and responsibilities are clearly defined on both sides. In addition, this site serves to reinforce trust and accountability by explaining the security measures in place and the standards the platform follows to maintain safety and compliance.
+            </p>
+
+            <div class="docs-cards-grid">
+              <button type="button" class="docs-card" data-doc-target="terms">
+                <span class="docs-card-tag">Agreement</span>
+                <h3>Terms of Service</h3>
+                <p>Rules of participation, fair play during rated contests, and acceptable use of the judge system.</p>
+              </button>
+
+              <button type="button" class="docs-card" data-doc-target="privacy">
+                <span class="docs-card-tag">Data</span>
+                <h3>Privacy Policies</h3>
+                <p>How account information, submission source code, and rating history are stored and protected.</p>
+              </button>
+
+              <button type="button" class="docs-card" data-doc-target="security">
+                <span class="docs-card-tag">Protection</span>
+                <h3>Security Policies</h3>
+                <p>Judge sandbox isolation, account security standards, and vulnerability disclosure guidelines.</p>
+              </button>
+
+              <button type="button" class="docs-card" data-doc-target="glossary">
+                <span class="docs-card-tag">Definitions</span>
+                <h3>Glossary</h3>
+                <p>Standard competitive programming terminology, judge verdicts (AC, WA, TLE, MLE), and rating terms.</p>
+              </button>
+            </div>
+          </div>
+        </section>
+
+
+        <!-- Panel: Terms of Service -->
+        <section class="docs-panel" data-doc-panel="terms" hidden>
+          <div class="docs-article-layout">
+
+            <article class="docs-article">
+              <div class="docs-breadcrumb">
+                <button type="button" class="docs-breadcrumb-btn" data-doc-target="overview">Site policy</button>
+                <span aria-hidden="true">/</span>
+                <span class="docs-breadcrumb-current">Terms</span>
+              </div>
+
+              <h1 class="docs-article-title">Astra Terms</h1>
+
+              <p class="docs-lead" id="terms-summary">
+                Thank you for using Astra! We're happy you're here. Please read this Terms of Service agreement carefully before accessing or using Astra. Because it is such an important contract between us and our users, we have tried to make it as clear as possible. For your convenience, we have presented these terms in a short non-binding summary followed by the full legal terms.
+              </p>
+
+              <div class="docs-block" id="terms-account">
+                <h2>Account Responsibility</h2>
+                <p>
+                  Each individual may maintain only one primary account for rated competitions. Sharing credentials or participating in a rated round from multiple accounts is strictly prohibited and may result in rating revocation or account suspension.
+                </p>
+              </div>
+
+              <div class="docs-block" id="terms-fairplay">
+                <h2>Contest Integrity &amp; Fair Play</h2>
+                <p>
+                  During an active contest, all submitted code must be written solely by you. You may use pre-written personal templates published prior to the start of the round, provided you follow our core fair-play rules:
+                </p>
+                <ul class="docs-list">
+                  <li><strong>No external collaboration:</strong> Discussing problem statements, hints, or solutions with anyone before the contest ends is forbidden.</li>
+                  <li><strong>No AI code generation:</strong> Using automated code-generation tools during live rated rounds is considered a violation of contest rules.</li>
+                  <li><strong>No judge abuse:</strong> Deliberately attempting to crash, probe, or overload the evaluation servers will result in immediate suspension.</li>
+                </ul>
+              </div>
+
+              <div class="docs-block" id="terms-licensing">
+                <h2>Public Submissions &amp; Licensing</h2>
+                <p>
+                  Once a contest has concluded, submissions made to public problemset archives become viewable by other learners for educational purposes. Problem authors retain full credit for their original statements and test data.
+                </p>
+              </div>
+            </article>
+
+            <aside class="docs-toc" aria-label="In this article">
+              <h3 class="docs-toc-title">In this article</h3>
+              <ul class="docs-toc-list">
+                <li><a class="docs-toc-link" href="#terms-summary">Summary</a></li>
+                <li><a class="docs-toc-link" href="#terms-account">Account Responsibility</a></li>
+                <li><a class="docs-toc-link" href="#terms-fairplay">Contest Integrity &amp; Fair Play</a></li>
+                <li><a class="docs-toc-link" href="#terms-licensing">Public Submissions</a></li>
+              </ul>
+            </aside>
+
+          </div>
+        </section>
+
+
+        <!-- Panel: Privacy Policies -->
+        <section class="docs-panel" data-doc-panel="privacy" hidden>
+          <div class="docs-article-layout">
+
+            <article class="docs-article">
+              <div class="docs-breadcrumb">
+                <button type="button" class="docs-breadcrumb-btn" data-doc-target="overview">Site policy</button>
+                <span aria-hidden="true">/</span>
+                <span class="docs-breadcrumb-current">Privacy Policies</span>
+              </div>
+
+              <h1 class="docs-article-title">Astra Privacy Policies</h1>
+
+              <p class="docs-lead" id="privacy-summary">
+                Your privacy matters to us. This policy explains what information Astra collects when you register, submit solutions, and compete in rated rounds, as well as how we safeguard your data and respect your control over your account.
+              </p>
+
+              <div class="docs-block" id="privacy-collection">
+                <h2>Information We Collect</h2>
+                <p>
+                  We collect only the minimum information required to operate an online judge and maintain accurate rankings:
+                </p>
+                <ul class="docs-list">
+                  <li><strong>Account profile:</strong> Your chosen handle, email address, and optional profile biography.</li>
+                  <li><strong>Submission records:</strong> Source code, compiler choice, execution time, memory usage, and judge verdict.</li>
+                  <li><strong>Interface preferences:</strong> Local display settings such as light or dark theme stored in your browser via <code>localStorage</code>.</li>
+                </ul>
+              </div>
+
+              <div class="docs-block" id="privacy-usage">
+                <h2>How Your Data Is Used</h2>
+                <p>
+                  Your data is used exclusively to evaluate code submissions, compute contest standings and Elo rating changes, display public leaderboards, and send essential account notifications. We never sell or rent user data to third parties.
+                </p>
+              </div>
+
+              <div class="docs-block" id="privacy-retention">
+                <h2>Data Retention &amp; Deletion</h2>
+                <p>
+                  You may request account deactivation or permanent data deletion at any time through our <a href="report-an-issue.html" class="docs-inline-link">Report an issue</a> page.
+                </p>
+              </div>
+            </article>
+
+            <aside class="docs-toc" aria-label="In this article">
+              <h3 class="docs-toc-title">In this article</h3>
+              <ul class="docs-toc-list">
+                <li><a class="docs-toc-link" href="#privacy-summary">Summary</a></li>
+                <li><a class="docs-toc-link" href="#privacy-collection">Information We Collect</a></li>
+                <li><a class="docs-toc-link" href="#privacy-usage">How Your Data Is Used</a></li>
+                <li><a class="docs-toc-link" href="#privacy-retention">Data Retention &amp; Deletion</a></li>
+              </ul>
+            </aside>
+
+          </div>
+        </section>
+
+
+        <!-- Panel: Security Policies -->
+        <section class="docs-panel" data-doc-panel="security" hidden>
+          <div class="docs-article-layout">
+
+            <article class="docs-article">
+              <div class="docs-breadcrumb">
+                <button type="button" class="docs-breadcrumb-btn" data-doc-target="overview">Site policy</button>
+                <span aria-hidden="true">/</span>
+                <span class="docs-breadcrumb-current">Security Policies</span>
+              </div>
+
+              <h1 class="docs-article-title">Astra Security Policies</h1>
+
+              <p class="docs-lead" id="security-summary">
+                Executing untrusted code safely is at the core of Astra's engineering. This document outlines how our evaluation workers isolate submissions, how user accounts are protected, and how security researchers can report vulnerabilities.
+              </p>
+
+              <div class="docs-block" id="security-sandbox">
+                <h2>Isolated Judge Sandboxing</h2>
+                <p>
+                  Every user submission is compiled and executed inside an isolated Linux container with restricted system calls, zero external network access, read-only root filesystems, and strict CPU time and memory quotas.
+                </p>
+              </div>
+
+              <div class="docs-block" id="security-accounts">
+                <h2>Account &amp; Transport Protection</h2>
+                <p>
+                  All account credentials are salted and hashed using modern cryptographic algorithms, and all traffic between your browser and Astra is encrypted over HTTPS.
+                </p>
+              </div>
+
+              <div class="docs-block" id="security-disclosure">
+                <h2>Responsible Vulnerability Disclosure</h2>
+                <p>
+                  If you discover a security issue in Astra's web application or judge workers, please report it privately via our <a href="report-an-issue.html" class="docs-inline-link">Report an issue</a> form or email <a href="mailto:hello@astra.dev" class="docs-inline-link">hello@astra.dev</a> so our team can patch it promptly.
+                </p>
+              </div>
+            </article>
+
+            <aside class="docs-toc" aria-label="In this article">
+              <h3 class="docs-toc-title">In this article</h3>
+              <ul class="docs-toc-list">
+                <li><a class="docs-toc-link" href="#security-summary">Summary</a></li>
+                <li><a class="docs-toc-link" href="#security-sandbox">Isolated Judge Sandboxing</a></li>
+                <li><a class="docs-toc-link" href="#security-accounts">Account Protection</a></li>
+                <li><a class="docs-toc-link" href="#security-disclosure">Vulnerability Disclosure</a></li>
+              </ul>
+            </aside>
+
+          </div>
+        </section>
+
+
+        <!-- Panel: Glossary -->
+        <section class="docs-panel" data-doc-panel="glossary" hidden>
+          <div class="docs-article-layout">
+
+            <article class="docs-article">
+              <div class="docs-breadcrumb">
+                <button type="button" class="docs-breadcrumb-btn" data-doc-target="overview">Site policy</button>
+                <span aria-hidden="true">/</span>
+                <span class="docs-breadcrumb-current">Glossary</span>
+              </div>
+
+              <h1 class="docs-article-title">Astra Glossary</h1>
+
+              <p class="docs-lead" id="glossary-summary">
+                A quick reference for judge verdicts, contest formats, and competitive programming terms used across Astra.
+              </p>
+
+              <div class="glossary-list">
+                <div class="glossary-item" id="glossary-ac">
+                  <span class="glossary-term">AC — Accepted</span>
+                  <p>Your program produced the correct output on all hidden test cases within the time and memory limits.</p>
+                </div>
+
+                <div class="glossary-item" id="glossary-wa">
+                  <span class="glossary-term">WA — Wrong Answer</span>
+                  <p>Your program terminated normally, but its output did not match the expected answer on at least one test case.</p>
+                </div>
+
+                <div class="glossary-item" id="glossary-tle">
+                  <span class="glossary-term">TLE — Time Limit Exceeded</span>
+                  <p>Your program took longer to execute than the maximum CPU time allowed for the problem.</p>
+                </div>
+
+                <div class="glossary-item" id="glossary-mle">
+                  <span class="glossary-term">MLE — Memory Limit Exceeded</span>
+                  <p>Your program allocated more memory than the problem's permitted limit (typically 256 MB).</p>
+                </div>
+
+                <div class="glossary-item" id="glossary-re">
+                  <span class="glossary-term">RE — Runtime Error</span>
+                  <p>Your program exited with a non-zero status due to an unhandled exception, segmentation fault, or division by zero.</p>
+                </div>
+
+                <div class="glossary-item" id="glossary-upsolving">
+                  <span class="glossary-term">Upsolving</span>
+                  <p>Practicing and solving problems from a contest after the live round has concluded.</p>
+                </div>
+              </div>
+            </article>
+
+            <aside class="docs-toc" aria-label="In this article">
+              <h3 class="docs-toc-title">In this article</h3>
+              <ul class="docs-toc-list">
+                <li><a class="docs-toc-link" href="#glossary-summary">Summary</a></li>
+                <li><a class="docs-toc-link" href="#glossary-ac">AC — Accepted</a></li>
+                <li><a class="docs-toc-link" href="#glossary-wa">WA — Wrong Answer</a></li>
+                <li><a class="docs-toc-link" href="#glossary-tle">TLE — Time Limit</a></li>
+                <li><a class="docs-toc-link" href="#glossary-mle">MLE — Memory Limit</a></li>
+                <li><a class="docs-toc-link" href="#glossary-re">RE — Runtime Error</a></li>
+                <li><a class="docs-toc-link" href="#glossary-upsolving">Upsolving</a></li>
+              </ul>
+            </aside>
+
+          </div>
+        </section>
+
+
+        <!-- Panel: FAQs -->
+        <section class="docs-panel" data-doc-panel="faqs" hidden>
+          <div class="docs-article-layout">
+
+            <article class="docs-article">
+              <div class="docs-breadcrumb">
+                <button type="button" class="docs-breadcrumb-btn" data-doc-target="overview">Site policy</button>
+                <span aria-hidden="true">/</span>
+                <span class="docs-breadcrumb-current">FAQs</span>
+              </div>
+
+              <h1 class="docs-article-title">Astra Policy FAQs</h1>
+
+              <p class="docs-lead" id="faqs-summary">
+                Quick answers to common questions regarding contest rules, code visibility, and platform policies. For general platform questions, visit our full <a href="faq.html" class="docs-inline-link">FAQ page</a>.
+              </p>
+
+              <div class="docs-block" id="faqs-templates">
+                <h2>Can I use open-source algorithm templates during a contest?</h2>
+                <p>
+                  Yes, as long as the template or data-structure library was publicly available prior to the start of the contest and was not written specifically for any problem in the active round.
+                </p>
+              </div>
+
+              <div class="docs-block" id="faqs-visibility">
+                <h2>Are my submissions visible to other users?</h2>
+                <p>
+                  During a live contest, your source code remains private until the round ends. In the public Problemset and Gym archives, accepted solutions can be viewed by other users to support learning.
+                </p>
+              </div>
+
+              <div class="docs-block" id="faqs-appeals">
+                <h2>How do I appeal a verdict or report a broken test case?</h2>
+                <p>
+                  Submit a ticket on our <a href="report-an-issue.html" class="docs-inline-link">Report an issue</a> page with the problem code, submission ID, and counterexample input so our problem setters can investigate.
+                </p>
+              </div>
+            </article>
+
+            <aside class="docs-toc" aria-label="In this article">
+              <h3 class="docs-toc-title">In this article</h3>
+              <ul class="docs-toc-list">
+                <li><a class="docs-toc-link" href="#faqs-summary">Summary</a></li>
+                <li><a class="docs-toc-link" href="#faqs-templates">Algorithm Templates</a></li>
+                <li><a class="docs-toc-link" href="#faqs-visibility">Submission Visibility</a></li>
+                <li><a class="docs-toc-link" href="#faqs-appeals">Appeals &amp; Test Cases</a></li>
+              </ul>
+            </aside>
+
+          </div>
+        </section>
+
+      </div>
+
+    </div>
+
+  </main>
+
+
+  <div data-include="footer"></div>
+</body>
+
+</html>
