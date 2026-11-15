@@ -3,15 +3,14 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Page title · Astra</title>
+  <title>Profile · Astra</title>
   <meta name="description" content="" />
   <link rel="icon" href="images/favicon.svg" type="image/svg+xml" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,500;0,600;0,700;1,500&family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/style.css">
-  <link rel="stylesheet" href="css/profile.css">
-</head>
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/profile.css" />
   <script src="js/main.js"></script>
   <script src="js/profile.js"></script>
 </head>
@@ -19,68 +18,93 @@
   <div data-include="header"></div>
 
   <main class="profile-page">
-    <div class="container">
-      <div class="pf-top">
-        <h1 class="pf-handle" id="pf-handle">username</h1>
-        <div class="pf-tabs" role="tablist">
-          <a class="pf-tab" href="#blog-new"><span aria-hidden="true" class="pf-plus">+</span> Create new blog post</a>
-          <button class="pf-tab active" role="tab" data-tab="about" aria-selected="true">About</button>
-          <button class="pf-tab" role="tab" data-tab="blogs" aria-selected="false">Blogs</button>
-          <a class="pf-tab" href="#edit">Edit profile</a>
-        </div>
-      </div>
+    <div class="container pf-layout">
 
-      <div class="pf-layout">
-
-        <aside class="pf-side">
+      <aside class="pf-side" aria-label="Profile summary">
+        <div class="pf-id">
           <svg id="pf-avatar" class="pf-avatar" viewBox="0 0 5 5" role="img" aria-label="Avatar"></svg>
-          <dl class="pf-stats">
-            <div><dt>Email:</dt><dd id="pf-email"></dd></div>
-            <div><dt>Problems solved:</dt><dd id="pf-solved">0</dd></div>
-            <div><dt>Rank by points:</dt><dd id="pf-rank">#—</dd></div>
-            <div><dt>Total points:</dt><dd id="pf-points">0.00</dd></div>
-            <div><dt>Contribution points:</dt><dd id="pf-contrib">0</dd></div>
-          </dl>
-          <a class="pf-link" href="submissions.html" id="pf-subs-link">View submissions</a>
-        </aside>
-
-        <section class="pf-main">
-
-          <div class="pf-panel" data-panel="about">
+          <div class="pf-id-text">
+            <h1 class="pf-handle" id="pf-handle">username</h1>
             <p class="pf-bio" id="pf-bio"></p>
+          </div>
+        </div>
 
-            <h2 class="pf-h2">Badges &amp; Awards</h2>
-            <div id="pf-badges" class="pf-badges"></div>
+        <a class="btn btn-secondary btn-sm pf-edit" href="#edit">Edit profile</a>
 
-            <h2 class="pf-h2" id="pf-heat-title">0 submissions in the last year</h2>
+        <p class="pf-email">
+          <span class="pf-email-label">Email</span>
+          <span id="pf-email"></span>
+        </p>
 
-            <figure class="pf-heat-card">
-              <figcaption class="pf-heat-caption">past year</figcaption>
-              <div class="pf-heat-scroll">
-                <div class="pf-heat" id="pf-heat">
-                  <div class="pf-months" id="pf-months"></div>
-                  <div class="pf-days">
-                    <span>Sun</span><span>Mon</span><span>Tues</span><span>Wed</span><span>Thurs</span><span>Fri</span><span>Sat</span>
-                  </div>
+        <dl class="pf-stats">
+          <div class="pf-stat"><dt>Problems solved</dt><dd id="pf-solved">0</dd></div>
+          <div class="pf-stat"><dt>Rank by points</dt><dd id="pf-rank">#—</dd></div>
+          <div class="pf-stat"><dt>Total points</dt><dd id="pf-points">0.00</dd></div>
+          <div class="pf-stat"><dt>Contribution</dt><dd id="pf-contrib">0</dd></div>
+        </dl>
+
+        <a class="pf-link" href="submissions.html" id="pf-subs-link">View submissions</a>
+      </aside>
+
+      <section class="pf-main">
+
+        <div class="pf-tabbar">
+          <div class="pf-tabs" role="tablist">
+            <button class="pf-tab active" id="tab-about" role="tab" data-tab="about" aria-selected="true" aria-controls="panel-about">About</button>
+            <button class="pf-tab" id="tab-blogs" role="tab" data-tab="blogs" aria-selected="false" aria-controls="panel-blogs">Blogs</button>
+          </div>
+          <a class="btn btn-primary btn-sm" href="#blog-new">+ Create new blog post</a>
+        </div>
+
+        <div class="pf-panel" id="panel-about" role="tabpanel" aria-labelledby="tab-about" data-panel="about">
+
+          <h2 class="pf-h2">Badges &amp; Awards</h2>
+          <div id="pf-badges" class="pf-badges"></div>
+
+          <h2 class="pf-h2" id="pf-heat-title">0 submissions in the last year</h2>
+          <figure class="pf-card pf-heat-card">
+            <div class="pf-heat-scroll">
+              <div class="pf-heat" id="pf-heat">
+                <div class="pf-days" aria-hidden="true">
+                  <span></span><span>Mon</span><span></span><span>Wed</span><span></span><span>Fri</span><span></span>
+                </div>
+                <div class="pf-heat-body">
+                  <div class="pf-months" id="pf-months" aria-hidden="true"></div>
                   <div class="pf-grid" id="pf-grid" role="img" aria-label="Submission activity heatmap"></div>
                 </div>
               </div>
-              <div class="pf-heat-foot">
-                <span id="pf-heat-total">0 total submissions</span>
-                <span class="pf-legend">Less
-                  <i class="lv0"></i><i class="lv1"></i><i class="lv2"></i><i class="lv3"></i><i class="lv4"></i>
-                  More</span>
-              </div>
-            </figure>
-          </div>
+            </div>
+            <div class="pf-heat-foot">
+              <span id="pf-heat-total">0 total submissions</span>
+              <span class="pf-legend">Less
+                <i class="lv0"></i><i class="lv1"></i><i class="lv2"></i><i class="lv3"></i><i class="lv4"></i>
+                More</span>
+            </div>
+          </figure>
 
-          <div class="pf-panel" data-panel="blogs" hidden>
-            <h2 class="pf-h2">Blogs</h2>
-            <p class="pf-empty">This user has not written any blog posts yet.</p>
-          </div>
+          <h2 class="pf-h2">Activity</h2>
+          <figure class="pf-card pf-act">
+            <figcaption class="pf-act-strip">
+              <span class="pf-act-title" id="pf-act-title">Submissions per month</span>
+              <span class="pf-act-summary" id="pf-act-summary"></span>
+            </figcaption>
+            <div class="pf-act-body">
+              <div class="pf-act-canvas" id="pf-act-canvas"></div>
+              <ol class="pf-act-list" id="pf-act-list" hidden></ol>
+            </div>
+            <div class="pf-act-foot">
+              <span id="pf-act-note"></span>
+              <a class="pf-link" href="achievements.html">View all achievements</a>
+            </div>
+          </figure>
+        </div>
 
-        </section>
-      </div>
+        <div class="pf-panel" id="panel-blogs" role="tabpanel" aria-labelledby="tab-blogs" data-panel="blogs" hidden>
+          <h2 class="pf-h2">Blogs</h2>
+          <p class="pf-empty">This user has not written any blog posts yet.</p>
+        </div>
+
+      </section>
     </div>
 
     <div class="pf-tip" id="pf-tip" role="tooltip" hidden></div>
