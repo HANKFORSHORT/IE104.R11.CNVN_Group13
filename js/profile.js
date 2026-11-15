@@ -402,6 +402,7 @@
     });
     canvas.addEventListener('focusout', hideTip);
 
+    /* --- rebuild when the width changes (resize, rotate, tab shown) or web fonts finish loading --- */
     var lastWidth = 0, queued = false;
     function schedule() {
       if (queued) return;
@@ -420,6 +421,7 @@
     if (document.fonts && document.fonts.ready) document.fonts.ready.then(render);
   })();
 
+  /* ---------- Tabs ---------- */
   var tabs = document.querySelectorAll('.pf-tab[data-tab]');
   tabs.forEach(function (tab) {
     tab.addEventListener('click', function () {
@@ -427,6 +429,7 @@
       document.querySelectorAll('.pf-panel').forEach(function (p) { p.hidden = p.dataset.panel !== tab.dataset.tab; });
     });
   });
+  // Diagnostics: tell the developer which expected elements are missing from the page
   ['pf-handle','pf-email','pf-solved','pf-rank','pf-points','pf-contrib','pf-bio','pf-badges','pf-heat-title','pf-grid','pf-months','pf-tip','pf-heat-total','pf-act-canvas','pf-act-list']
     .forEach(function (id) { if (!$(id)) console.warn('[profile.js] missing element #' + id); });
 

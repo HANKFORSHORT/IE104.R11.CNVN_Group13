@@ -9,7 +9,11 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,500;0,600;0,700;1,500&family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/table.css">
+  <link rel="stylesheet" href="css/contest.css">
+  <script src="js/main.js"></script>
+  <script src="js/table-filter.js"></script>
   <script src="js/main.js"></script>
 </head>
 <body>
@@ -44,6 +48,39 @@
         <span class="eyebrow">Archive</span>
         <h2>Past contests</h2>
       </div>
+
+        <div class="filters-bar" data-filter-table="#contestBody">
+          <select data-filter="format" aria-label="Filter by type">
+            <option value="any">Any format</option>
+            <option value="div1">Div. 1</option>
+            <option value="div2">Div. 2</option>
+            <option value="div3">Div. 3</option>
+            <option value="edu">Educational</option>
+          </select>
+          <select data-filter="rated" aria-label="Filter by rated status">
+            <option value="any">Rated: doesn't matter</option>
+            <option value="true">Rated only</option>
+            <option value="false">Unrated only</option>
+          </select>
+          <input data-filter-search type="text" placeholder="Search contest name&hellip;" />
+          <button data-filter-apply class="btn btn-primary btn-sm" type="button">Filter</button>
+        </div>
+
+       <div class="table-wrap">
+        <table class="data-table">
+          <thead><tr><th>Name</th><th>Date</th><th>Length</th><th>Participants</th><th></th></tr></thead>
+            <tbody id="contestBody">
+              <tr data-format="div2" data-rated="true"><td><a class="problem-link" href="contest.html">Astra Round 117 (Div. 2)</a></td><td>Sep 14, 2026</td><td>02:00</td><td>12,406</td><td><a href="rankings.html" class="btn btn-sm btn-secondary">Standings</a></td></tr>
+              <tr data-format="div1" data-rated="true"><td><a class="problem-link" href="contest.html">Astra Round 116 (Div. 1)</a></td><td>Sep 12, 2026</td><td>03:00</td><td>3,981</td><td><a href="rankings.html" class="btn btn-sm btn-secondary">Standings</a></td></tr>
+              <tr data-format="edu" data-rated="false"><td><a class="problem-link" href="contest.html">Educational Round 94</a></td><td>Sep 08, 2026</td><td>02:00</td><td>9,204</td><td><a href="rankings.html" class="btn btn-sm btn-secondary">Standings</a></td></tr>
+              <tr data-format="div3" data-rated="true"><td><a class="problem-link" href="contest.html">Astra Round 115 (Div. 3)</a></td><td>Sep 05, 2026</td><td>02:15</td><td>18,772</td><td><a href="rankings.html" class="btn btn-sm btn-secondary">Standings</a></td></tr>
+              <tr data-format="div2" data-rated="false"><td><a class="problem-link" href="contest.html">Astra Round 114 (Div. 2)</a></td><td>Aug 29, 2026</td><td>02:00</td><td>13,050</td><td><a href="rankings.html" class="btn btn-sm btn-secondary">Standings</a></td></tr>
+              <tr data-format="div2" data-rated="true"><td><a class="problem-link" href="contest.html">Astra Round 113 (Div. 2)</a></td><td>Aug 17, 2026</td><td>02:00</td><td>11,893</td><td><a href="rankings.html" class="btn btn-sm btn-secondary">Standings</a></td></tr>
+              <tr id="emptyRow" hidden><td colspan="5">No contests found</td></tr>
+            </tbody>
+        </table>
+      </div>
+
     </section>
     
   </main>
