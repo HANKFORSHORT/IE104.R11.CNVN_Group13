@@ -433,9 +433,8 @@
   ['pf-handle','pf-email','pf-solved','pf-rank','pf-points','pf-contrib','pf-bio','pf-badges','pf-heat-title','pf-grid','pf-months','pf-tip','pf-heat-total','pf-act-canvas','pf-act-list']
     .forEach(function (id) { if (!$(id)) console.warn('[profile.js] missing element #' + id); });
 
-  } // end init
+  }
 
-  // Works whether the <script> sits in <head>, at the end of <body>, or is loaded with defer
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
   else init();
 })();
