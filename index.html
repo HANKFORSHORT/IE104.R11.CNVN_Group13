@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Home · Astra</title>
-  <meta name="description" content="Astra competitive programming dashboard." />
+  <meta name="description" content="Astra is a free training ground for algorithmic thinking." />
   <link rel="icon" href="images/favicon.svg" type="image/svg+xml" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -16,104 +16,177 @@
 <body>
   <div data-include="header"></div>
 
-  <main class="home-dashboard">
-    <!-- Page-specific dashboard layout and responsive styles. -->
-
-    <!-- Hero: position the home page as a focused practice dashboard. -->
+  <main class="home-page">
     <section class="home-hero">
       <div class="container home-hero-grid">
-        <div>
-          <p class="home-kicker">Astra / Home</p>
-          <h1>Your next solve starts here.</h1>
-          <p class="home-lede">A focused snapshot of contests, rankings, and problems worth your time today.</p>
+        <div class="home-hero-content">
+          <p class="home-kicker"><span aria-hidden="true">◆</span> Season 4 rating reset — now live</p>
+          <h1>May the system<br />test be <em>with</em> you.</h1>
+          <p class="home-tagline">For the benefit of all.</p>
+          <p class="home-lede">Astra is a free training ground for algorithmic thinking: a deep problemset, timed rated contests, and a rating that actually reflects how you solve — not just what you memorised.</p>
           <div class="home-actions">
-            <!-- TODO: connect this to the finished Problems page. -->
-            <a href="problems.html" class="btn btn-primary">Solve a problem <span aria-hidden="true">&rarr;</span></a>
-            <a href="contests.html" class="btn btn-ghost">See contests</a>
+            <a href="register.html" class="btn btn-primary">Start solving — it's free <span aria-hidden="true">→</span></a>
+            <a href="contests.html" class="btn btn-ghost">See upcoming contests</a>
+          </div>
+          <div class="home-meta" aria-label="Astra community statistics">
+            <div><strong>14,200+</strong><span>Problems solved today</span></div>
+            <div><strong>382</strong><span>Rated contests run</span></div>
+            <div><strong>61k</strong><span>Registered coders</span></div>
           </div>
         </div>
-        <aside class="home-hero-aside" aria-label="Today's progress">
-          <span class="home-week-label">YOUR WEEK</span>
-          <strong>04 / 06</strong>
-          <span class="home-week-note">problems completed</span>
-          <div class="home-progress"><span></span></div>
-        </aside>
+        <div class="home-orbit" aria-hidden="true">
+          <span class="orbit-ring orbit-ring-one"></span>
+          <span class="orbit-ring orbit-ring-two"></span>
+          <span class="orbit-ring orbit-ring-three"></span>
+          <span class="orbit-core"></span>
+          <span class="orbit-node orbit-node-one">DP</span>
+          <span class="orbit-node orbit-node-two">#4</span>
+          <span class="orbit-node orbit-node-three">1900</span>
+          <span class="orbit-node orbit-node-four">A+B</span>
+        </div>
+      </div>
+      <span class="home-hero-peaks" aria-hidden="true"></span>
+    </section>
+
+    <section class="home-section">
+      <div class="container">
+        <div class="home-section-head home-section-head-center">
+          <p class="home-eyebrow">Why Astra</p>
+          <h2>Everything a training ground needs, nothing it doesn’t</h2>
+          <p>No clutter, no paywalled editorials, no dark patterns. Just a clean judge, honest ratings, and problems worth your time.</p>
+        </div>
+        <div class="home-feature-grid">
+          <article class="home-feature">
+            <div class="feature-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+            </div>
+            <h3>2,600+ problems</h3>
+            <p>Sorted by difficulty and topic, from your first loop to segment trees with lazy propagation.</p>
+          </article>
+          <article class="home-feature">
+            <div class="feature-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-1.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98 1.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/></svg>
+            </div>
+            <h3>Weekly rated rounds</h3>
+            <p>Div. 1 and Div. 2 rounds every week, ICPC and OI formats, real-time standings and hacks.</p>
+          </article>
+          <article class="home-feature">
+            <div class="feature-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+            </div>
+            <h3>A rating worth earning</h3>
+            <p>Astra’s rating system rewards consistent solving over lucky guesses — and it’s public.</p>
+          </article>
+          <article class="home-feature">
+            <div class="feature-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 7v10"/><path d="M3 9.5v5"/><path d="M18 7v10"/><path d="M21 9.5v5"/><path d="M6 12h12"/></svg>
+            </div>
+            <h3>Gym &amp; mashups</h3>
+            <p>Build your own practice sets from past rounds, or drop into an unrated virtual contest any time.</p>
+          </article>
+        </div>
       </div>
     </section>
 
-    <!-- Contests and rankings: a short preview linking to the full pages. -->
-    <section class="dashboard-section">
-      <div class="container">
-        <div class="dashboard-grid">
-          <div class="dashboard-panel">
-            <div class="dashboard-heading">
-              <div><h2>Upcoming contests</h2><p>Pick a round and reserve your time.</p></div>
-              <a class="dashboard-link" href="contests.html">All contests &rarr;</a>
-            </div>
-            <div class="contest-list">
-              <a class="contest-item" href="contests.html"><time class="contest-date" datetime="2026-10-17">OCT<br />17</time><div><h3>Astra Round 118</h3><p>Div. 1 + Div. 2 &middot; 02:00 &middot; Rated</p></div><span class="status">REGISTER</span></a>
-              <a class="contest-item" href="contests.html"><time class="contest-date" datetime="2026-10-20">OCT<br />20</time><div><h3>Beginner Sprint 42</h3><p>Open &middot; 01:30 &middot; Rated</p></div><span class="status">UPCOMING</span></a>
-              <a class="contest-item" href="contests.html"><time class="contest-date" datetime="2026-10-24">OCT<br />24</time><div><h3>Graph Theory Night</h3><p>Gym &middot; 02:00 &middot; Practice</p></div><span class="status">GYM</span></a>
-            </div>
+    <section class="home-section home-section-dark">
+      <div class="container home-contest-grid">
+        <div>
+          <p class="home-eyebrow">Featured contest</p>
+          <h2>Astra Round 118<br />(Div. 1 + Div. 2)</h2>
+          <p>Six problems, two hours, one shared standings page. Div. 2 problems double as the tail of Div. 1, so everyone lands on a fair curve regardless of rating.</p>
+          <div class="contest-meta">
+            <div><strong>Oct 17</strong><span>Starts 21:35 ICT</span></div>
+            <div><strong>02:00</strong><span>Duration</span></div>
+            <div><strong>Rated</strong><span>Up to 3000</span></div>
           </div>
+          <div class="home-actions">
+            <a href="contest.html" class="btn btn-primary">Register for round</a>
+            <a href="contests.html" class="btn btn-ghost">View all contests</a>
+          </div>
+        </div>
+        <div class="code-window" role="img" aria-label="Example contest problem">
+          <div class="code-window-bar" aria-hidden="true"><span></span><span></span><span></span></div>
+          <pre class="code-window-body"><code><span class="code-comment">// C. Deranged Calculator — 1900</span>
+<span class="code-keyword">#include</span> <span class="code-header">&lt;bits/stdc++.h&gt;</span>
+using namespace std;
 
-          <div class="dashboard-panel">
-            <div class="dashboard-heading">
-              <div><h2>Top 5 this week</h2><p>Ratings updated after each round.</p></div>
-              <a class="dashboard-link" href="rankings.html">Full ranking &rarr;</a>
-            </div>
-            <div class="data-list" aria-label="Top five users this week">
-              <a class="data-row" href="rankings.html"><span class="rank-number">01</span><span><strong>nguyenminh</strong><small>Vietnam</small></span><span class="data-value">2,481</span></a>
-              <a class="data-row" href="rankings.html"><span class="rank-number">02</span><span><strong>codewithmai</strong><small>Vietnam</small></span><span class="data-value">2,376</span></a>
-              <a class="data-row" href="rankings.html"><span class="rank-number">03</span><span><strong>alex_chen</strong><small>Singapore</small></span><span class="data-value">2,301</span></a>
-              <a class="data-row" href="rankings.html"><span class="rank-number">04</span><span><strong>bytebender</strong><small>Thailand</small></span><span class="data-value">2,245</span></a>
-              <a class="data-row" href="rankings.html"><span class="rank-number">05</span><span><strong>linhtran</strong><small>Vietnam</small></span><span class="data-value">2,198</span></a>
-            </div>
-          </div>
+<span class="code-keyword">int</span> main() {
+    <span class="code-keyword">int</span> l, r; cin &gt;&gt; l &gt;&gt; r;
+    <span class="code-keyword">for</span> (<span class="code-keyword">int</span> i = l; i &lt;= r; i++)
+        cout &lt;&lt; i &lt;&lt; <span class="code-string">" "</span>;
+    <span class="code-keyword">return</span> 0;
+}</code></pre>
         </div>
       </div>
     </section>
 
-    <!-- Featured problems: a varied list instead of repeated cards. -->
-    <section class="dashboard-section">
+    <section class="home-section">
       <div class="container">
-        <div class="dashboard-heading">
-          <div><h2>Problems worth solving</h2><p>Popular picks across different difficulty levels.</p></div>
-          <!-- TODO: switch this link to problems.html when the Problems page is added. -->
-          <a class="dashboard-link" href="problems.html">Browse problemset &rarr;</a>
+        <div class="home-section-head home-section-head-row">
+          <div>
+            <p class="home-eyebrow">Fresh off the queue</p>
+            <h2>Recently added problems</h2>
+          </div>
+          <a class="home-text-link" href="problems.html">Browse full problemset <span aria-hidden="true">→</span></a>
         </div>
-        <div class="dashboard-panel problem-table-panel">
-          <table class="problem-table">
-            <thead><tr><th>Problem</th><th>Topic</th><th>Solved</th><th>Level</th></tr></thead>
+        <div class="home-table-wrap">
+          <table class="home-problem-table">
+            <thead>
+              <tr><th>#</th><th>Problem</th><th>Topics</th><th>Difficulty</th><th>Solved</th></tr>
+            </thead>
             <tbody>
-              <tr><td><a href="problems.html">A. First Light</a></td><td>Implementation</td><td>8,420</td><td class="difficulty">Easy</td></tr>
-              <tr><td><a href="problems.html">B. Two Paths</a></td><td>Graphs</td><td>5,184</td><td class="difficulty">Medium</td></tr>
-              <tr><td><a href="problems.html">C. Quiet Interval</a></td><td>Dynamic programming</td><td>2,976</td><td class="difficulty">Medium</td></tr>
-              <tr><td><a href="problems.html">D. Last Signal</a></td><td>Data structures</td><td>1,208</td><td class="difficulty">Hard</td></tr>
+              <tr><td>2264F</td><td><a href="problems.html">Deranged Calculator</a></td><td><span class="home-tag">math</span><span class="home-tag">implementation</span></td><td><span class="home-difficulty difficulty-hard">1900</span></td><td>1,112</td></tr>
+              <tr><td>2264D</td><td><a href="problems.html">Dr. Agos's Dark Mode</a></td><td><span class="home-tag">brute force</span><span class="home-tag">strings</span></td><td><span class="home-difficulty difficulty-easy">1400</span></td><td>4,027</td></tr>
+              <tr><td>2263B</td><td><a href="problems.html">Min Matrices</a></td><td><span class="home-tag">constructive</span></td><td><span class="home-difficulty difficulty-medium">1700</span></td><td>10,410</td></tr>
+              <tr><td>2262E</td><td><a href="problems.html">Paired Bracket Sequences</a></td><td><span class="home-tag">combinatorics</span><span class="home-tag">math</span></td><td><span class="home-difficulty difficulty-hard">2200</span></td><td>72</td></tr>
+              <tr><td>2260G</td><td><a href="problems.html">Sortable Permutations</a></td><td><span class="home-tag">number theory</span></td><td><span class="home-difficulty difficulty-hard">2400</span></td><td>172</td></tr>
             </tbody>
           </table>
         </div>
       </div>
     </section>
 
-    <!-- Shortcuts: entry points to secondary pages in the sitemap. -->
-    <section class="dashboard-section">
+    <section class="home-stats">
+      <div class="container home-stats-grid">
+        <div><strong>2,634</strong><span>Problems in the archive</span></div>
+        <div><strong>61,400+</strong><span>Registered accounts</span></div>
+        <div><strong>382</strong><span>Rated rounds hosted</span></div>
+        <div><strong>3,810</strong><span>Highest live rating</span></div>
+      </div>
+    </section>
+
+    <section class="home-section">
+      <div class="container home-how-grid">
+        <div class="home-section-head home-how-head">
+          <p class="home-eyebrow">How it works</p>
+          <h2>From account to first accepted verdict in four steps</h2>
+          <p>No setup fees, no credit card. Just a judge, a queue, and your next submission.</p>
+          <a href="guide.html" class="btn btn-secondary">Read the full guide</a>
+        </div>
+        <div class="home-steps">
+          <article><span>1</span><div><h3>Create your account</h3><p>Pick a handle — it’s how the whole community will know you on standings pages.</p></div></article>
+          <article><span>2</span><div><h3>Warm up in the Gym</h3><p>Unrated practice sets and past-round mashups let you calibrate before you compete.</p></div></article>
+          <article><span>3</span><div><h3>Register for a round</h3><p>Div. 1, Div. 2, or combined — rounds run weekly, and registration takes ten seconds.</p></div></article>
+          <article><span>4</span><div><h3>Submit &amp; climb</h3><p>Get instant verdicts, read editorials afterward, and watch your rating move.</p></div></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="home-testimonials">
+      <div class="container home-testimonial-grid">
+        <blockquote><p>“Astra’s editorials are the first ones I’ve read all the way through. They explain the <em>why</em>, not just the code.”</p><footer><strong>@heuristica</strong><span class="home-rating rating-red">3322</span></footer></blockquote>
+        <blockquote><p>“I moved from Div. 2 to Div. 1 in four months of weekly rounds. The Gym practice sets made the difference.”</p><footer><strong>@maroonrk</strong><span class="home-rating rating-gold">1780</span></footer></blockquote>
+        <blockquote><p>“It’s rare to find a judge this fast and this uncluttered. Submissions come back in under a second.”</p><footer><strong>@turmax</strong><span class="home-rating rating-red">2950</span></footer></blockquote>
+      </div>
+    </section>
+
+    <section class="home-final-cta">
       <div class="container">
-        <div class="dashboard-grid">
-          <div class="dashboard-panel">
-            <h3>Keep your momentum</h3>
-            <p class="panel-note">A small routine is easier to keep than a perfect one.</p>
-            <div class="streak-summary">
-              <strong class="streak-number">07</strong>
-              <span class="streak-copy">day solving streak<br />best: 12 days</span>
-              <!-- TODO: show the signed-in user's real streak when Account/Profile is available. -->
-            </div>
-          </div>
-          <div class="home-cta">
-            <div><h2>New to Astra?</h2><p>Start with a guided practice path.</p></div>
-            <!-- TODO: use guide.html as the onboarding flow for new users. -->
-            <a href="guide.html" class="btn btn-secondary btn-sm">Open guide</a>
-          </div>
+        <h2>Your first accepted verdict is a few clicks away.</h2>
+        <p>Join for free and get a starting problem set matched to your first placement round.</p>
+        <div class="home-actions">
+          <a href="register.html" class="btn btn-primary">Create free account</a>
+          <a href="pricing.html" class="btn btn-secondary">Compare plans</a>
         </div>
       </div>
     </section>
