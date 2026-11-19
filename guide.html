@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Guide · Astra</title>
+  <meta name="description" content="A practical guide to choosing problems, submitting solutions, and learning from every verdict on Astra." />
+  <link rel="icon" href="images/favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,500;0,600;0,700;1,500&family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/guide.css" />
+  <script src="js/main.js"></script>
+</head>
+<body>
+  <div data-include="header"></div>
+
+  <main>
+    <!-- Guide hero: a concise introduction and reading path. -->
+    <section class="page-header">
+      <div class="container">
+        <div class="breadcrumb"><a href="index.html">Home</a> / Guide</div>
+        <h1 class="guide-title">Start solving with confidence.</h1>
+        <p class="guide-lede">
+          A short field guide to finding the right problem, writing a submission, and learning from every verdict on Astra.
+        </p>
+      </div>
+    </section>
+
+    <!-- Guide body: a sticky table of contents and the main instructions. -->
+    <section class="section">
+      <div class="container guide-layout">
+        <!-- Table of contents: quick links to each section. -->
+        <aside class="guide-aside">
+          <span class="eyebrow">On this page</span>
+          <nav aria-label="Guide sections">
+            <ol class="guide-toc">
+              <li><a href="#first-steps">First steps</a></li>
+              <li><a href="#submit">Submit a solution</a></li>
+              <li><a href="#verdicts">Read verdicts</a></li>
+              <li><a href="#next">Keep going</a></li>
+            </ol>
+          </nav>
+          <div class="card guide-new-card">
+            <p>New here?</p>
+            <a href="problems.html" class="btn btn-ghost btn-sm">Browse problems <span aria-hidden="true">&rarr;</span></a>
+          </div>
+        </aside>
+
+        <div class="guide-content">
+          <!-- Section 1: choosing a first problem. -->
+          <article id="first-steps" class="guide-article">
+            <span class="eyebrow">01 / Find your entry point</span>
+            <h2>Start with one problem you can finish.</h2>
+            <p>
+              Choose a difficulty that feels slightly uncomfortable, not impossible. Read the statement twice,
+              write down the input and output shape, then test your idea on the sample before opening the editor.
+            </p>
+            <div class="guide-steps">
+              <div class="guide-step">
+                <strong>01</strong>
+                <span><strong>Scan the constraints.</strong> They usually reveal the intended complexity.</span>
+              </div>
+              <div class="guide-step">
+                <strong>02</strong>
+                <span><strong>Plan before coding.</strong> Name the state, transitions, or data structure first.</span>
+              </div>
+              <div class="guide-step">
+                <strong>03</strong>
+                <span><strong>Make a tiny test.</strong> Include the smallest and the strangest case you can imagine.</span>
+              </div>
+            </div>
+          </article>
+
+          <!-- Section 2: the submission flow and a code sample. -->
+          <article id="submit" class="guide-article">
+            <span class="eyebrow">02 / Submit cleanly</span>
+            <h2>Keep the first submission small.</h2>
+            <p>
+              Select a supported language, paste only the solution you need, and submit. Astra runs your program
+              against hidden tests and reports the first useful signal — the verdict.
+            </p>
+            <div class="card guide-code-card">
+              <div class="guide-code-header">
+                <span>solution.cpp</span>
+                <span>C++17</span>
+              </div>
+              <pre class="guide-code"><code>#include &lt;iostream&gt;
+using namespace std;
+
+int main() {
+    int a, b;
+    cin &gt;&gt; a &gt;&gt; b;
+    cout &lt;&lt; a + b &lt;&lt; '\n';
+    return 0;
+}</code></pre>
+            </div>
+            <p class="guide-note">
+              This example reads two integers and prints their sum. Replace the logic with your own solution,
+              then use <strong>Submit</strong> when the program is ready.
+            </p>
+          </article>
+
+          <!-- Section 3: common verdicts and what they mean. -->
+          <article id="verdicts" class="guide-article">
+            <span class="eyebrow">03 / Learn from feedback</span>
+            <h2>Every verdict is a clue.</h2>
+            <p>Use the result to narrow the next action instead of rewriting everything at once.</p>
+            <div class="guide-verdict-grid">
+              <div class="card guide-verdict guide-verdict--accepted">
+                <strong>AC / Accepted</strong>
+                <p>Your output passed every test. Review the idea once before moving on.</p>
+              </div>
+              <div class="card guide-verdict guide-verdict--wrong">
+                <strong>WA / Wrong answer</strong>
+                <p>Find a counterexample. Check boundaries, duplicates, and integer overflow.</p>
+              </div>
+              <div class="card guide-verdict guide-verdict--time">
+                <strong>TLE / Time limit</strong>
+                <p>Estimate the complexity again and look for repeated work inside loops.</p>
+              </div>
+              <div class="card guide-verdict guide-verdict--runtime">
+                <strong>RE / Runtime error</strong>
+                <p>Inspect indexes, empty input, division by zero, and memory usage.</p>
+              </div>
+            </div>
+          </article>
+
+          <!-- Section 4: continuing the practice habit. -->
+          <article id="next" class="guide-article guide-next">
+            <span class="eyebrow">04 / Build the habit</span>
+            <h2>One solved problem is a useful start.</h2>
+            <p>
+              After each solve, write one sentence about the key idea. Return to it later, join a contest,
+              and let your rating reflect the practice you are building.
+            </p>
+            <div class="guide-actions">
+              <a href="problems.html" class="btn btn-primary">Explore problems <span aria-hidden="true">&rarr;</span></a>
+              <a href="contests.html" class="btn btn-secondary">See upcoming contests</a>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Responsive layout: move the contents above the guide and stack verdicts on mobile. -->
+  </main>
+
+  <div data-include="footer"></div>
+</body>
+</html>
