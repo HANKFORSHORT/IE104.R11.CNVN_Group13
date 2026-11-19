@@ -1,0 +1,297 @@
+/* =========================================================
+   FAQ PAGE STYLES (css/faq.css)
+   ========================================================= */
+
+
+.faq-page {
+  padding-bottom: 5rem;
+}
+
+
+/* ---------------------------------------------------------
+   1. Hero Header
+   --------------------------------------------------------- */
+
+.faq-hero {
+  text-align: center;
+  margin-top: calc(-1 * var(--nav-h));
+  padding: calc(var(--nav-h) + clamp(3.5rem, 7vw, 5.5rem)) 0 clamp(2.5rem, 5vw, 3.5rem);
+  background: linear-gradient(180deg, var(--oxford) 0%, #14121f 100%);
+  color: var(--peach);
+  position: relative;
+  overflow: hidden;
+}
+
+
+.faq-hero::after {
+  content: "";
+  position: absolute;
+  width: min(36vw, 28rem);
+  height: min(36vw, 28rem);
+  left: 50%;
+  top: -14rem;
+  transform: translateX(-50%);
+  border: 1px solid rgba(108, 108, 224, 0.15);
+  border-radius: 50%;
+  box-shadow: 0 0 0 4rem rgba(108, 108, 224, 0.03), 0 0 0 9rem rgba(70, 209, 138, 0.02);
+  pointer-events: none;
+}
+
+
+.faq-hero .breadcrumb {
+  justify-content: center;
+  margin-bottom: 1.25rem;
+}
+
+
+.breadcrumb-current {
+  color: var(--sandy);
+}
+
+
+.faq-hero h1 {
+  font-size: clamp(2.5rem, 5vw, 3.8rem);
+  letter-spacing: -0.02em;
+  margin-bottom: 1rem;
+  color: var(--peach);
+  position: relative;
+  z-index: 1;
+}
+
+
+.faq-hero p {
+  margin: 0 auto;
+  color: rgba(234, 225, 200, 0.72);
+  font-size: 1.05rem;
+  max-width: 60ch;
+  position: relative;
+  z-index: 1;
+}
+
+
+.faq-hero p a {
+  color: var(--sandy);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(211, 173, 92, 0.35);
+  transition: border-color 0.2s var(--ease);
+}
+
+
+.faq-hero p a:hover {
+  border-color: var(--sandy);
+}
+
+
+/* ---------------------------------------------------------
+   2. Accordion Section & Items
+   --------------------------------------------------------- */
+
+.faq-section {
+  padding-top: 2.5rem;
+}
+
+
+.faq-accordion {
+  max-width: 52rem;
+  margin: 0 auto;
+  display: grid;
+  gap: 0.85rem;
+}
+
+
+.faq-item {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+  transition: background 0.2s var(--ease), border-color 0.2s var(--ease);
+}
+
+
+[data-theme="dark"] .faq-item {
+  background: var(--oxford);
+}
+
+
+.faq-item:hover {
+  border-color: var(--line-strong);
+}
+
+
+.faq-item.open {
+  border-color: var(--accent);
+}
+
+
+[data-theme="dark"] .faq-item.open {
+  background: var(--oxford-2);
+}
+
+
+/* ---------------------------------------------------------
+   3. Accordion Trigger Button & Icon
+   --------------------------------------------------------- */
+
+.faq-trigger {
+  width: 100%;
+  padding: 1.25rem 1.5rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  text-align: left;
+}
+
+
+.faq-trigger strong {
+  color: var(--text);
+  font-weight: 600;
+  font-size: 1rem;
+  font-family: var(--font-body);
+}
+
+
+[data-theme="dark"] .faq-trigger strong {
+  color: var(--peach);
+}
+
+
+.faq-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 1.6rem;
+  height: 1.6rem;
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  color: var(--text);
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  line-height: 1;
+  transition: transform 0.25s var(--ease), border-color 0.25s var(--ease), color 0.25s var(--ease);
+}
+
+
+[data-theme="dark"] .faq-icon {
+  border-color: rgba(234, 225, 200, 0.22);
+  color: var(--peach);
+}
+
+
+.faq-item.open .faq-icon {
+  transform: rotate(45deg);
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+
+/* ---------------------------------------------------------
+   4. Accordion Answer Body
+   --------------------------------------------------------- */
+
+.faq-body {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.35s var(--ease);
+}
+
+
+.faq-item.open .faq-body {
+  max-height: 36rem;
+}
+
+
+.faq-body-inner {
+  padding: 0 1.5rem 1.5rem;
+}
+
+
+.faq-body-inner p {
+  margin: 0 0 0.75rem;
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  line-height: 1.7;
+  max-width: none;
+}
+
+
+[data-theme="dark"] .faq-body-inner p {
+  color: rgba(234, 225, 200, 0.72);
+}
+
+
+.faq-body-inner p:last-child {
+  margin-bottom: 0;
+}
+
+
+.faq-body-inner a {
+  color: var(--accent);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+
+[data-theme="dark"] .faq-body-inner a {
+  color: var(--sandy);
+}
+
+
+.faq-body-inner ul {
+  margin: 0.5rem 0 0.75rem 1.25rem;
+  list-style: disc;
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  line-height: 1.7;
+}
+
+
+[data-theme="dark"] .faq-body-inner ul {
+  color: rgba(234, 225, 200, 0.72);
+}
+
+
+.faq-body-inner code {
+  font-family: var(--font-mono);
+  font-size: 0.88em;
+  padding: 0.15em 0.45em;
+  border-radius: 4px;
+  background: rgba(108, 108, 224, 0.12);
+  color: var(--accent);
+}
+
+
+/* ---------------------------------------------------------
+   5. Bottom CTA Box
+   --------------------------------------------------------- */
+
+.faq-cta {
+  max-width: 52rem;
+  margin: 3rem auto 0;
+  text-align: center;
+  padding: 2.25rem 1.5rem;
+  border-radius: var(--radius-lg);
+  background: var(--bg-alt);
+  border: 1px solid var(--border);
+}
+
+
+.faq-cta p {
+  margin: 0 auto 1.1rem;
+  color: var(--text-muted);
+  font-size: 1rem;
+  max-width: none;
+}
+
+
+.faq-cta-actions {
+  display: flex;
+  justify-content: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}

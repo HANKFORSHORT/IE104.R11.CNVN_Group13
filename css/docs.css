@@ -1,0 +1,541 @@
+/* =========================================================
+   DOCUMENTATION PAGE STYLES (css/docs.css)
+   ========================================================= */
+
+
+.docs-page {
+  display: flex;
+  flex-direction: column;
+  min-height: calc(100vh - var(--nav-h));
+}
+
+
+[hidden] {
+  display: none !important;
+}
+
+
+/* ---------------------------------------------------------
+   1. Sub-header Bar (Astra Docs Branding)
+   --------------------------------------------------------- */
+
+.docs-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.9rem 2rem;
+  background: var(--bg-panel);
+  border-bottom: 1px solid var(--border);
+}
+
+
+.docs-topbar-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.85rem;
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--brand);
+}
+
+
+.docs-topbar-divider {
+  width: 1px;
+  height: 1.3rem;
+  background: var(--border);
+}
+
+
+.docs-topbar-tag {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+
+/* ---------------------------------------------------------
+   2. Main Documentation Shell (Left Sidebar + Right Area)
+   --------------------------------------------------------- */
+
+.docs-layout {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 260px minmax(0, 1fr);
+  width: 100%;
+  min-height: calc(100vh - var(--nav-h) - 56px);
+}
+
+
+/* ---------------------------------------------------------
+   3. Left Navigation Sidebar
+   --------------------------------------------------------- */
+
+.docs-sidebar {
+  background: var(--bg-panel);
+  border-right: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+}
+
+
+.docs-sidebar-top {
+  padding: 1.4rem 1.5rem 1.2rem;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+}
+
+
+.docs-back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  transition: color 0.2s var(--ease);
+}
+
+
+.docs-back-link:hover {
+  color: var(--accent);
+}
+
+
+.docs-nav-overview {
+  width: 100%;
+  padding: 0.3rem 0;
+  background: none;
+  border: none;
+  text-align: left;
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--text);
+  transition: color 0.2s var(--ease);
+}
+
+
+.docs-nav-overview:hover,
+.docs-nav-overview.active {
+  color: var(--accent);
+}
+
+
+.docs-nav-list {
+  padding: 1.25rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+
+.docs-nav-btn {
+  width: 100%;
+  padding: 0.6rem 0.9rem;
+  border: none;
+  border-left: 3px solid transparent;
+  border-radius: var(--radius-sm);
+  background: transparent;
+  text-align: left;
+  font-family: var(--font-body);
+  font-size: 0.96rem;
+  font-weight: 500;
+  color: var(--text-muted);
+  transition: color 0.2s var(--ease), background 0.2s var(--ease), border-color 0.2s var(--ease);
+}
+
+
+.docs-nav-btn:hover {
+  color: var(--text);
+  background: var(--bg-alt);
+}
+
+
+.docs-nav-btn.active {
+  color: var(--text);
+  border-left-color: var(--accent);
+  background: rgba(108, 108, 224, 0.14);
+  font-weight: 600;
+}
+
+
+[data-theme="dark"] .docs-nav-btn.active {
+  color: var(--peach);
+}
+
+
+/* ---------------------------------------------------------
+   4. Right Content Area Wrapper
+   --------------------------------------------------------- */
+
+.docs-content {
+  width: 100%;
+  padding: clamp(2.5rem, 5vw, 4rem) clamp(2rem, 5vw, 4.5rem);
+}
+
+
+.docs-panel {
+  width: 100%;
+  animation: docs-fade 0.25s var(--ease);
+}
+
+
+/* ---------------------------------------------------------
+   5. Overview Panel (Centered & Balanced in Viewport)
+   --------------------------------------------------------- */
+
+.docs-overview-wrap {
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+
+.docs-hero-title {
+  text-align: center;
+  font-family: var(--font-display);
+  font-size: clamp(2.6rem, 5vw, 3.8rem);
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  line-height: 1.16;
+  color: var(--brand);
+  margin: 0.5rem auto 2.5rem;
+}
+
+
+.docs-intro-text {
+  font-size: 1.05rem;
+  line-height: 1.8;
+  color: var(--text);
+  text-indent: 2rem;
+  max-width: 86ch;
+  margin: 0 auto 3.25rem;
+}
+
+
+[data-theme="dark"] .docs-intro-text {
+  color: rgba(232, 230, 242, 0.9);
+}
+
+
+.docs-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+  width: 100%;
+}
+
+
+.docs-card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 1.85rem 2rem;
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  text-align: left;
+  transition: transform 0.2s var(--ease), border-color 0.2s var(--ease);
+}
+
+
+.docs-card:hover {
+  transform: translateY(-2px);
+  border-color: var(--accent-2);
+}
+
+
+.docs-card-tag {
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--accent-2);
+  margin-bottom: 0.55rem;
+}
+
+
+.docs-card h3 {
+  font-size: 1.28rem;
+  margin-bottom: 0.55rem;
+  color: var(--brand);
+}
+
+
+.docs-card p {
+  font-size: 0.96rem;
+  line-height: 1.65;
+  color: var(--text-muted);
+  margin: 0;
+  max-width: none;
+}
+
+
+/* ---------------------------------------------------------
+   6. Sub-page Article Layout (Article + Right "In this article" TOC)
+   --------------------------------------------------------- */
+
+.docs-article-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 240px;
+  gap: clamp(2.5rem, 5vw, 4.5rem);
+  align-items: start;
+  max-width: 1120px;
+  margin: 0 auto;
+}
+
+
+.docs-article {
+  width: 100%;
+}
+
+
+.docs-breadcrumb {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  margin-bottom: 1.75rem;
+}
+
+
+.docs-breadcrumb-btn {
+  padding: 0;
+  border: none;
+  background: none;
+  color: var(--text-muted);
+  font: inherit;
+  transition: color 0.2s var(--ease);
+}
+
+
+.docs-breadcrumb-btn:hover {
+  color: var(--accent);
+  text-decoration: underline;
+}
+
+
+.docs-breadcrumb-current {
+  color: var(--text);
+  font-weight: 500;
+}
+
+
+.docs-article-title {
+  font-family: var(--font-display);
+  font-size: clamp(2.4rem, 4.5vw, 3.4rem);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--brand);
+  margin: 0 0 1.75rem;
+}
+
+
+.docs-lead {
+  font-size: 1.04rem;
+  line-height: 1.75;
+  color: var(--text);
+  margin: 0 0 2.5rem;
+  max-width: 72ch;
+}
+
+
+[data-theme="dark"] .docs-lead {
+  color: rgba(232, 230, 242, 0.9);
+}
+
+
+.docs-block {
+  margin-bottom: 2.5rem;
+  scroll-margin-top: calc(var(--nav-h) + 2rem);
+}
+
+
+.docs-block h2 {
+  font-size: 1.4rem;
+  margin-bottom: 0.75rem;
+  color: var(--brand);
+}
+
+
+.docs-block p {
+  font-size: 1rem;
+  line-height: 1.75;
+  color: var(--text-muted);
+  max-width: 72ch;
+}
+
+
+.docs-list {
+  margin: 0.65rem 0 1rem 1.25rem;
+  list-style: disc;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  color: var(--text-muted);
+  font-size: 0.98rem;
+  max-width: 70ch;
+}
+
+
+.docs-list strong {
+  color: var(--text);
+}
+
+
+.docs-inline-link {
+  color: var(--accent);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+
+/* ---------------------------------------------------------
+   7. Right Table of Contents ("In this article")
+   --------------------------------------------------------- */
+
+.docs-toc {
+  position: sticky;
+  top: calc(var(--nav-h) + 2rem);
+  padding-left: 1.25rem;
+  border-left: 1px solid var(--border);
+}
+
+
+.docs-toc-title {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--brand);
+  margin: 0 0 0.85rem;
+}
+
+
+.docs-toc-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+}
+
+
+.docs-toc-link {
+  font-size: 0.92rem;
+  color: var(--text-muted);
+  line-height: 1.4;
+  transition: color 0.2s var(--ease);
+}
+
+
+.docs-toc-link:hover {
+  color: var(--accent);
+}
+
+
+/* ---------------------------------------------------------
+   8. Glossary Items
+   --------------------------------------------------------- */
+
+.glossary-list {
+  display: grid;
+  gap: 1.15rem;
+}
+
+
+.glossary-item {
+  padding: 1.35rem 1.6rem;
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  scroll-margin-top: calc(var(--nav-h) + 2rem);
+}
+
+
+.glossary-term {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: 0.98rem;
+  color: var(--accent);
+  margin-bottom: 0.4rem;
+}
+
+
+.glossary-item p {
+  margin: 0;
+  font-size: 0.96rem;
+  max-width: none;
+}
+
+
+/* ---------------------------------------------------------
+   9. Keyframes & Responsive Breakpoints
+   --------------------------------------------------------- */
+
+@keyframes docs-fade {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+@media (max-width: 1040px) {
+  .docs-article-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .docs-toc {
+    position: static;
+    padding-left: 0;
+    padding-bottom: 1.5rem;
+    border-left: none;
+    border-bottom: 1px solid var(--border);
+    order: -1;
+  }
+}
+
+
+@media (max-width: 860px) {
+  .docs-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .docs-sidebar {
+    border-right: none;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .docs-nav-list {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .docs-nav-btn {
+    width: auto;
+    border-left: none;
+    border: 1px solid var(--border);
+    padding: 0.45rem 0.9rem;
+  }
+
+  .docs-nav-btn.active {
+    border-color: var(--accent);
+  }
+
+  .docs-cards-grid {
+    grid-template-columns: 1fr;
+  }
+}

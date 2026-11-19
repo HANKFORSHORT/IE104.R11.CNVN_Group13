@@ -367,16 +367,12 @@ p {
   color: var(--accent);
 }
 
-
-/* phần tử dành cho mobile*/
-
 .nav-actions {
   display: flex;
   align-items: center;
   gap: 0.9rem;
 }
 
-/* Ẩn phần tử chỉ dành cho mobile trên màn hình lớn */
 .nav-only-mobile {
   display: none;
 }
@@ -583,7 +579,7 @@ p {
   align-items: center;
   justify-content: center;
   transition:
-    background .2s,
+    background_color .2s,
     border-color .2s;
 }
 
@@ -629,6 +625,10 @@ p {
   color: var(--peach);
   position: relative;
   overflow: hidden;
+}
+
+.page-header p {
+  color: rgba(234, 225, 200, 0.75);
 }
 
 
