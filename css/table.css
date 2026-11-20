@@ -221,3 +221,62 @@
 @media (max-width: 640px) {
   .stat-bar { gap: 16px 32px; padding: 16px; }
 }
+
+/* standing */
+.standings-table { min-width: 900px; }
+.standings-table thead th.st-center,
+.standings-table td.st-center { text-align: center; }
+.standings-table td.st-points { font-weight: 700; }
+
+.st-max {
+  display: block;
+  margin-top: 2px;
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0;
+  color: var(--tbl-muted);
+}
+
+.st-cell {
+  text-align: center;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+.st-cell small {
+  display: block;
+  margin-top: 2px;
+  font-size: 0.7rem;
+  font-weight: 400;
+  color: var(--tbl-muted);
+}
+.st-ok    { color: var(--teal-dark); }
+.st-no    { color: var(--orange-dark); }
+.st-empty { color: var(--tbl-muted); font-weight: 400; }
+[data-theme="dark"] .st-ok { color: var(--teal); }
+[data-theme="dark"] .st-no { color: var(--orange); }
+
+/* Hàng của người dùng hiện tại */
+.data-table tbody tr.row-me { background: var(--tbl-hover); }
+.tag-you {
+  margin-left: 8px;
+  padding: 2px 8px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: #fff;
+  background: var(--tbl-accent);
+  border-radius: 999px;
+}
+
+/* Chân bảng */
+.st-footer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-top: 20px;
+  font-size: 0.85rem;
+  color: var(--tbl-muted);
+}
+.st-footer p { margin: 0; }
+.st-pager { display: flex; gap: 8px; }
