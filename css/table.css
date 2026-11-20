@@ -175,21 +175,6 @@
   gap: 24px;
   align-items: stretch;
 }
-<<<<<<< HEAD
-.pill-easy { background: rgba(143, 168, 115,0.14); color: var(--teal-dark); }
-[data-theme="dark"] .pill-easy { color: var(--teal); }
-.pill-medium { background: rgba(211, 173, 92,0.2); color: #7C5A22; }
-[data-theme="dark"] .pill-medium { color: var(--sandy); }
-.pill-hard { background: rgba(184, 84, 78,0.14); color: var(--orange-dark); }
-[data-theme="dark"] .pill-hard { color: var(--orange); }
-
-.grid { display: grid; gap: 1.6rem; }
-.grid-3 { grid-template-columns: repeat(3, 1fr); }
-.grid-4 { grid-template-columns: repeat(4, 1fr); }
-.grid-2 { grid-template-columns: repeat(2, 1fr); }
-@media (max-width: 980px) { .grid-4 { grid-template-columns: repeat(2,1fr); } .grid-3 { grid-template-columns: repeat(2,1fr); } }
-@media (max-width: 640px) { .grid-4, .grid-3, .grid-2 { grid-template-columns: 1fr; } }
-=======
 
 .training-grid > .card {
   min-width: 0;          /* tránh tiêu đề dài làm vỡ cột */
@@ -211,4 +196,28 @@
 @media (max-width: 640px) {
   .grid.training-grid { grid-template-columns: 1fr; gap: 16px; }
 }
->>>>>>> 5269a04b9470258028e8aced7f3010e981905b15
+
+
+/* gym detail */
+.stat-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px 56px;
+  padding: 20px 24px;
+  margin-bottom: 28px;
+  background: var(--tbl-surface);
+  border: 1px solid var(--tbl-border);
+  border-radius: var(--tbl-radius);
+  box-shadow: var(--tbl-shadow);
+}
+.stat-label { font-size: 0.75rem; color: var(--tbl-muted); }
+.stat-value {
+  margin-top: 4px;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: var(--tbl-text);
+}
+@media (max-width: 640px) {
+  .stat-bar { gap: 16px 32px; padding: 16px; }
+}
