@@ -280,3 +280,4 @@
 }
 .st-footer p { margin: 0; }
 .st-pager { display: flex; gap: 8px; }
+[hidden] { display: none !important; }

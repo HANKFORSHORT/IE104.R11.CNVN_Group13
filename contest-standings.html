@@ -43,12 +43,16 @@
         </div>
 
         <!-- Bộ lọc -->
-        <form class="filters-bar" onsubmit="return false;">
-          <input type="text" placeholder="Search handle…" aria-label="Search handle" />
-          <select aria-label="Participants">
-            <option value="">All participants</option>
+        <form class="filters-bar" data-filter-table="#standingsBody">
+          <input type="text" placeholder="Search handle…" aria-label="Search handle"
+                data-filter-search data-filter-field="handle" />
+          <select aria-label="Participants" data-filter="solved" data-filter-type="range">
+            <option value="any">All participants</option>
+            <option value="1-6">Solved ≥ 1 problem</option>
+            <option value="3-6">Solved ≥ 3 problems</option>
+            <option value="0-0">Solved nothing</option>
           </select>
-          <button type="submit" class="btn btn-primary">Filter</button>
+          <button type="submit" class="btn btn-primary" data-filter-apply>Filter</button>
         </form>
 
         <!-- Bảng standings -->
@@ -68,8 +72,8 @@
                 <th class="st-center"><a class="problem-link" href="problem-detail.html">F</a><span class="st-max">3000</span></th>
               </tr>
             </thead>
-            <tbody>
-              <tr>
+            <tbody id="standingsBody">
+              <tr data-handle="abakan" data-solved="6">
                 <td class="rank-cell">1</td>
                 <td><a class="problem-link" href="profile.html">abakan</a></td>
                 <td class="st-center st-points">10,500</td>
@@ -81,7 +85,7 @@
                 <td class="st-cell st-ok">2500<small>1:22</small></td>
                 <td class="st-cell st-ok">3000<small>1:49</small></td>
               </tr>
-              <tr>
+              <tr data-handle="NHQ0914" data-solved="5">
                 <td class="rank-cell">2</td>
                 <td><a class="problem-link" href="profile.html">NHQ0914</a></td>
                 <td class="st-center st-points">7,500</td>
@@ -93,7 +97,7 @@
                 <td class="st-cell st-ok">2500<small>1:58</small></td>
                 <td class="st-cell st-empty">&ndash;</td>
               </tr>
-              <tr>
+              <tr data-handle="Sherwin" data-solved="4">
                 <td class="rank-cell">3</td>
                 <td><a class="problem-link" href="profile.html">Sherwin</a></td>
                 <td class="st-center st-points">5,000</td>
@@ -105,7 +109,7 @@
                 <td class="st-cell st-empty">&ndash;</td>
                 <td class="st-cell st-empty">&ndash;</td>
               </tr>
-              <tr>
+              <tr data-handle="Cerq" data-solved="4">
                 <td class="rank-cell">4</td>
                 <td><a class="problem-link" href="profile.html">Cerq</a></td>
                 <td class="st-center st-points">5,000</td>
@@ -117,7 +121,7 @@
                 <td class="st-cell st-no">&minus;2</td>
                 <td class="st-cell st-empty">&ndash;</td>
               </tr>
-              <tr>
+              <tr data-handle="harryleee" data-solved="3">
                 <td class="rank-cell">5</td>
                 <td><a class="problem-link" href="profile.html">harryleee</a></td>
                 <td class="st-center st-points">3,000</td>
@@ -129,7 +133,7 @@
                 <td class="st-cell st-empty">&ndash;</td>
                 <td class="st-cell st-empty">&ndash;</td>
               </tr>
-              <tr>
+              <tr data-handle="tuongll" data-solved="3">
                 <td class="rank-cell">6</td>
                 <td><a class="problem-link" href="profile.html">tuongll</a></td>
                 <td class="st-center st-points">3,000</td>
@@ -141,7 +145,7 @@
                 <td class="st-cell st-empty">&ndash;</td>
                 <td class="st-cell st-empty">&ndash;</td>
               </tr>
-              <tr>
+              <tr data-handle="lenhanbo" data-solved="2">
                 <td class="rank-cell">7</td>
                 <td><a class="problem-link" href="profile.html">lenhanbo</a></td>
                 <td class="st-center st-points">1,500</td>
@@ -153,9 +157,9 @@
                 <td class="st-cell st-empty">&ndash;</td>
                 <td class="st-cell st-empty">&ndash;</td>
               </tr>
-              <tr>
+              <tr data-handle="minhanh_dev" data-solved="1">
                 <td class="rank-cell">8</td>
-                <td><a class="problem-link" href="profile.html">[handle]</a></td>
+                <td><a class="problem-link" href="profile.html">minhanh_dev</a></td>
                 <td class="st-center st-points">500</td>
                 <td class="st-center">14</td>
                 <td class="st-cell st-ok">500<small>0:14</small></td>
@@ -166,7 +170,7 @@
                 <td class="st-cell st-empty">&ndash;</td>
               </tr>
               <!-- Hàng của người dùng hiện tại -->
-              <tr class="row-me">
+              <tr class="row-me" data-handle="your_handle" data-solved="2">
                 <td class="rank-cell">214</td>
                 <td><a class="problem-link" href="profile.html">your_handle</a><span class="tag-you">You</span></td>
                 <td class="st-center st-points">1,000</td>
@@ -177,6 +181,10 @@
                 <td class="st-cell st-empty">&ndash;</td>
                 <td class="st-cell st-empty">&ndash;</td>
                 <td class="st-cell st-empty">&ndash;</td>
+              </tr>
+
+              <tr data-filter-empty hidden>
+                <td colspan="10" style="text-align:center;padding:1.5rem;">No participants found.</td>
               </tr>
             </tbody>
           </table>

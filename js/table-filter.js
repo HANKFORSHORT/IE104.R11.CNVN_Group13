@@ -1,88 +1,72 @@
-document.addEventListener("DOMContentLoaded", () => {
-  document.querySelectorAll("[data-filter-table]").forEach(initFilterBar);
-});
+(function () {
+  const norm = (s) =>
+    (s || "").normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().trim();
 
-function initFilterBar(bar) {
-<<<<<<< HEAD
-  const container = document.querySelector(bar.dataset.filterTable);
-  if (!container) return;
-=======
-<<<<<<< HEAD
-  const tbody = document.querySelector(bar.dataset.filterTable);
-  if (!tbody) return;
-=======
-  const container = document.querySelector(bar.dataset.filterTable);
-  if (!container) return;
->>>>>>> 008eb5f0fa2eb556816a008296e99c109d0e3ddc
->>>>>>> 5269a04b9470258028e8aced7f3010e981905b15
+  function init(bar) {
+    const target = document.querySelector(bar.dataset.filterTable);
+    if (!target) return;
 
-  const selects  = bar.querySelectorAll("select[data-filter]");
-  const searchIn = bar.querySelector("[data-filter-search]");
-  const applyBtn = bar.querySelector("[data-filter-apply]");
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-  const emptyRow = tbody.querySelector("[data-filter-empty], #emptyRow");
-  const rows     = [...tbody.querySelectorAll("tr")].filter(tr => tr !== emptyRow);
-=======
->>>>>>> 5269a04b9470258028e8aced7f3010e981905b15
-  const emptyRow = container.querySelector("[data-filter-empty], #emptyRow");
+    const search = bar.querySelector("[data-filter-search]");
+    const selects = bar.querySelectorAll("[data-filter]");
+    const applyBtn = bar.querySelector("[data-filter-apply]");
+    const empty = target.querySelector("[data-filter-empty]");
+    const live = bar.hasAttribute("data-filter-live");
 
-  // :scope > * lấy con trực tiếp: <tr> (bảng) hoặc .card (lưới)
-  const rows = [...container.querySelectorAll(":scope > *")].filter(el => el !== emptyRow);
+    const getItems = () =>
+      Array.from(target.children).filter((el) => !el.hasAttribute("data-filter-empty"));
 
-  function matchSelect(sel, row) {
-    const val = sel.value;
-    if (val === "any" || val === "") return true;
+    function matchSelect(item, sel) {
+      const val = sel.value;
+      if (val === "any" || val === "") return true;
+      const raw = item.dataset[sel.dataset.filter];
+      if (raw === undefined) return false;
 
-    const rowVal = row.dataset[sel.dataset.filter];
-
-    // dạng khoảng: value="min-max", so với số trong data-* của row
-    if (sel.dataset.filterType === "range") {
-      const [min, max] = val.split("-").map(Number);
-      const n = Number(rowVal);
-      return !Number.isNaN(n) && n >= min && n <= max;
+      if (sel.dataset.filterType === "range") {
+        const [min, max] = val.split("-").map(Number);
+        const n = Number(raw);
+        return n >= min && n <= max;
+      }
+      return norm(raw) === norm(val);
     }
 
-    return rowVal === val;
-  }
-<<<<<<< HEAD
-=======
->>>>>>> 008eb5f0fa2eb556816a008296e99c109d0e3ddc
->>>>>>> 5269a04b9470258028e8aced7f3010e981905b15
+    function apply() {
+      const q = norm(search ? search.value : "");
+      const field = search ? search.dataset.filterField : null;
+      let visible = 0;
 
-  function apply() {
-    const keyword = searchIn ? searchIn.value.trim().toLowerCase() : "";
-    let visible = 0;
-
-    rows.forEach(row => {
-<<<<<<< HEAD
-      const okSelects = [...selects].every(sel => matchSelect(sel, row));
-      const okSearch  = row.textContent.toLowerCase().includes(keyword);
-=======
-<<<<<<< HEAD
-      // mỗi select: data-filter="format" so với row.dataset.format
-      const okSelects = [...selects].every(sel => {
-        const val = sel.value;
-        return val === "any" || val === "" || row.dataset[sel.dataset.filter] === val;
+      getItems().forEach((item) => {
+        const haystack = field ? item.dataset[field] : item.textContent;
+        const okSearch = !q || norm(haystack).includes(q);
+        const okSelect = Array.from(selects).every((s) => matchSelect(item, s));
+        const show = okSearch && okSelect;
+        item.hidden = !show;
+        if (show) visible++;
       });
-      const okSearch = row.textContent.toLowerCase().includes(keyword);
-=======
-      const okSelects = [...selects].every(sel => matchSelect(sel, row));
-      const okSearch  = row.textContent.toLowerCase().includes(keyword);
->>>>>>> 008eb5f0fa2eb556816a008296e99c109d0e3ddc
->>>>>>> 5269a04b9470258028e8aced7f3010e981905b15
 
-      const show = okSelects && okSearch;
-      row.hidden = !show;
-      if (show) visible++;
-    });
+      if (empty) empty.hidden = visible > 0;
+    }
 
-    if (emptyRow) emptyRow.hidden = visible > 0;
+    // Chỉ lọc khi bấm nút Filter hoặc nhấn Enter trong ô tìm kiếm
+    if (applyBtn) applyBtn.addEventListener("click", (e) => { e.preventDefault(); apply(); });
+    bar.addEventListener("submit", (e) => { e.preventDefault(); apply(); });
+    if (search) {
+      search.addEventListener("keydown", (e) => {
+        if (e.key === "Enter") { e.preventDefault(); apply(); }
+      });
+    }
+
+    // Tùy chọn: lọc tức thì nếu thanh lọc có data-filter-live
+    if (live) {
+      if (search) search.addEventListener("input", apply);
+      selects.forEach((s) => s.addEventListener("change", apply));
+    }
+
+    apply(); // lần đầu hiển thị tất cả
   }
 
-  if (applyBtn) applyBtn.addEventListener("click", apply);
-  if (searchIn) searchIn.addEventListener("keydown", e => {
-    if (e.key === "Enter") apply();
-  });
-}
+  function boot() {
+    document.querySelectorAll("[data-filter-table]").forEach(init);
+  }
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", boot);
+  else boot();
+})();
