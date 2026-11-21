@@ -247,7 +247,7 @@
           const s = problemStatus(p.id);
           const label = { none: "Not attempted", attempted: "Attempted", solved: "Solved" }[s];
           return '<tr><td class="rank-cell">' + p.id + '</td>' +
-            '<td><a class="problem-link" href="problem-detail.html">' + esc(p.name) + '</a></td>' +
+            '<td><a class="problem-link" href="workspace.html">' + esc(p.name) + '</a></td>' +
             '<td><span class="pill pill-' + p.cls + '">' + p.diff + '</span></td>' +
             '<td><span class="ws-status" data-s="' + s + '">' + label + '</span></td>' +
             '<td><button type="button" class="btn btn-sm btn-secondary" data-pick="' + p.id + '">Submit</button></td></tr>';
