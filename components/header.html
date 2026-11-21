@@ -6,30 +6,106 @@
     </a>
 
     <ul class="nav-links" id="navLinks">
+      <!-- Logged-in only: on small screens the profile menu is the first item and expands downward -->
+      <li class="nav-only-mobile nav-profile" data-auth-only="in">
+        <button class="nav-profile-toggle"
+                type="button"
+                aria-expanded="false"
+                aria-controls="mobileProfileMenu"
+                data-collapse-toggle>
+          <span class="nav-avatar" aria-hidden="true" data-user-initials></span>
+          Profile
+          <svg class="nav-chevron" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="m6 9 6 6 6-6" />
+          </svg>
+        </button>
+        <ul class="nav-profile-menu" id="mobileProfileMenu" hidden>
+          <li><a href="solved.html">Solved problems</a></li>
+          <li><a href="notifications.html">Notifications</a></li>
+          <li><a href="profile.html">Profile</a></li>
+          <li><a href="settings.html">Settings</a></li>
+          <li><button type="button" data-logout>Log out</button></li>
+        </ul>
+      </li>
+
       <li><a href="problems.html">Problems</a></li>
       <li><a href="contests.html">Contests</a></li>
       <li><a href="gym.html">Gym</a></li>
       <li><a href="rankings.html">Rankings</a></li>
       <li><a href="guide.html">Guide</a></li>
       <li><a href="about.html">About</a></li>
-      <li class="nav-only-mobile"><a href="login.html">Log in</a></li>
-      <li class="nav-only-mobile"><a href="register.html">Sign up</a></li>
+      <li class="nav-only-mobile" data-auth-only="out"><a href="login.html">Log in</a></li>
+      <li class="nav-only-mobile" data-auth-only="out"><a href="register.html">Sign up</a></li>
     </ul>
 
     <div class="nav-actions">
-      <button class="theme-toggle" 
-              type="button" 
-              aria-label="Toggle dark mode" 
+      <button class="theme-toggle"
+              type="button"
+              aria-label="Toggle dark mode"
               aria-pressed="false">
         <img class="icon-sun " src="images/sun.svg" alt="">
         <img class="icon-moon" src="images/moon.svg" alt="">
       </button>
-      <a href="login.html" class="btn btn-secondary btn-sm hide-mobile">Log in</a>
-      <a href="register.html" class="btn btn-primary btn-sm hide-mobile">Sign up</a>
-      <button class="hamburger" 
-              type="button" 
-              aria-label="Open menu" 
-              aria-expanded="false" 
+
+      <!-- Logged-out only -->
+      <a href="login.html" class="btn btn-secondary btn-sm hide-mobile" data-auth-only="out">Log in</a>
+      <a href="register.html" class="btn btn-primary btn-sm hide-mobile" data-auth-only="out">Sign up</a>
+
+      <!-- Logged-in only: notifications popup -->
+      <div class="nav-menu hide-mobile" data-auth-only="in">
+        <button class="nav-bell"
+                type="button"
+                aria-label="Notifications"
+                aria-haspopup="true"
+                aria-expanded="false"
+                aria-controls="notificationsPopup"
+                data-popup-toggle>
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9" />
+            <path d="M13.73 21a2 2 0 0 1-3.46 0" />
+          </svg>
+          <span class="nav-dot" data-unread-dot hidden></span>
+        </button>
+
+        <div class="nav-popup nav-popup-notifications" id="notificationsPopup" role="region" aria-label="Notifications" hidden>
+          <div class="nav-popup-head">
+            <strong>Notifications</strong>
+            <span role="status" aria-live="polite" data-unread-label></span>
+          </div>
+          <ul class="nav-popup-list" data-notification-list></ul>
+          <a class="nav-popup-footer" href="notifications.html">See all notifications</a>
+        </div>
+      </div>
+
+      <!-- Logged-in only: profile popup -->
+      <div class="nav-menu hide-mobile" data-auth-only="in">
+        <button class="profile-toggle"
+                type="button"
+                aria-haspopup="true"
+                aria-expanded="false"
+                aria-controls="profilePopup"
+                data-popup-toggle>
+          <span class="nav-avatar" aria-hidden="true" data-user-initials></span>
+          Profile
+          <svg class="nav-chevron" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="m6 9 6 6 6-6" />
+          </svg>
+        </button>
+
+        <div class="nav-popup nav-popup-profile" id="profilePopup" hidden>
+          <ul class="nav-popup-menu">
+            <li><a class="nav-popup-link" href="solved.html">Solved problems</a></li>
+            <li><a class="nav-popup-link" href="profile.html">Profile</a></li>
+            <li><a class="nav-popup-link" href="settings.html">Settings</a></li>
+            <li><button class="nav-popup-link" type="button" data-logout>Log out</button></li>
+          </ul>
+        </div>
+      </div>
+
+      <button class="hamburger"
+              type="button"
+              aria-label="Open menu"
+              aria-expanded="false"
               aria-controls="navLinks">
         <span></span>
         <span></span>
@@ -39,3 +115,5 @@
   </nav>
 </header>
 
+<!-- VS Code Live Server injects its reload script at this marker instead of each inline SVG. -->
+<!-- </body> -->
