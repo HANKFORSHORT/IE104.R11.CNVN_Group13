@@ -16,21 +16,14 @@
   <script src="js/table-filter.js" defer></script>
   <style>
     :root {
+      --ws-field-bg: var(--bg-panel); --ws-field-text: var(--text); --ws-field-border: var(--line-strong);
+      --ws-placeholder: var(--text-muted); --ws-ok: #2f855a; --ws-warn: #b7791f; --ws-bad: #c53030; --ws-mute: #718096;
+      --ws-tab-border: var(--line-strong);
+    }
+    :root[data-theme="dark"] {
       --ws-field-bg: #14112a; --ws-field-text: #f3ecdc; --ws-field-border: rgba(246,220,172,.35);
       --ws-placeholder: rgba(243,236,220,.55); --ws-ok: #6ee7a0; --ws-warn: #fbbf6a; --ws-bad: #ff8a8a; --ws-mute: #a8a3c0;
       --ws-tab-border: rgba(246,220,172,.35);
-    }
-    @media (prefers-color-scheme: light) {
-      :root:not([data-theme="dark"]) {
-        --ws-field-bg: #fff; --ws-field-text: #1d1a2f; --ws-field-border: rgba(0,0,0,.25);
-        --ws-placeholder: rgba(29,26,47,.55); --ws-ok: #2f855a; --ws-warn: #b7791f; --ws-bad: #c53030; --ws-mute: #718096;
-        --ws-tab-border: rgba(0,0,0,.25);
-      }
-    }
-    :root[data-theme="light"] {
-      --ws-field-bg: #fff; --ws-field-text: #1d1a2f; --ws-field-border: rgba(0,0,0,.25);
-      --ws-placeholder: rgba(29,26,47,.55); --ws-ok: #2f855a; --ws-warn: #b7791f; --ws-bad: #c53030; --ws-mute: #718096;
-      --ws-tab-border: rgba(0,0,0,.25);
     }
     .ws-clock { font-family: "Space Grotesk", sans-serif; font-size: 2.6rem; font-weight: 700; letter-spacing: .02em; color: var(--peach); line-height: 1; font-variant-numeric: tabular-nums; }
     .ws-clock-label { font-size: .85rem; color: rgba(246,220,172,.75); margin-bottom: .35rem; }
