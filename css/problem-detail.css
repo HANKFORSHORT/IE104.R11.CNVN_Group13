@@ -1,0 +1,454 @@
+/* Only problem-detail.html loads these statement and source-editor styles. */
+.problem-page {
+  --tbl-surface: var(--card-bg);
+  --tbl-head-bg: var(--bg-alt);
+}
+
+.pd-header {
+  padding-bottom: 2.5rem;
+}
+
+.pd-title-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.pd-header h1 {
+  color: var(--peach);
+  font-size: clamp(2rem, 4vw, 3rem);
+  margin-bottom: 0.4rem;
+}
+
+.pd-header .pd-contest {
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  color: var(--sandy);
+  margin-bottom: 0.6rem;
+}
+
+.pd-header-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.3rem;
+  max-width: none;
+  font-size: 0.9rem;
+  margin: 0.6rem 0 0;
+}
+
+.pd-topics {
+  margin-top: 1rem;
+  color: var(--peach);
+  font-size: 0.875rem;
+}
+
+.pd-topics summary {
+  cursor: pointer;
+}
+
+.pd-topics .tag {
+  color: var(--peach);
+}
+
+.pd-rating {
+  color: var(--sandy);
+  border: 1px solid currentColor;
+  font-size: 1rem;
+  padding: 0.4em 0.8em;
+}
+
+.pd-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  align-items: start;
+  gap: 1.5rem;
+  padding-block: 2rem 4rem;
+}
+
+.pd-main {
+  min-width: 0;
+}
+
+.pd-tabs {
+  display: flex;
+  overflow-x: auto;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 0;
+  scroll-margin-top: calc(var(--nav-h) + 1rem);
+}
+
+.pd-tabs a {
+  padding: 0.75rem 1rem;
+  border-bottom: 2px solid transparent;
+  white-space: nowrap;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+.pd-tabs a:hover,
+.pd-tabs a[aria-current="page"] {
+  color: var(--text);
+  border-bottom-color: var(--accent);
+}
+
+.pd-panel {
+  padding: clamp(1.2rem, 3vw, 2rem);
+  scroll-margin-top: calc(var(--nav-h) + 5rem);
+}
+
+.pd-panel h2 {
+  font-size: 1.6rem;
+  margin-bottom: 1rem;
+}
+
+.pd-panel h3 {
+  font-size: 1.15rem;
+  margin-top: 2rem;
+}
+
+.pd-panel:hover {
+  transform: none;
+  border-color: var(--border);
+}
+
+.problem-page [hidden] {
+  display: none;
+}
+
+.pd-statement p {
+  max-width: none;
+}
+
+.pd-statement p,
+.pd-statement li {
+  color: var(--text);
+  line-height: 1.8;
+}
+
+.pd-statement code {
+  padding: 0.12em 0.3em;
+  border-radius: 3px;
+  background: var(--bg-alt);
+  font-size: 0.9em;
+}
+
+.pd-constraints {
+  list-style: disc;
+  padding-left: 1.4rem;
+}
+
+.pd-example {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  margin-bottom: 1rem;
+}
+
+.pd-sample + .pd-sample {
+  border-left: 1px solid var(--border);
+}
+
+.pd-sample-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  background: var(--bg-alt);
+  border-bottom: 1px solid var(--border);
+  padding: 0.65rem 1rem;
+  font-size: 0.85rem;
+}
+
+.pd-sample pre {
+  margin: 0;
+  padding: 1rem;
+  overflow-x: auto;
+  font-size: 0.95rem;
+  line-height: 1.65;
+  color: var(--text);
+}
+
+.pd-text-button {
+  padding: 0;
+  background: transparent;
+  border: 0;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.pd-text-button:hover {
+  color: var(--text);
+}
+
+.pd-back-link:hover {
+  text-decoration: underline;
+}
+
+.pd-hint summary {
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.pd-topic-tags {
+  margin: 0.8rem 0 0;
+}
+
+.pd-back-link {
+  display: inline-block;
+  justify-self: start;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+
+.pd-notice {
+  max-width: none;
+  padding: 1rem;
+  border-left: 3px solid var(--accent);
+  background: var(--bg-alt);
+  font-size: 0.9rem;
+}
+
+.pd-form-row {
+  display: grid;
+  gap: 0.5rem;
+  margin-block: 1.5rem;
+}
+
+.pd-form-row label,
+.pd-source-heading label,
+.pd-upload > label {
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.pd-form-row select {
+  width: min(100%, 22rem);
+  min-height: 44px;
+  padding: 0.65rem;
+  font: inherit;
+  font-size: 0.9rem;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius-sm);
+  background: var(--bg-panel);
+  color: var(--text);
+}
+
+.pd-source-heading,
+.pd-editor-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.pd-source-heading {
+  margin-bottom: 0.6rem;
+}
+
+.pd-helper,
+.pd-editor-footer {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.pd-editor {
+  display: grid;
+  grid-template-columns: 3rem minmax(0, 1fr);
+  height: 380px;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+  overflow: hidden;
+  background: var(--bg-panel);
+}
+
+.pd-editor:focus-within {
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+}
+
+.pd-line-numbers,
+#pd-source {
+  font-family: ui-monospace, Menlo, Consolas, monospace;
+  font-size: 14px;
+  line-height: 24px;
+  tab-size: 2;
+  padding-block: 1rem;
+  margin: 0;
+  height: 100%;
+  overflow-y: auto;
+}
+
+.pd-line-numbers {
+  background: var(--bg-alt);
+  color: var(--text-muted);
+  border-right: 1px solid var(--border);
+  padding-inline: 0.5rem;
+  text-align: right;
+  white-space: pre;
+  overflow: hidden;
+  user-select: none;
+}
+
+#pd-source {
+  min-width: 0;
+  width: 100%;
+  padding-inline: 1rem;
+  border: 0;
+  border-radius: 0;
+  background: var(--bg-panel);
+  color: var(--text);
+  outline: none;
+  box-shadow: none;
+  resize: none;
+}
+
+#pd-source::placeholder {
+  color: var(--text-muted);
+  opacity: 1;
+}
+
+.pd-editor-footer {
+  padding: 0.45rem 0.75rem;
+  margin-bottom: 0.6rem;
+  background: var(--bg-alt);
+  border: 1px solid var(--line-strong);
+  border-top: 0;
+  border-radius: 0 0 var(--radius-sm) var(--radius-sm);
+}
+
+.pd-upload {
+  display: grid;
+  gap: 0.6rem;
+  padding-block: 1.25rem;
+  margin-block: 1.25rem;
+  border-block: 1px solid var(--border);
+}
+
+#pd-source-file {
+  max-width: 100%;
+  color: var(--text);
+  font: inherit;
+  font-size: 0.85rem;
+}
+
+#pd-source-file::file-selector-button {
+  padding: 0.55rem 0.8rem;
+  margin-right: 0.7rem;
+  background: var(--bg-alt);
+  color: var(--text);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+}
+
+.pd-upload p {
+  margin: 0;
+}
+
+.pd-upload p:empty,
+.pd-feedback:empty {
+  display: none;
+}
+
+.pd-submit-actions,
+.pd-section-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.pd-section-heading {
+  margin-bottom: 1rem;
+}
+
+.pd-section-heading h2 {
+  margin: 0;
+}
+
+.pd-feedback {
+  margin: 1rem 0 0;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+
+.pd-error {
+  color: var(--orange-dark);
+  font-size: 0.9rem;
+}
+
+[data-theme="dark"] .pd-error {
+  color: var(--peach);
+}
+
+.pd-empty {
+  padding-block: 2rem;
+  text-align: center;
+}
+
+.pd-empty h3 {
+  margin-top: 0;
+}
+
+.pd-empty p {
+  margin-inline: auto;
+}
+
+.pd-submissions-table {
+  font-size: 0.875rem;
+}
+
+.pd-submissions-table th {
+  background: var(--bg-alt);
+}
+
+.pd-submissions-table caption {
+  caption-side: bottom;
+  text-align: left;
+  padding: 1rem;
+}
+
+.pd-submissions-table td {
+  vertical-align: middle;
+}
+
+.pd-hint {
+  padding-block: 1rem;
+  border-top: 1px solid var(--border);
+}
+
+.pd-hint p {
+  margin: 1rem 0 0;
+}
+
+@media (max-width: 520px) {
+  .pd-tabs a {
+    padding-inline: 0.7rem;
+  }
+
+  .pd-example {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .pd-sample + .pd-sample {
+    border-left: 0;
+    border-top: 1px solid var(--border);
+  }
+
+  .pd-submit-actions > .btn {
+    width: 100%;
+  }
+
+  .pd-editor {
+    height: 320px;
+  }
+}
