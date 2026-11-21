@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Settings · Astra</title>
+  <meta name="description" content="Edit your Astra profile, change your password and manage account preferences." />
+  <link rel="icon" href="images/favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,500;0,600;0,700;1,500&family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/problems.css" />
+  <link rel="stylesheet" href="css/account.css" />
+  <script src="js/main.js"></script>
+  <script src="js/account.js" defer></script>
+</head>
+<body>
+  <div data-include="header"></div>
+
+  <main class="account-page" data-account-page="settings">
+    <div class="page-header">
+      <div class="container">
+        <div class="breadcrumb"><a href="index.html">Home</a> / Account / Settings</div>
+        <h1>Settings</h1>
+        <p>Edit your public profile, change your password and choose how Astra contacts you.</p>
+      </div>
+    </div>
+
+    <section class="account-section">
+      <div class="container account-layout">
+
+        <nav class="account-nav" aria-label="Settings sections">
+          <a href="#profile-form">Edit profile</a>
+          <a href="#password-form">Password</a>
+          <a href="#preferences-form">Preferences</a>
+        </nav>
+
+        <div>
+          <form class="panel" id="profile-form" novalidate aria-labelledby="profile-heading">
+            <div class="panel-head">
+              <h2 id="profile-heading">Edit profile</h2>
+              <p>This information is shown on your public profile.</p>
+            </div>
+            <div class="panel-body">
+          <div class="field">
+            <label class="field-label" for="username">Username</label>
+            <input class="field-input" type="text" id="username" name="username" aria-invalid="false" aria-describedby="username-error username-hint" value="oppixelnew246" readonly />
+            <p class="field-hint" id="username-hint">Usernames cannot be changed.</p>
+            <p class="field-error" id="username-error" role="alert"></p>
+          </div>
+          <div class="field">
+            <label class="field-label" for="display-name">Display name</label>
+            <input class="field-input" type="text" id="display-name" name="displayName" aria-invalid="false" aria-describedby="display-name-error" maxlength="40" autocomplete="name" />
+            <p class="field-error" id="display-name-error" role="alert"></p>
+          </div>
+          <div class="field">
+            <label class="field-label" for="settings-email">Email</label>
+            <input class="field-input" type="email" id="settings-email" name="email" aria-invalid="false" aria-describedby="settings-email-error" autocomplete="email" required />
+            <p class="field-error" id="settings-email-error" role="alert"></p>
+          </div>
+          <div class="field">
+            <label class="field-label" for="bio">Bio</label>
+            <textarea class="field-input" id="bio" name="bio" maxlength="200" aria-invalid="false" aria-describedby="bio-error bio-hint"></textarea>
+            <p class="field-hint" id="bio-hint">Up to 200 characters.</p>
+            <p class="field-error" id="bio-error" role="alert"></p>
+          </div>
+            </div>
+            <div class="panel-foot">
+              <button type="submit" class="btn btn-primary">Save profile</button>
+              <a class="btn btn-secondary" href="profile.html">View my profile</a>
+              <p class="form-status" role="status" aria-live="polite" data-form-status></p>
+            </div>
+          </form>
+
+          <form class="panel" id="password-form" novalidate aria-labelledby="password-heading">
+            <div class="panel-head">
+              <h2 id="password-heading">Change password</h2>
+              <p>Use at least 8 characters, including a number and a lowercase letter.</p>
+            </div>
+            <div class="panel-body">
+          <div class="field">
+            <label class="field-label" for="current-password">Current password</label>
+            <input class="field-input" type="password" id="current-password" name="current" aria-invalid="false" aria-describedby="current-password-error" autocomplete="current-password" required />
+            <p class="field-error" id="current-password-error" role="alert"></p>
+          </div>
+          <div class="field">
+            <label class="field-label" for="new-password">New password</label>
+            <input class="field-input" type="password" id="new-password" name="password" aria-invalid="false" aria-describedby="new-password-error" autocomplete="new-password" required />
+            <p class="field-error" id="new-password-error" role="alert"></p>
+          </div>
+          <div class="field">
+            <label class="field-label" for="confirm-password">Re-type new password</label>
+            <input class="field-input" type="password" id="confirm-password" name="confirm" aria-invalid="false" aria-describedby="confirm-password-error" autocomplete="new-password" required />
+            <p class="field-error" id="confirm-password-error" role="alert"></p>
+          </div>
+            </div>
+            <div class="panel-foot">
+              <button type="submit" class="btn btn-primary">Update password</button>
+              <a class="btn btn-ghost" href="forgot-password.html">Forgot your password?</a>
+              <p class="form-status" role="status" aria-live="polite" data-form-status></p>
+            </div>
+          </form>
+
+          <form class="panel" id="preferences-form" aria-labelledby="preferences-heading">
+            <div class="panel-head">
+              <h2 id="preferences-heading">Preferences</h2>
+              <p>Choose what Astra emails you and what others can see.</p>
+            </div>
+            <div class="panel-body">
+              <label class="check"><input type="checkbox" name="emailNotifications" checked /> Email me about contests and replies</label>
+              <label class="check"><input type="checkbox" name="publicSolved" checked /> Show my solved problems on my public profile</label>
+            </div>
+            <div class="panel-foot">
+              <button type="submit" class="btn btn-primary">Save preferences</button>
+              <p class="form-status" role="status" aria-live="polite" data-form-status></p>
+            </div>
+          </form>
+        </div>
+
+      </div>
+    </section>
+  </main>
+
+  <div data-include="footer"></div>
+</body>
+</html>
