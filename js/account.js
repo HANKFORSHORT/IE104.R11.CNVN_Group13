@@ -330,7 +330,7 @@
       idCell.textContent = problem.id;
 
       link.className = "problem-link";
-      link.href = "workspace.html";
+      link.href = "problem-detail.html";
       link.textContent = problem.name;
       nameCell.appendChild(link);
 
