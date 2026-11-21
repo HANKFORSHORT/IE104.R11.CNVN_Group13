@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Standings · Astra</title>
+  <meta name="description" content="" />
+  <link rel="icon" href="images/favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,500;0,600;0,700;1,500&family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/contest.css">
+  <link rel="stylesheet" href="css/table.css">
+  <script src="js/main.js" defer></script>
+  <script src="js/table-filter.js" defer></script>
+</head>
+<body>
+  <div data-include="header"></div>
+
+  <main>
+    <div class="page-header">
+      <div class="container">
+        <div class="breadcrumb"><a href="index.html">Home</a> / <a href="contests.html">Contests</a> / <a href="contest.html">Round 118</a> / Standings</div>
+        <h1 style="color:var(--peach);">Astra Round 118 &ndash; Standings</h1>
+        <div style="display:flex;gap:1.6rem;flex-wrap:wrap;align-items:center;margin-top:0.6rem;color:rgba(246,220,172,0.75);font-size:0.9rem;">
+          <span class="badge badge-rated" style="margin-left:0;">Rated</span>
+          <span>Finished</span>
+          <span>Ranked by points, then penalty &middot; 10 min per wrong submission</span>
+        </div>
+      </div>
+    </div>
+
+    <section class="section" style="padding-top: 2.5rem">
+      <div class="container">
+
+        <!-- Thanh thông số -->
+        <div class="stat-bar">
+          <div><div class="stat-label">Participants</div><div class="stat-value">4,208</div></div>
+          <div><div class="stat-label">Duration</div><div class="stat-value">02:00</div></div>
+          <div><div class="stat-label">Max points</div><div class="stat-value">10,500</div></div>
+          <div><div class="stat-label">Your rank</div><div class="stat-value">#214</div></div>
+        </div>
+
+        <!-- Bộ lọc -->
+        <form class="filters-bar" data-filter-table="#standingsBody">
+          <input type="text" placeholder="Search handle…" aria-label="Search handle"
+                data-filter-search data-filter-field="handle" />
+          <select aria-label="Participants" data-filter="solved" data-filter-type="range">
+            <option value="any">All participants</option>
+            <option value="1-6">Solved ≥ 1 problem</option>
+            <option value="3-6">Solved ≥ 3 problems</option>
+            <option value="0-0">Solved nothing</option>
+          </select>
+          <button type="submit" class="btn btn-primary" data-filter-apply>Filter</button>
+        </form>
+
+        <!-- Bảng standings -->
+        <div class="table-wrap">
+          <table class="data-table standings-table">
+            <thead>
+              <tr>
+                <th>Rank</th>
+                <th>Participant</th>
+                <th class="st-center">Points</th>
+                <th class="st-center">Penalty</th>
+                <th class="st-center"><a class="problem-link" href="problem-detail.html">A</a><span class="st-max">500</span></th>
+                <th class="st-center"><a class="problem-link" href="problem-detail.html">B</a><span class="st-max">1000</span></th>
+                <th class="st-center"><a class="problem-link" href="problem-detail.html">C</a><span class="st-max">1500</span></th>
+                <th class="st-center"><a class="problem-link" href="problem-detail.html">D</a><span class="st-max">2000</span></th>
+                <th class="st-center"><a class="problem-link" href="problem-detail.html">E</a><span class="st-max">2500</span></th>
+                <th class="st-center"><a class="problem-link" href="problem-detail.html">F</a><span class="st-max">3000</span></th>
+              </tr>
+            </thead>
+            <tbody id="standingsBody">
+              <tr data-handle="abakan" data-solved="6">
+                <td class="rank-cell">1</td>
+                <td><a class="problem-link" href="profile.html">abakan</a></td>
+                <td class="st-center st-points">10,500</td>
+                <td class="st-center">296</td>
+                <td class="st-cell st-ok">500<small>0:04</small></td>
+                <td class="st-cell st-ok">1000<small>0:12</small></td>
+                <td class="st-cell st-ok">1500<small>0:31</small></td>
+                <td class="st-cell st-ok">2000<small>0:58</small></td>
+                <td class="st-cell st-ok">2500<small>1:22</small></td>
+                <td class="st-cell st-ok">3000<small>1:49</small></td>
+              </tr>
+              <tr data-handle="NHQ0914" data-solved="5">
+                <td class="rank-cell">2</td>
+                <td><a class="problem-link" href="profile.html">NHQ0914</a></td>
+                <td class="st-center st-points">7,500</td>
+                <td class="st-center">284</td>
+                <td class="st-cell st-ok">500<small>0:08</small></td>
+                <td class="st-cell st-ok">1000<small>0:21</small></td>
+                <td class="st-cell st-ok">1500<small>0:47</small></td>
+                <td class="st-cell st-ok">2000<small>1:20 &middot; &minus;1</small></td>
+                <td class="st-cell st-ok">2500<small>1:58</small></td>
+                <td class="st-cell st-empty">&ndash;</td>
+              </tr>
+              <tr data-handle="Sherwin" data-solved="4">
+                <td class="rank-cell">3</td>
+                <td><a class="problem-link" href="profile.html">Sherwin</a></td>
+                <td class="st-center st-points">5,000</td>
+                <td class="st-center">181</td>
+                <td class="st-cell st-ok">500<small>0:06</small></td>
+                <td class="st-cell st-ok">1000<small>0:19</small></td>
+                <td class="st-cell st-ok">1500<small>0:55</small></td>
+                <td class="st-cell st-ok">2000<small>1:41</small></td>
+                <td class="st-cell st-empty">&ndash;</td>
+                <td class="st-cell st-empty">&ndash;</td>
+              </tr>
+              <tr data-handle="Cerq" data-solved="4">
+                <td class="rank-cell">4</td>
+                <td><a class="problem-link" href="profile.html">Cerq</a></td>
+                <td class="st-center st-points">5,000</td>
+                <td class="st-center">222</td>
+                <td class="st-cell st-ok">500<small>0:09</small></td>
+                <td class="st-cell st-ok">1000<small>0:28 &middot; &minus;1</small></td>
+                <td class="st-cell st-ok">1500<small>1:03</small></td>
+                <td class="st-cell st-ok">2000<small>1:52</small></td>
+                <td class="st-cell st-no">&minus;2</td>
+                <td class="st-cell st-empty">&ndash;</td>
+              </tr>
+              <tr data-handle="harryleee" data-solved="3">
+                <td class="rank-cell">5</td>
+                <td><a class="problem-link" href="profile.html">harryleee</a></td>
+                <td class="st-center st-points">3,000</td>
+                <td class="st-center">116</td>
+                <td class="st-cell st-ok">500<small>0:05</small></td>
+                <td class="st-cell st-ok">1000<small>0:17</small></td>
+                <td class="st-cell st-ok">1500<small>1:14 &middot; &minus;2</small></td>
+                <td class="st-cell st-no">&minus;1</td>
+                <td class="st-cell st-empty">&ndash;</td>
+                <td class="st-cell st-empty">&ndash;</td>
+              </tr>
+              <tr data-handle="tuongll" data-solved="3">
+                <td class="rank-cell">6</td>
+                <td><a class="problem-link" href="profile.html">tuongll</a></td>
+                <td class="st-center st-points">3,000</td>
+                <td class="st-center">138</td>
+                <td class="st-cell st-ok">500<small>0:11</small></td>
+                <td class="st-cell st-ok">1000<small>0:35</small></td>
+                <td class="st-cell st-ok">1500<small>1:32</small></td>
+                <td class="st-cell st-empty">&ndash;</td>
+                <td class="st-cell st-empty">&ndash;</td>
+                <td class="st-cell st-empty">&ndash;</td>
+              </tr>
+              <tr data-handle="lenhanbo" data-solved="2">
+                <td class="rank-cell">7</td>
+                <td><a class="problem-link" href="profile.html">lenhanbo</a></td>
+                <td class="st-center st-points">1,500</td>
+                <td class="st-center">43</td>
+                <td class="st-cell st-ok">500<small>0:07 &middot; &minus;1</small></td>
+                <td class="st-cell st-ok">1000<small>0:26</small></td>
+                <td class="st-cell st-empty">&ndash;</td>
+                <td class="st-cell st-empty">&ndash;</td>
+                <td class="st-cell st-empty">&ndash;</td>
+                <td class="st-cell st-empty">&ndash;</td>
+              </tr>
+              <tr data-handle="minhanh_dev" data-solved="1">
+                <td class="rank-cell">8</td>
+                <td><a class="problem-link" href="profile.html">minhanh_dev</a></td>
+                <td class="st-center st-points">500</td>
+                <td class="st-center">14</td>
+                <td class="st-cell st-ok">500<small>0:14</small></td>
+                <td class="st-cell st-no">&minus;3</td>
+                <td class="st-cell st-empty">&ndash;</td>
+                <td class="st-cell st-empty">&ndash;</td>
+                <td class="st-cell st-empty">&ndash;</td>
+                <td class="st-cell st-empty">&ndash;</td>
+              </tr>
+              <!-- Hàng của người dùng hiện tại -->
+              <tr class="row-me" data-handle="your_handle" data-solved="2">
+                <td class="rank-cell">214</td>
+                <td><a class="problem-link" href="profile.html">your_handle</a><span class="tag-you">You</span></td>
+                <td class="st-center st-points">1,000</td>
+                <td class="st-center">64</td>
+                <td class="st-cell st-ok">500<small>0:12</small></td>
+                <td class="st-cell st-ok">1000<small>0:52</small></td>
+                <td class="st-cell st-no">&minus;2</td>
+                <td class="st-cell st-empty">&ndash;</td>
+                <td class="st-cell st-empty">&ndash;</td>
+                <td class="st-cell st-empty">&ndash;</td>
+              </tr>
+
+              <tr data-filter-empty hidden>
+                <td colspan="10" style="text-align:center;padding:1.5rem;">No participants found.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="st-footer">
+          <p>Showing 1&ndash;8 of 4,208 &middot; Cell: points / solve time &middot; &minus;n = n wrong attempts, not solved &middot; &ndash; = not attempted</p>
+          <div class="st-pager">
+            <a href="#" class="btn btn-secondary">Prev</a>
+            <a href="#" class="btn btn-primary">Next</a>
+          </div>
+        </div>
+
+      </div>
+    </section>
+  </main>
+
+  <div data-include="footer"></div>
+</body>
+</html>

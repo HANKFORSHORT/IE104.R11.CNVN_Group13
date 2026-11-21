@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Workspace · Round 118 · Astra</title>
+  <meta name="description" content="" />
+  <link rel="icon" href="images/favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,500;0,600;0,700;1,500&family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/contest.css">
+  <link rel="stylesheet" href="css/table.css">
+  <script src="js/main.js" defer></script>
+  <script src="js/table-filter.js" defer></script>
+  <style>
+    :root {
+      --ws-field-bg: var(--bg-panel); --ws-field-text: var(--text); --ws-field-border: var(--line-strong);
+      --ws-placeholder: var(--text-muted); --ws-ok: #2f855a; --ws-warn: #b7791f; --ws-bad: #c53030; --ws-mute: #718096;
+      --ws-tab-border: var(--line-strong);
+    }
+    :root[data-theme="dark"] {
+      --ws-field-bg: #14112a; --ws-field-text: #f3ecdc; --ws-field-border: rgba(246,220,172,.35);
+      --ws-placeholder: rgba(243,236,220,.55); --ws-ok: #6ee7a0; --ws-warn: #fbbf6a; --ws-bad: #ff8a8a; --ws-mute: #a8a3c0;
+      --ws-tab-border: rgba(246,220,172,.35);
+    }
+    .ws-clock { font-family: "Space Grotesk", sans-serif; font-size: 2.6rem; font-weight: 700; letter-spacing: .02em; color: var(--peach); line-height: 1; font-variant-numeric: tabular-nums; }
+    .ws-clock-label { font-size: .85rem; color: rgba(246,220,172,.75); margin-bottom: .35rem; }
+    .ws-progress { height: 6px; border-radius: 3px; background: rgba(246,220,172,.2); margin-top: .9rem; overflow: hidden; }
+    .ws-progress > span { display: block; height: 100%; width: 0; background: var(--orange, #e8833a); transition: width 1s linear; }
+    .ws-state { display: inline-flex; align-items: center; gap: .45rem; font-size: .85rem; font-weight: 600; padding: .25rem .7rem; border-radius: 999px; border: 1px solid currentColor; }
+    .ws-state::before { content: ""; width: .5rem; height: .5rem; border-radius: 50%; background: currentColor; }
+    .ws-state[data-state="upcoming"] { color: var(--ws-warn); }
+    .ws-state[data-state="running"]  { color: var(--ws-ok); }
+    .ws-state[data-state="ended"]    { color: var(--ws-mute); }
+    .ws-status { font-weight: 600; font-size: .88rem; }
+    .ws-status[data-s="solved"]    { color: var(--ws-ok); }
+    .ws-status[data-s="attempted"] { color: var(--ws-warn); }
+    .ws-status[data-s="none"]      { color: var(--text-muted, #777); font-weight: 500; }
+    .ws-verdict[data-v="Accepted"] { color: var(--ws-ok); font-weight: 600; }
+    .ws-verdict[data-v="Wrong answer"], .ws-verdict[data-v="Runtime error"] { color: var(--ws-bad); font-weight: 600; }
+    .ws-verdict[data-v="Pending"] { color: var(--ws-warn); font-weight: 600; }
+    .ws-form { display: grid; gap: .8rem; }
+    .ws-form label { font-size: .85rem; font-weight: 600; display: grid; gap: .3rem; }
+    .ws-form select, .ws-form textarea { font: inherit; padding: .55rem .7rem; border: 1px solid var(--ws-field-border); border-radius: 6px; background-color: var(--ws-field-bg); color: var(--ws-field-text); }
+    .ws-form select option { background-color: var(--ws-field-bg); color: var(--ws-field-text); }
+    .ws-form textarea::placeholder { color: var(--ws-placeholder); opacity: 1; }
+    .ws-form textarea { min-height: 150px; font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .85rem; resize: vertical; }
+    .ws-form :focus-visible, .ws-tabs button:focus-visible { outline: 2px solid var(--orange, #e8833a); outline-offset: 2px; }
+    .ws-form select:disabled, .ws-form textarea:disabled { opacity: .7; cursor: not-allowed; }
+    .ws-form .btn[disabled] { opacity: .55; cursor: not-allowed; }
+    .ws-msg { font-size: .88rem; min-height: 1.2em; color: var(--text-muted); }
+    .ws-tabs { display: flex; gap: .4rem; margin-bottom: 1rem; flex-wrap: wrap; }
+    .ws-tabs button { font: inherit; font-weight: 600; padding: .4rem .9rem; border-radius: 6px; border: 1px solid var(--ws-tab-border); background: transparent; color: inherit; cursor: pointer; }
+    .ws-tabs button[aria-selected="true"] { background: var(--orange, #e8833a); border-color: var(--orange, #e8833a); color: #fff; }
+    .ws-score { display: flex; gap: 1.5rem; flex-wrap: wrap; margin: .6rem 0 0; font-size: .9rem; }
+    .ws-score strong { font-size: 1.3rem; display: block; font-family: "Space Grotesk", sans-serif; }
+    @media (prefers-reduced-motion: reduce) { .ws-progress > span { transition: none; } }
+    @media (max-width: 640px) { .ws-clock { font-size: 2rem; } }
+  </style>
+</head>
+<body>
+  <div data-include="header"></div>
+
+  <main>
+    <div class="page-header">
+      <div class="container">
+        <div class="breadcrumb"><a href="index.html">Home</a> / <a href="contests.html">Contests</a> / <a href="contest.html">Round 118</a> / Workspace</div>
+        <div style="display:flex;justify-content:space-between;align-items:flex-end;gap:2rem;flex-wrap:wrap;">
+          <div>
+            <h1 style="color:var(--peach);margin-bottom:.6rem;">Astra Round 118 (Div. 1 + Div. 2)</h1>
+            <span class="ws-state" id="wsState" data-state="upcoming" style="color:var(--peach);">Not started</span>
+          </div>
+          <div style="min-width:260px;">
+            <div class="ws-clock-label" id="wsClockLabel">Starts in</div>
+            <div class="ws-clock" id="wsClock" role="timer" aria-live="off">--:--:--</div>
+            <div class="ws-progress" aria-hidden="true"><span id="wsBar"></span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <section class="section" style="padding-top: 2.5rem">
+      <div class="container two-col" style="align-items: start;">
+
+        <div>
+          <h3>Problems</h3>
+          <div class="table-wrap">
+            <table class="data-table">
+              <thead>
+                <tr><th>#</th><th>Name</th><th>Difficulty</th><th>Your status</th><th></th></tr>
+              </thead>
+              <tbody id="wsProblems"></tbody>
+            </table>
+          </div>
+
+          <h3 style="margin-top:2rem;">Your submissions</h3>
+          <div class="ws-tabs" role="tablist" aria-label="Filter submissions">
+            <button role="tab" aria-selected="true" data-tab="all">All</button>
+            <button role="tab" aria-selected="false" data-tab="Accepted">Accepted</button>
+            <button role="tab" aria-selected="false" data-tab="rejected">Rejected</button>
+          </div>
+          <div class="table-wrap">
+            <table class="data-table">
+              <thead>
+                <tr><th>ID</th><th>Time</th><th>Problem</th><th>Language</th><th>Verdict</th></tr>
+              </thead>
+              <tbody id="wsSubs"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <aside>
+          <div class="card">
+            <h4>Your participation</h4>
+            <p style="font-size:.9rem;margin-bottom:.6rem;">Status: <strong id="wsPart">Not registered</strong></p>
+            <div class="ws-score">
+              <div><strong id="wsSolved">0</strong>Solved</div>
+              <div><strong id="wsPenalty">0</strong>Penalty (min)</div>
+            </div>
+            <button type="button" class="btn btn-primary btn-block" id="wsRegister" style="margin-top:1.1rem;">Register for round</button>
+            <p class="ws-msg" id="wsPartMsg" style="margin:.6rem 0 0;"></p>
+          </div>
+
+          <div class="card" style="margin-top:1.2rem;">
+            <h4>Submit a solution</h4>
+            <form class="ws-form" id="wsForm" novalidate onsubmit="return false;">
+              <label>Problem
+                <select id="wsProblemSel"></select>
+              </label>
+              <label>Language
+                <select id="wsLang">
+                  <option>C++20</option>
+                  <option>Python 3</option>
+                  <option>Java 21</option>
+                  <option>Rust</option>
+                </select>
+              </label>
+              <label>Source code
+                <textarea id="wsCode" spellcheck="false" placeholder="Paste your code here"></textarea>
+              </label>
+              <button type="button" class="btn btn-primary btn-block" id="wsSubmit">Submit solution</button>
+              <p class="ws-msg" id="wsMsg" role="status"></p>
+            </form>
+          </div>
+        </aside>
+
+      </div>
+    </section>
+  </main>
+
+  <div data-include="footer"></div>
+
+  <script>
+    /* Inline for convenience; can be moved to js/contest-workspace.js
+       (remove the <script src="js/contest-workspace.js"> tag if you keep it inline). */
+    (function () {
+      "use strict";
+      const PROBLEMS = [
+        { id: "A", name: "Warm-Up Signal",       diff: 800,  cls: "easy" },
+        { id: "B", name: "Orbit Pairs",          diff: 1100, cls: "easy" },
+        { id: "C", name: "Deranged Calculator",  diff: 1900, cls: "medium" },
+        { id: "D", name: "Star Chart Reassembly",diff: 2200, cls: "hard" },
+        { id: "E", name: "Meteor Shower DP",     diff: 2600, cls: "hard" },
+        { id: "F", name: "Nebula Segment Tree",  diff: 3000, cls: "hard" }
+      ];
+      // 17 Oct 2026, 21:35 ICT (UTC+7), 2 hours
+      const START = new Date("2026-10-17T21:35:00+07:00").getTime();
+      const END = START + 2 * 3600 * 1000;
+      const KEY = "astra.r118.workspace";
+      const $ = (id) => document.getElementById(id);
+
+      // ?state=upcoming|running|ended lets you preview each state while developing
+      const forced = new URLSearchParams(location.search).get("state");
+      const demoOffset = { upcoming: START - 3600e3 * 26 - Date.now(), running: START + 47 * 60e3 - Date.now(), ended: END + 3600e3 - Date.now() }[forced] || 0;
+      const now = () => Date.now() + demoOffset;
+
+      let data = { registered: false, subs: [] };
+      try { data = Object.assign(data, JSON.parse(localStorage.getItem(KEY) || "{}")); } catch (e) {}
+      const save = () => { try { localStorage.setItem(KEY, JSON.stringify(data)); } catch (e) {} };
+
+      const phase = () => (now() < START ? "upcoming" : now() < END ? "running" : "ended");
+      const pad = (n) => String(n).padStart(2, "0");
+      const fmt = (ms) => {
+        const s = Math.max(0, Math.floor(ms / 1000));
+        return pad(Math.floor(s / 3600)) + ":" + pad(Math.floor((s % 3600) / 60)) + ":" + pad(s % 60);
+      };
+      const esc = (t) => String(t).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+
+      function problemStatus(id) {
+        const mine = data.subs.filter((s) => s.problem === id);
+        if (!mine.length) return "none";
+        return mine.some((s) => s.verdict === "Accepted") ? "solved" : "attempted";
+      }
+
+      function stats() {
+        let solved = 0, penalty = 0;
+        PROBLEMS.forEach((p) => {
+          const mine = data.subs.filter((s) => s.problem === p.id && s.virtual !== true).sort((a, b) => a.at - b.at);
+          const ac = mine.find((s) => s.verdict === "Accepted");
+          if (ac) {
+            solved++;
+            const wrong = mine.filter((s) => s.at < ac.at).length;
+            penalty += Math.floor((ac.at - START) / 60000) + wrong * 10;
+          }
+        });
+        return { solved, penalty };
+      }
+
+      function renderClock() {
+        const p = phase(), t = now();
+        const st = $("wsState");
+        st.dataset.state = p;
+        st.textContent = { upcoming: "Not started", running: "Running", ended: "Finished" }[p];
+        if (p === "upcoming") { $("wsClockLabel").textContent = "Starts in"; $("wsClock").textContent = fmt(START - t); $("wsBar").style.width = "0%"; }
+        else if (p === "running") { $("wsClockLabel").textContent = "Time left"; $("wsClock").textContent = fmt(END - t); $("wsBar").style.width = ((t - START) / (END - START) * 100).toFixed(1) + "%"; }
+        else { $("wsClockLabel").textContent = "Round ended"; $("wsClock").textContent = "00:00:00"; $("wsBar").style.width = "100%"; }
+      }
+
+      function renderParticipation() {
+        const p = phase();
+        const btn = $("wsRegister"), msg = $("wsPartMsg");
+        if (p === "ended") {
+          $("wsPart").textContent = data.registered ? "Participated" : "Virtual participation";
+          btn.textContent = "Practice in virtual mode";
+          btn.disabled = false;
+          msg.textContent = "Submissions are not rated after the round.";
+        } else if (data.registered) {
+          $("wsPart").textContent = p === "running" ? "Competing" : "Registered";
+          btn.textContent = p === "running" ? "Registered" : "Cancel registration";
+          btn.disabled = p === "running";
+          msg.textContent = p === "upcoming" ? "Registration closes 5 minutes before the start." : "";
+        } else {
+          $("wsPart").textContent = "Not registered";
+          btn.textContent = "Register for round";
+          btn.disabled = p === "running";
+          msg.textContent = p === "running" ? "Registration is closed for this round." : "Registration closes 5 minutes before the start.";
+        }
+        const s = stats();
+        $("wsSolved").textContent = s.solved;
+        $("wsPenalty").textContent = s.penalty;
+      }
+
+      function renderProblems() {
+        $("wsProblems").innerHTML = PROBLEMS.map((p) => {
+          const s = problemStatus(p.id);
+          const label = { none: "Not attempted", attempted: "Attempted", solved: "Solved" }[s];
+          return '<tr><td class="rank-cell">' + p.id + '</td>' +
+            '<td><a class="problem-link" href="problem-detail.html">' + esc(p.name) + '</a></td>' +
+            '<td><span class="pill pill-' + p.cls + '">' + p.diff + '</span></td>' +
+            '<td><span class="ws-status" data-s="' + s + '">' + label + '</span></td>' +
+            '<td><button type="button" class="btn btn-sm btn-secondary" data-pick="' + p.id + '">Submit</button></td></tr>';
+        }).join("");
+        $("wsProblemSel").innerHTML = PROBLEMS.map((p) => '<option value="' + p.id + '">' + p.id + ". " + esc(p.name) + "</option>").join("");
+      }
+
+      let tab = "all";
+      function renderSubs() {
+        const rows = data.subs.slice().sort((a, b) => b.at - a.at).filter((s) =>
+          tab === "all" ? true : tab === "Accepted" ? s.verdict === "Accepted" : s.verdict !== "Accepted" && s.verdict !== "Pending");
+        $("wsSubs").innerHTML = rows.length ? rows.map((s) =>
+          "<tr><td>#" + s.id + "</td><td>" + new Date(s.at).toLocaleTimeString("en-GB", { hour12: false }) + "</td><td>" + esc(s.problem) + "</td><td>" + esc(s.lang) + '</td><td><span class="ws-verdict" data-v="' + esc(s.verdict) + '">' + esc(s.verdict) + (s.virtual ? " (virtual)" : "") + "</span></td></tr>").join("")
+          : '<tr><td colspan="5" style="text-align:center;padding:1.5rem;">No submissions yet. Pick a problem and submit your first solution.</td></tr>';
+      }
+
+      function renderAll() { renderProblems(); renderSubs(); renderParticipation(); applyFormState(); }
+
+      function applyFormState() {
+        const p = phase();
+        const blocked = p === "upcoming" || (p === "running" && !data.registered);
+        ["wsProblemSel", "wsLang", "wsCode", "wsSubmit"].forEach((id) => ($(id).disabled = blocked));
+        $("wsMsg").textContent = blocked
+          ? (p === "upcoming" ? "Submissions open when the round starts." : "Register for the round to submit.")
+          : "";
+      }
+
+      $("wsRegister").addEventListener("click", () => {
+        const p = phase();
+        if (p === "ended") { $("wsPartMsg").textContent = "Virtual mode on: submit solutions below to practice."; return; }
+        data.registered = !data.registered;
+        save(); renderAll();
+      });
+
+      $("wsProblems").addEventListener("click", (e) => {
+        const b = e.target.closest("[data-pick]");
+        if (!b) return;
+        $("wsProblemSel").value = b.dataset.pick;
+        $("wsCode").focus();
+      });
+
+      document.querySelector(".ws-tabs").addEventListener("click", (e) => {
+        const b = e.target.closest("button[data-tab]");
+        if (!b) return;
+        tab = b.dataset.tab;
+        document.querySelectorAll(".ws-tabs button").forEach((x) => x.setAttribute("aria-selected", x === b ? "true" : "false"));
+        renderSubs();
+      });
+
+      $("wsSubmit").addEventListener("click", () => {
+        const code = $("wsCode").value.trim();
+        if (!code) { $("wsMsg").textContent = "Paste your source code before submitting."; return; }
+        const sub = { id: 100000 + data.subs.length + 1, at: now(), problem: $("wsProblemSel").value, lang: $("wsLang").value, verdict: "Pending", code: code, virtual: phase() === "ended" };
+        data.subs.push(sub); save();
+        $("wsCode").value = "";
+        $("wsMsg").textContent = "Submission #" + sub.id + " received. Judging…";
+        renderAll();
+        // TODO: replace with a real API call, then update sub.verdict from the response
+        setTimeout(() => {
+          
+          sub.verdict = /\bAC\b/.test(sub.code) ? "Accepted" : /\bRE\b/.test(sub.code) ? "Runtime error" : "Wrong answer";
+          save();
+          $("wsMsg").textContent = "Submission #" + sub.id + ": " + sub.verdict + ".";
+          renderAll();
+        }, 1200);
+      });
+
+      let last = phase();
+      renderAll(); renderClock();
+      setInterval(() => {
+        renderClock();
+        if (phase() !== last) { last = phase(); renderAll(); }
+      }, 1000);
+    })();
+  </script>
+</body>
+</html>

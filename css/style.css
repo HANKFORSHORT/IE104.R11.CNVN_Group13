@@ -371,13 +371,15 @@ p {
   display: flex;
   align-items: center;
   gap: 0.9rem;
+  flex-shrink: 0;
 }
 
 .nav-only-mobile {
   display: none;
 }
 
-.theme-toggle {
+.theme-toggle,
+.nav-bell {
   width: 42px;
   height: 42px;
   border-radius: 50%;
@@ -392,11 +394,13 @@ p {
   transition: border-color .2s;
 }
 
-.theme-toggle:hover {
+.theme-toggle:hover,
+.nav-bell:hover {
   border-color: var(--accent-2);
 }
 
-.theme-toggle svg {
+.theme-toggle svg,
+.nav-bell svg {
   width: 19px;
   height: 19px;
 }
@@ -451,9 +455,240 @@ p {
 }
 
 
-/* Header và menu trên màn hình rộng tối đa 900px*/
+/* TRẠNG THÁI ĐĂNG NHẬP
+   main.js đặt data-auth="in" hoặc "out" trên <html>.
+   Phần tử có data-auth-only="in" chỉ hiện khi đã đăng nhập,
+   data-auth-only="out" chỉ hiện khi chưa đăng nhập. */
 
-@media (max-width: 900px) {
+html:not([data-auth="in"]) [data-auth-only="in"] {
+  display: none;
+}
+
+html[data-auth="in"] [data-auth-only="out"] {
+  display: none;
+}
+
+
+/* Nút chuông và nút Profile (màn hình rộng) */
+
+.nav-menu {
+  position: relative;
+}
+
+.nav-bell {
+  position: relative;
+}
+
+/* Chấm đỏ: còn thông báo chưa đọc */
+.nav-dot {
+  position: absolute;
+  top: 7px;
+  right: 8px;
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  border: 2px solid var(--bg-panel);
+  background: var(--orange);
+}
+
+.profile-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  white-space: nowrap;
+  padding: 0.25rem 0.85rem 0.25rem 0.25rem;
+
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--bg-panel);
+
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: var(--text);
+  transition: border-color .2s;
+}
+
+.profile-toggle:hover {
+  border-color: var(--accent-2);
+}
+
+.nav-avatar {
+  width: 32px;
+  height: 32px;
+  flex-shrink: 0;
+  border-radius: 50%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: var(--accent);
+  color: #ffffff;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 0.75rem;
+  letter-spacing: 0.02em;
+}
+
+.nav-chevron {
+  width: 14px;
+  height: 14px;
+  transition: transform .2s var(--ease);
+}
+
+[aria-expanded="true"] > .nav-chevron {
+  transform: rotate(180deg);
+}
+
+
+/* Cửa sổ popup dưới header (thông báo, profile).
+   Ẩn/hiện bằng thuộc tính hidden, main.js đóng khi bấm ra ngoài. */
+
+.nav-popup {
+  position: absolute;
+  top: calc(100% + 0.6rem);
+  right: 0;
+  z-index: 10;
+
+  background: var(--bg-panel);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+}
+
+/* Cần dòng này vì rule "div { display: block }" ở trên ghi đè hidden mặc định */
+.nav-popup[hidden] {
+  display: none;
+}
+
+.nav-popup-profile {
+  width: 14rem;
+}
+
+.nav-popup-notifications {
+  width: min(22rem, calc(100vw - 2 * var(--pad)));
+}
+
+.nav-popup-link {
+  display: block;
+  width: 100%;
+  padding: 0.7rem 1rem;
+
+  border: 0;
+  background: transparent;
+  text-align: left;
+
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--text);
+  transition:
+    background .2s var(--ease),
+    color .2s var(--ease);
+}
+
+.nav-popup-link:hover {
+  background: var(--bg-alt);
+  color: var(--accent);
+}
+
+/* Log out nằm riêng, ngăn cách bằng một đường kẻ */
+.nav-popup-menu li:last-child {
+  border-top: 1px solid var(--border);
+}
+
+.nav-popup-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.8rem 1rem;
+
+  border-bottom: 1px solid var(--border);
+  font-family: var(--font-display);
+  font-size: 0.9rem;
+  color: var(--brand);
+}
+
+.nav-popup-head span {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.nav-popup-list {
+  max-height: 24rem;
+  overflow-y: auto;
+}
+
+.nav-popup-item {
+  display: block;
+  position: relative;
+  padding: 0.75rem 1rem 0.75rem 1.7rem;
+
+  border-bottom: 1px solid var(--border);
+  font-size: 0.88rem;
+  color: var(--text);
+  transition: background .2s var(--ease);
+}
+
+.nav-popup-item:hover {
+  background: var(--bg-alt);
+}
+
+/* Chấm xanh: thông báo chưa đọc */
+.nav-popup-item[data-read="false"]::before {
+  content: "";
+  position: absolute;
+  top: 1.15rem;
+  left: 0.75rem;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+.nav-popup-item[data-read="false"] .nav-popup-title {
+  font-weight: 600;
+}
+
+.nav-popup-meta {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--text-muted);
+}
+
+.nav-popup-title {
+  display: block;
+}
+
+.nav-popup-empty {
+  padding: 1rem;
+  font-size: 0.88rem;
+  color: var(--text-muted);
+}
+
+.nav-popup-footer {
+  display: block;
+  padding: 0.75rem 1rem;
+
+  text-align: center;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--accent);
+  transition: background .2s var(--ease);
+}
+
+.nav-popup-footer:hover {
+  background: var(--bg-alt);
+}
+
+
+/* Switch to the compact menu before the desktop controls run out of room. */
+
+@media (max-width: 1100px) {
   .hide-mobile {
     display: none;
   }
@@ -483,8 +718,10 @@ p {
     transition: max-height .3s var(--ease);
   }
 
+  /* Đủ chỗ khi mục Profile mở rộng; menu cuộn được nếu màn hình quá thấp */
   .nav-links.open {
-    max-height: 480px;
+    max-height: calc(100vh - var(--nav-h));
+    overflow-y: auto;
   }
 
   .nav-links a {
@@ -495,6 +732,44 @@ p {
 
   .nav-links a::after {
     display: none;
+  }
+
+  /* Profile là mục đầu tiên của menu, bấm mũi tên để mở rộng xuống */
+  .nav-profile-toggle {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    width: 100%;
+    padding: 0.7rem var(--pad);
+
+    border: 0;
+    background: transparent;
+    text-align: left;
+
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 0.94rem;
+    color: var(--text);
+  }
+
+  .nav-profile-toggle .nav-chevron {
+    margin-left: auto;
+  }
+
+  .nav-profile-menu a,
+  .nav-profile-menu button {
+    display: block;
+    width: 100%;
+    padding: 1rem var(--pad) 1rem calc(var(--pad) + 1rem);
+
+    border: 0;
+    border-top: 1px solid var(--border);
+    background: transparent;
+    text-align: left;
+
+    font-size: 0.94rem;
+    font-weight: 500;
+    color: var(--text);
   }
 }
 

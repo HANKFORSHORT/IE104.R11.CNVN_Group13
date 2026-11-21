@@ -13,6 +13,9 @@
 
   const USERNAME_PATTERN = /^[A-Za-z0-9]+(?:-[A-Za-z0-9]+)*$/;
 
+  // TODO: temporary test account so the logged-in header can be tried without a backend.
+  const TEMP_ACCOUNT = { username: "123", password: "123" };
+
   const COUNTRY_CODES = (
     "AD AE AF AG AI AL AM AO AQ AR AS AT AU AW AX AZ BA BB BD BE BF BG BH BI BJ BL BM BN BO BQ BR BS BT BV BW BY BZ " +
     "CA CC CD CF CG CH CI CK CL CM CN CO CR CU CV CW CX CY CZ DE DJ DK DM DO DZ EC EE EG EH ER ES ET FI FJ FK FM FO FR " +
@@ -205,6 +208,25 @@
       return;
     }
 
+    if (kind === "login") {
+      const identifier = form.elements.identifier.value.trim();
+
+      // TODO: remove TEMP_ACCOUNT once login is checked by the backend.
+      if (identifier !== TEMP_ACCOUNT.username || form.elements.password.value !== TEMP_ACCOUNT.password) {
+        setFieldError(form.elements.password, "Incorrect username or password.");
+        form.elements.password.focus();
+        return;
+      }
+
+      // TODO: replace with a session issued by the backend. main.js reads this
+      // key to switch the header to its logged-in state; it is not real security.
+      try {
+        localStorage.setItem("astra-session", JSON.stringify({ identifier: identifier }));
+      } catch (error) {
+        // Storage blocked: the user stays logged out
+      }
+    }
+
     window.location.href = kind === "register" ? "login.html?registered=1" : "index.html";
   }
 
@@ -267,6 +289,10 @@
 
     if (new URLSearchParams(window.location.search).get("registered") === "1") {
       showBanner("Account created. Sign in to continue.");
+    }
+
+    if (new URLSearchParams(window.location.search).get("reset") === "1") {
+      showBanner("Password updated. Sign in with your new password.");
     }
 
     document.addEventListener("click", function (event) {
