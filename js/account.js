@@ -390,6 +390,7 @@
       readIds = Array.from(new Set(readIds.concat(ids)));
       writeStore(READ_KEY, readIds); // TODO: persist on the server
       render();
+      document.dispatchEvent(new CustomEvent("astra:notifications-read")); // header bell listens
     }
 
     document.addEventListener("click", function (event) {
