@@ -1,0 +1,30 @@
+/* Light-mode corrections loaded only by the problemset page. */
+:root:not([data-theme="dark"]) {
+    --tbl-surface: var(--card-bg);
+    --tbl-head-bg: var(--bg-panel);
+}
+
+:root:not([data-theme="dark"]) .filters-bar,
+:root:not([data-theme="dark"]) .data-table th {
+    background: var(--bg-alt);
+}
+
+:root:not([data-theme="dark"]) .data-table a.problem-link {
+    color: var(--brand);
+}
+
+:root:not([data-theme="dark"]) .data-table a.problem-link:hover {
+    color: var(--accent-dark);
+}
+
+:root:not([data-theme="dark"]) .pill-easy {
+    color: #237a4d;
+}
+
+:root:not([data-theme="dark"]) .pill-medium {
+    color: #7c5a22;
+}
+
+:root:not([data-theme="dark"]) .pill-hard {
+    color: var(--orange-dark);
+}
