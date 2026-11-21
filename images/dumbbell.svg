@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+  <style>
+    path { fill: none; stroke: #1B1830; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+  </style>
+  <path d="M6 7v10"/>
+  <path d="M3 9.5v5"/>
+  <path d="M18 7v10"/>
+  <path d="M21 9.5v5"/>
+  <path d="M6 12h12"/>
+</svg>
