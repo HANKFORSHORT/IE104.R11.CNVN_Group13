@@ -1,4 +1,5 @@
-/* Rankings */
+/* Rankings
+   Đánh dấu: [EDIT] = phần đã sửa hoặc thêm mới. Phần không có dấu giữ nguyên như bản gốc. */
 .rankings-page {
   --rank-ink: var(--brand);
   --rank-muted: var(--text-muted);
@@ -32,17 +33,16 @@
   margin-bottom: 0;
 }
 
+/* [EDIT] season-note: bỏ chữ HOA + font mono, dùng chữ thường cho dễ đọc */
 .season-note {
   flex: 0 0 auto;
-  padding: 0.7rem 0.9rem;
+  padding: 0.6rem 0.9rem;
   border: 1px solid var(--border);
   border-radius: var(--radius);
   background: var(--rank-surface);
   color: var(--rank-muted);
-  font-family: var(--font-mono);
-  font-size: 0.76rem;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
+  font-size: 0.84rem;
+  font-weight: 500;
 }
 
 .podium {
@@ -51,6 +51,11 @@
   gap: 1rem;
   align-items: end;
   margin-bottom: 2.5rem;
+}
+
+/* [EDIT] podium có thể bị ẩn khi bộ lọc không có kết quả */
+.podium[hidden] {
+  display: none;
 }
 
 .podium-card {
@@ -90,6 +95,10 @@
   font-size: clamp(1.35rem, 2.5vw, 1.8rem);
 }
 
+.podium-card h2 a:hover {
+  color: var(--accent);
+}
+
 .podium-handle {
   margin: 0;
   color: var(--rank-muted);
@@ -116,46 +125,7 @@
   font-size: 0.8rem;
 }
 
-.rankings-toolbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 1rem;
-  flex-wrap: wrap;
-  margin-bottom: 1rem;
-}
-
-.ranking-tabs {
-  display: inline-flex;
-  gap: 0.25rem;
-  padding: 0.25rem;
-  border: 1px solid var(--border);
-  border-radius: 999px;
-  background: var(--rank-soft);
-}
-
-.ranking-tab {
-  padding: 0.55rem 0.85rem;
-  border: 0;
-  border-radius: 999px;
-  background: transparent;
-  color: var(--rank-muted);
-  font-size: 0.82rem;
-  font-weight: 600;
-}
-
-.ranking-tab[aria-selected="true"],
-.ranking-tab:hover {
-  background: var(--rank-surface);
-  color: var(--rank-ink);
-}
-
-.ranking-filters {
-  display: flex;
-  gap: 0.6rem;
-}
-
-.ranking-filters label,
+/* [EDIT] sr-only dùng chung (cũ nằm chung rule với .ranking-filters label) */
 .rankings-page .sr-only {
   position: absolute;
   width: 1px;
@@ -168,45 +138,228 @@
   border: 0;
 }
 
-.ranking-filters select {
-  min-width: 9.5rem;
-  padding: 0.65rem 2rem 0.65rem 0.8rem;
-  border: 1px solid var(--border);
-  border-radius: var(--radius-sm);
-  background: var(--rank-surface);
-  color: var(--rank-ink);
-  font: inherit;
-  font-size: 0.82rem;
-}
-
-.ranking-table-wrap {
-  overflow-x: auto;
-  padding: 0.35rem;
+/* ==========================================================
+   [EDIT] FILTER — bắt đầu (thay cho .rankings-toolbar / .ranking-tabs / .ranking-filters)
+   ========================================================== */
+.rankings-filter {
+  display: grid;
+  grid-template-columns: auto minmax(11rem, 1.5fr) repeat(2, minmax(9.5rem, 1fr)) auto;
+  gap: 1rem 1.1rem;
+  align-items: end;
+  padding: 1.1rem 1.25rem;
   border: 1px solid var(--border);
   border-radius: var(--radius-lg);
   background: var(--rank-surface);
-  box-shadow: var(--shadow);
+}
+
+.filter-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  min-width: 0;
+}
+
+.filter-label {
+  color: var(--rank-muted);
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.rankings-filter input[type="search"],
+.rankings-filter select {
+  width: 100%;
+  height: 2.6rem;
+  padding: 0 0.8rem;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius-sm);
+  background: var(--bg-panel);
+  color: var(--rank-ink);
+  font: inherit;
+  font-size: 0.88rem;
+}
+
+.rankings-filter select {
+  cursor: pointer;
+}
+
+.rankings-filter input::placeholder {
+  color: var(--rank-muted);
+  opacity: 0.8;
+}
+
+/* Scope: nhóm radio dạng segmented control */
+.scope-options {
+  display: inline-flex;
+  gap: 0.2rem;
+  height: 2.6rem;
+  padding: 0.2rem;
+  border: 1px solid var(--line-strong);
+  border-radius: 999px;
+  background: var(--rank-soft);
+}
+
+.scope-option {
+  position: relative;
+  display: flex;
+  cursor: pointer;
+}
+
+.scope-option input {
+  position: absolute;
+  inset: 0;
+  margin: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.scope-option span {
+  display: flex;
+  align-items: center;
+  padding: 0 0.95rem;
+  border-radius: 999px;
+  color: var(--rank-muted);
+  font-size: 0.84rem;
+  font-weight: 600;
+  transition: background 0.2s var(--ease), color 0.2s var(--ease);
+}
+
+.scope-option:hover span {
+  color: var(--rank-ink);
+}
+
+.scope-option input:checked + span {
+  background: var(--rank-surface);
+  color: var(--rank-ink);
+  box-shadow: 0 0 0 1px var(--line-strong);
+}
+
+.scope-option input:focus-visible + span {
+  box-shadow: var(--focus-ring);
+}
+
+.filter-actions {
+  display: flex;
+  gap: 0.6rem;
+}
+
+.filter-actions .btn {
+  min-height: 2.6rem;
+}
+
+.rankings-page .btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.rankings-page .btn-secondary:disabled:hover {
+  border-color: var(--line-strong);
+  color: var(--brand);
+}
+
+/* Bộ lọc đang áp dụng */
+.filter-summary {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6rem 1rem;
+  min-height: 2.2rem;
+  margin: 0.9rem 0 1rem;
+}
+
+.filter-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.filter-chips[hidden] {
+  display: none;
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.35rem 0.6rem 0.35rem 0.8rem;
+  border: 1px solid var(--line-strong);
+  border-radius: 999px;
+  background: var(--rank-soft);
+  color: var(--rank-ink);
+  font-size: 0.8rem;
+  font-weight: 500;
+  transition: border-color 0.2s var(--ease), background 0.2s var(--ease);
+}
+
+.chip:hover {
+  border-color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 12%, var(--bg));
+}
+
+.chip svg {
+  width: 0.7rem;
+  height: 0.7rem;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+}
+
+.filter-status {
+  margin: 0;
+  color: var(--rank-muted);
+  font-size: 0.82rem;
+}
+
+.filter-status.is-dirty {
+  color: var(--rank-ink);
+  font-weight: 600;
+}
+
+.filter-status.is-dirty::before {
+  content: "";
+  display: inline-block;
+  width: 0.5rem;
+  height: 0.5rem;
+  margin-right: 0.5rem;
+  border-radius: 50%;
+  background: var(--accent-3);
+}
+/* [EDIT] Ẩn mục Friends khi chưa đăng nhập (thuộc tính hidden) */
+.scope-option[hidden] {
+  display: none;
+}
+/* [EDIT] FILTER — kết thúc */
+
+/* ==========================================================
+   [EDIT] TABLE — bắt đầu (thiết kế lại bảng xếp hạng)
+   ========================================================== */
+.ranking-table-wrap {
+  overflow-x: auto;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  background: var(--rank-surface);
 }
 
 .ranking-table {
   width: 100%;
-  min-width: 43rem;
+  min-width: 40rem;
   border-collapse: collapse;
   text-align: left;
 }
 
 .ranking-table th,
 .ranking-table td {
-  padding: 1rem 1.2rem;
+  padding: 0.95rem 1.2rem;
   border-bottom: 1px solid var(--border);
 }
 
-.ranking-table th {
+.ranking-table thead th {
+  padding-block: 0.45rem;
+  background: var(--rank-soft);
   color: var(--rank-muted);
-  font-family: var(--font-mono);
-  font-size: 0.7rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+  font-size: 0.82rem;
+  font-weight: 600;
+  white-space: nowrap;
 }
 
 .ranking-table tbody tr:last-child td {
@@ -217,16 +370,79 @@
   background: var(--rank-soft);
 }
 
+/* Cột đang được sắp xếp: nhấn nhẹ để biết đang sort theo cột nào */
+.ranking-table td.is-sorted {
+  background: color-mix(in srgb, var(--accent) 5%, transparent);
+}
+
+.ranking-table th[aria-sort="ascending"] .sort-btn,
+.ranking-table th[aria-sort="descending"] .sort-btn {
+  color: var(--rank-ink);
+}
+
+/* Nút sort trong tiêu đề cột */
+.sort-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  margin-left: -0.5rem;
+  padding: 0.45rem 0.5rem;
+  border: 0;
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-weight: inherit;
+  transition: background 0.2s var(--ease), color 0.2s var(--ease);
+}
+
+.sort-btn:hover {
+  background: color-mix(in srgb, var(--accent) 12%, transparent);
+  color: var(--rank-ink);
+}
+
+.sort-icon {
+  width: 0.6rem;
+  height: 0.85rem;
+  fill: currentColor;
+}
+
+.sort-icon path {
+  opacity: 0.28;
+}
+
+th[aria-sort="ascending"] .sort-up,
+th[aria-sort="descending"] .sort-down {
+  fill: var(--accent);
+  opacity: 1;
+}
+
+/* Cột số căn phải */
+.ranking-table .col-num {
+  text-align: right;
+}
+
+.ranking-table th.col-num .sort-btn {
+  margin-right: -0.5rem;
+  margin-left: 0;
+}
+
 .rank-number,
 .rating,
 .solved {
-  font-family: var(--font-mono);
   font-variant-numeric: tabular-nums;
 }
 
 .rank-number {
-  width: 4.5rem;
+  width: 5rem;
   color: var(--rank-muted);
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 600;
+}
+
+.ranking-table td.rank-number.is-sorted {
+  color: var(--rank-ink);
 }
 
 .user-cell {
@@ -244,10 +460,16 @@
   flex: 0 0 auto;
   border-radius: 50%;
   background: var(--rank-soft);
-  color: var(--accent-dark);
+  color: var(--rank-ink);
   font-family: var(--font-mono);
   font-size: 0.8rem;
   font-weight: 700;
+}
+
+/* [EDIT] Scope Country: ô mã quốc gia vuông hơn để phân biệt với avatar người dùng */
+.user-avatar.is-country {
+  border-radius: var(--radius-sm);
+  font-size: 0.72rem;
 }
 
 .user-name {
@@ -256,84 +478,168 @@
   font-weight: 700;
 }
 
+.user-name a:hover {
+  color: var(--accent);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
 .user-country {
   display: block;
   color: var(--rank-muted);
   font-size: 0.78rem;
 }
 
+/* Rating: thanh nhỏ thể hiện vị trí trên thang 0–3200 + số */
+.rating-cell {
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.8rem;
+}
+
+.rating-meter {
+  width: 4.5rem;
+  height: 0.3rem;
+  border: 0;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--accent) 14%, transparent);
+  -webkit-appearance: none;
+  appearance: none;
+  overflow: hidden;
+}
+
+.rating-meter::-webkit-progress-bar {
+  background: color-mix(in srgb, var(--accent) 14%, transparent);
+}
+
+.rating-meter::-webkit-progress-value {
+  background: var(--accent);
+  border-radius: 999px;
+}
+
+.rating-meter::-moz-progress-bar {
+  background: var(--accent);
+  border-radius: 999px;
+}
+
 .rating {
-  color: var(--accent-dark);
+  min-width: 3.2rem;
+  color: var(--rank-ink);
   font-weight: 700;
+}
+
+.solved {
+  color: var(--rank-ink);
+}
+
+/* Change: tam giác + số, thay cho chỉ dùng màu */
+.trend {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.85rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.trend-up::before,
+.trend-down::before {
+  content: "";
+  width: 0.5rem;
+  height: 0.42rem;
+  background: currentColor;
+}
+
+.trend-up::before {
+  clip-path: polygon(50% 0, 100% 100%, 0 100%);
+}
+
+.trend-down::before {
+  clip-path: polygon(0 0, 100% 0, 50% 100%);
 }
 
 .trend-up {
   color: #187848;
-  font-size: 0.78rem;
-  font-weight: 700;
 }
 
 .trend-down {
   color: var(--orange-dark);
-  font-size: 0.78rem;
-  font-weight: 700;
 }
 
+.trend-flat,
+.trend-none {
+  color: var(--rank-muted);
+  font-weight: 500;
+}
+
+[data-theme="dark"] .trend-up {
+  color: var(--teal);
+}
+
+[data-theme="dark"] .trend-down {
+  color: #E59A94;
+}
+
+/* Không có kết quả */
+.ranking-table .empty-row td {
+  padding: 2.8rem 1.2rem;
+  text-align: center;
+}
+
+.empty-row p {
+  margin: 0 auto 1rem;
+  color: var(--rank-muted);
+}
+/* [EDIT] TABLE — kết thúc */
+
+/* [EDIT] Footer: số lượng + phân trang */
 .rankings-footer {
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
+  align-items: center;
   gap: 1rem;
   margin-top: 1rem;
   color: var(--rank-muted);
   font-size: 0.82rem;
 }
 
+.footer-count {
+  margin: 0;
+  font-size: 0.82rem;
+}
+
+.pager {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.pager-status {
+  min-width: 5.5rem;
+  text-align: center;
+}
+
+.rankings-note {
+  margin: 0.6rem 0 0;
+  font-size: 0.78rem;
+}
+
+/* [EDIT] Responsive: gộp 2 khối @media 760px / 700px bị trùng, bỏ các selector của trang khác (about, guide, dashboard, home...) */
+@media (max-width: 1000px) {
+  .rankings-filter {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .filter-scope,
+  .filter-search,
+  .filter-actions {
+    grid-column: 1 / -1;
+  }
+}
+
 @media (max-width: 760px) {
-  .about-hero-grid,
-  .about-intro,
-  .home-hero-grid,
-  .dashboard-grid,
-  .guide-layout {
-    grid-template-columns: 1fr;
-  }
-
-  .about-hero h1,
-  .about-intro h2 {
-    max-width: none;
-  }
-
-  .about-values {
-    grid-template-columns: 1fr;
-  }
-
-  .about-cta-inner,
-  .home-cta {
-    align-items: flex-start;
-    flex-direction: column;
-  }
-
-  .guide-aside {
-    position: static;
-  }
-
-  .guide-verdict-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .dashboard-heading {
-    align-items: start;
-    flex-direction: column;
-  }
-
-  .contest-item {
-    grid-template-columns: 4rem minmax(0, 1fr);
-  }
-
-  .contest-item .status {
-    grid-column: 2;
-    justify-self: start;
-  }
-
   .rankings-intro {
     display: block;
   }
@@ -352,84 +658,49 @@
     min-height: 0;
   }
 
-  .rankings-toolbar,
-  .ranking-filters {
-    align-items: stretch;
-    flex-direction: column;
-  }
-
-  .ranking-tabs {
-    justify-content: space-between;
-  }
-
-  .ranking-tab {
-    flex: 1;
-  }
-
-  .ranking-filters select {
-    width: 100%;
-  }
-
   .rankings-footer {
-    display: block;
+    flex-direction: column;
+    align-items: flex-start;
   }
 }
 
-@media (max-width: 480px) {
-  .home-hero h1 {
-    font-size: 2.8rem;
+@media (max-width: 560px) {
+  .rankings-filter {
+    grid-template-columns: 1fr;
   }
 
-  .problem-table th:nth-child(3),
-  .problem-table td:nth-child(3) {
-    display: none;
+  .scope-options {
+    display: flex;
+  }
+
+  .scope-option {
+    flex: 1;
+  }
+
+  .scope-option span {
+    flex: 1;
+    justify-content: center;
+    padding: 0;
+  }
+
+  .filter-actions .btn {
+    flex: 1;
+  }
+
+  .rankings-footer,
+  .pager {
+    width: 100%;
+  }
+
+  .pager {
+    justify-content: space-between;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .about-hero h1,
-  .about-console {
-    animation: none;
-  }
-}
-@media (max-width: 700px) {
-  .rankings-intro {
-    display: block;
-  }
-
-  .season-note {
-    display: inline-block;
-    margin-top: 1.25rem;
-  }
-
-  .podium {
-    grid-template-columns: 1fr;
-  }
-
-  .podium-card,
-  .podium-card:first-child {
-    min-height: 0;
-  }
-
-  .rankings-toolbar,
-  .ranking-filters {
-    align-items: stretch;
-    flex-direction: column;
-  }
-
-  .ranking-tabs {
-    justify-content: space-between;
-  }
-
-  .ranking-tab {
-    flex: 1;
-  }
-
-  .ranking-filters select {
-    width: 100%;
-  }
-
-  .rankings-footer {
-    display: block;
+  .scope-option span,
+  .chip,
+  .sort-btn {
+    transition: none;
   }
 }
