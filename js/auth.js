@@ -269,6 +269,10 @@
       showBanner("Account created. Sign in to continue.");
     }
 
+    if (new URLSearchParams(window.location.search).get("reset") === "1") {
+      showBanner("Password updated. Sign in with your new password.");
+    }
+
     document.addEventListener("click", function (event) {
       const toggle = event.target.closest("[data-toggle-password]");
 

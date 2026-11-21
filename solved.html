@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Solved problems · Astra</title>
+  <meta name="description" content="Problems a competitor has solved on Astra." />
+  <link rel="icon" href="images/favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,500;0,600;0,700;1,500&family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/problems.css" />
+  <link rel="stylesheet" href="css/account.css" />
+  <script src="js/main.js"></script>
+  <script src="js/account.js" defer></script>
+</head>
+<body>
+  <div data-include="header"></div>
+
+  <main class="account-page" data-account-page="solved">
+
+    <div data-user-notfound hidden>
+    <div class="page-header">
+      <div class="container">
+        <div class="breadcrumb"><a href="index.html">Home</a> / <a href="rankings.html">Rankings</a></div>
+        <h1>User not found</h1>
+        <p>We could not find that competitor.</p>
+      </div>
+    </div>
+
+      <section class="account-section">
+        <div class="container">
+          <div class="panel panel-narrow empty-state">
+            <h2>No such user</h2>
+            <p>Pick someone from the Rankings to view their profile.</p>
+            <a class="btn btn-primary" href="rankings.html">Go to Rankings</a>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <div data-user-profile hidden>
+      <div class="page-header">
+        <div class="container">
+          <div class="breadcrumb"><a href="index.html">Home</a> / <a href="rankings.html">Rankings</a> / <a href="public-profile.html" data-user-link>Profile</a> / Solved</div>
+          <div class="profile-head">
+            <span class="avatar" aria-hidden="true" data-user-field="initials">?</span>
+            <div>
+              <h1 data-user-field="handle">username</h1>
+              <p data-user-field="subtitle"></p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <section class="account-section">
+        <div class="container">
+          <p class="toolbar"><span><strong data-user-field="solved">0</strong> problems solved</span></p>
+
+          <div class="table-wrap" data-solved-table>
+            <table class="data-table">
+              <caption class="sr-only">Solved problems</caption>
+              <thead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Name</th>
+                  <th scope="col">Topics</th>
+                  <th scope="col">Difficulty</th>
+                </tr>
+              </thead>
+              <tbody id="solved-list"></tbody>
+            </table>
+          </div>
+
+          <div class="panel empty-state" data-solved-empty hidden>
+            <h2>Nothing solved yet</h2>
+            <p>Solved problems appear here after the first Accepted submission.</p>
+            <a class="btn btn-primary" href="problems.html">Browse problems</a>
+          </div>
+
+          <div class="actions">
+            <a class="btn btn-secondary" href="public-profile.html" data-user-link>Back to profile</a>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <div data-include="footer"></div>
+</body>
+</html>
