@@ -227,7 +227,15 @@
       }
     }
 
-    window.location.href = kind === "register" ? "login.html?registered=1" : "index.html";
+    let target = kind === "register" ? "login.html?registered=1" : "index.html";
+
+    if (kind === "login") {
+      const next = new URLSearchParams(window.location.search).get("next");
+      // chỉ cho phép file .html cùng thư mục, tránh redirect ra ngoài
+      if (next && /^[A-Za-z0-9_-]+\.html$/.test(next)) target = next;
+    }
+
+    window.location.href = target;
   }
 
 
