@@ -12,7 +12,8 @@
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/contest.css">
     <link rel="stylesheet" href="css/table.css">
-    <script src="js/main.js" defer></script>
+    <script src="js/session.js"></script>
+  <script src="js/main.js" defer></script>
     <script src="js/table-filter.js" defer></script>
     <script src="js/contest.js" defer></script>
 </head>
@@ -109,15 +110,15 @@
                         <img src="https://i.pravatar.cc/64?img=45" alt="" />
                         <img src="https://i.pravatar.cc/64?img=8" alt="" />
                     </div>
-                    <button type="button" id="registerBtn" class="btn btn-primary btn-block">Register for round</button>
+                    <button type="button" id="registerBtn" data-requires-auth class="btn btn-primary btn-block">Register for round</button>
                     <a href="gym.html" class="btn btn-secondary btn-block" style="margin-top:0.7rem;">Practice similar problems</a>
                     </div>
                 </aside>
             </div>
         </section>
 
-        <div class="modal-overlay" id="registerModal" hidden>
-          <div class="modal" role="dialog" aria-modal="true" aria-labelledby="registerTitle">
+        <dialog class="site-dialog auth-dialog" id="registerModal" aria-labelledby="registerTitle">
+      <div class="dialog-body">
             <h3 id="registerTitle">Confirm registration</h3>
             <p>Bạn chắc chắn muốn đăng ký <strong>Astra Round 118 (Div. 1 + Div. 2)</strong>?</p>
             <p class="modal-note">Bắt đầu Oct 17, 2026 · 21:35 ICT. Đăng ký đóng 5 phút trước khi round bắt đầu.</p>
@@ -126,11 +127,12 @@
               <button type="button" class="btn btn-primary" id="registerConfirm">Confirm</button>
             </div>
           </div>
-        </div>
+    </dialog>
 
         <div class="toast" id="registerToast" hidden>Đăng ký thành công!</div>
     </main>
 
   <div data-include="footer"></div>
+  <div data-include="auth-popup"></div>
 </body>
 </html>

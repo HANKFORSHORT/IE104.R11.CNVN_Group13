@@ -379,9 +379,14 @@ p {
 }
 
 .theme-toggle,
+.nav-bell,
+.profile-toggle {
+  height: 42px;
+}
+
+.theme-toggle,
 .nav-bell {
   width: 42px;
-  height: 42px;
   border-radius: 50%;
   border: 1px solid var(--border);
   background: var(--bg-panel);
@@ -456,7 +461,7 @@ p {
 
 
 /* TRẠNG THÁI ĐĂNG NHẬP
-   main.js đặt data-auth="in" hoặc "out" trên <html>.
+   session.js đặt data-auth="in" hoặc "out" trên <html>.
    Phần tử có data-auth-only="in" chỉ hiện khi đã đăng nhập,
    data-auth-only="out" chỉ hiện khi chưa đăng nhập. */
 
@@ -473,6 +478,8 @@ html[data-auth="in"] [data-auth-only="out"] {
 
 .nav-menu {
   position: relative;
+  display: flex;
+  align-items: center;
 }
 
 .nav-bell {
@@ -496,7 +503,8 @@ html[data-auth="in"] [data-auth-only="out"] {
   align-items: center;
   gap: 0.6rem;
   white-space: nowrap;
-  padding: 0.25rem 0.85rem 0.25rem 0.25rem;
+  padding: 0 0.85rem 0 0;
+  overflow: hidden;
 
   border: 1px solid var(--border);
   border-radius: 999px;
@@ -510,25 +518,26 @@ html[data-auth="in"] [data-auth-only="out"] {
 }
 
 .profile-toggle:hover {
-  border-color: var(--accent-2);
+  border-color: var(--accent);
 }
 
-.nav-avatar {
-  width: 32px;
-  height: 32px;
-  flex-shrink: 0;
+/* One continuous outer pill border; the avatar fills its inner height. */
+.nav-avatar-frame {
+  display: block;
+  width: 40px;
+  height: 40px;
+  flex: 0 0 40px;
   border-radius: 50%;
+}
 
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  background: var(--accent);
-  color: #ffffff;
-  font-family: var(--font-display);
-  font-weight: 700;
-  font-size: 0.75rem;
-  letter-spacing: 0.02em;
+.nav-avatar-frame .nav-avatar {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border: 0;
+  border-radius: 50%;
+  background: var(--bg-panel);
 }
 
 .nav-chevron {
@@ -591,11 +600,6 @@ html[data-auth="in"] [data-auth-only="out"] {
 .nav-popup-link:hover {
   background: var(--bg-alt);
   color: var(--accent);
-}
-
-/* Log out nằm riêng, ngăn cách bằng một đường kẻ */
-.nav-popup-menu li:last-child {
-  border-top: 1px solid var(--border);
 }
 
 .nav-popup-head {
@@ -982,4 +986,152 @@ div {
 }
 .section-head.center { margin-inline: auto; 
   text-align: center; 
+}
+/* Shared dialogs, account gate and the registration page's Back control. */
+html:not([data-auth="in"])[data-private-page="true"] main > :not(.auth-gate) {
+  display: none;
+}
+
+html[data-auth="in"] .auth-gate {
+  display: none;
+}
+
+.auth-gate {
+  padding-block: 4rem;
+  max-width: 46rem;
+}
+
+.auth-gate h1 {
+  font-size: var(--step-3);
+}
+
+.auth-gate .card:hover {
+  transform: none;
+  border-color: var(--border);
+}
+
+.site-dialog {
+  width: min(42rem, calc(100% - 2rem));
+  max-height: calc(100dvh - 2rem);
+  padding: 0;
+  overflow-y: auto;
+  color: var(--text);
+  background: var(--bg-panel);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius);
+  box-shadow: 0 1.5rem 4rem color-mix(in srgb, var(--oxford) 35%, transparent);
+}
+
+.site-dialog:not([open]) {
+  display: none;
+}
+
+.site-dialog::backdrop {
+  background: color-mix(in srgb, var(--oxford) 60%, transparent);
+}
+
+body:has(.site-dialog[open]) {
+  overflow: hidden;
+}
+
+.auth-dialog {
+  width: min(29rem, calc(100% - 2rem));
+}
+
+.dialog-body {
+  padding: clamp(1.25rem, 4vw, 2rem);
+}
+
+.site-dialog h2 {
+  font-size: var(--step-2);
+}
+
+.dialog-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 1.5rem;
+}
+
+.dialog-topbar {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.6rem;
+  padding: 1rem 1rem 0;
+}
+
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  justify-self: start;
+  gap: 0.45rem;
+  min-height: 42px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  transition: color 0.2s var(--ease);
+}
+
+.back-link:hover {
+  color: var(--accent);
+}
+
+.back-link-fixed {
+  position: fixed;
+  top: 1rem;
+  left: var(--pad);
+  z-index: 10;
+}
+
+.back-extra {
+  display: inline-block;
+  max-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  vertical-align: bottom;
+  transition: max-width 0.25s var(--ease);
+}
+
+.back-link:hover .back-extra,
+.back-link:focus-visible .back-extra {
+  max-width: 14rem;
+}
+
+.nav-menu-separator,
+.nav-popup-menu li:last-child,
+.nav-profile-menu li:last-child {
+  border-top: 1px solid var(--border);
+}
+
+.sample-note {
+  margin-block: 0 1.2rem;
+  font-size: 0.82rem;
+  color: var(--text-muted);
+}
+
+.shared-empty {
+  padding: 2rem;
+  text-align: center;
+}
+
+.shared-empty p {
+  margin-inline: auto;
+}
+
+@media (max-width: 1100px) {
+  .nav-profile-menu a,
+  .nav-profile-menu button {
+    border-top: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .back-extra {
+    transition: none;
+  }
 }

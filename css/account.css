@@ -674,3 +674,266 @@ details[open] > summary .disclosure-icon::before {
   white-space: nowrap;
   border: 0;
 }
+
+/* Personal progress lists share the existing account page surfaces. */
+.submission-list,
+.solved-list {
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: var(--card-bg);
+}
+
+.submission-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 1.2rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.submission-row:nth-child(odd),
+.solved-row:nth-child(odd) {
+  background: var(--bg-alt);
+}
+
+.submission-row:last-of-type,
+.solved-row:last-child {
+  border-bottom: 0;
+}
+
+.submission-title,
+.solved-title {
+  color: var(--accent);
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
+
+.submission-title:hover,
+.solved-title:hover {
+  text-decoration: underline;
+}
+
+.submission-meta {
+  margin: 0.3rem 0 0;
+  max-width: none;
+  font-size: 0.8rem;
+}
+
+.submission-score {
+  min-width: 4rem;
+  min-height: 44px;
+  padding: 0.5rem 0.8rem;
+  color: var(--paper);
+  background: var(--accent-dark);
+  border: 1px solid var(--accent-dark);
+  border-radius: var(--radius-sm);
+  font-family: var(--font-mono);
+  font-weight: 600;
+}
+
+.submission-score:hover {
+  background: var(--accent);
+  border-color: var(--accent);
+}
+
+.submission-score[data-verdict="Not judged"] {
+  color: var(--text-muted);
+  background: var(--bg-panel);
+  border-color: var(--line-strong);
+}
+
+.evaluation-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-block: 1rem 1.5rem;
+  font-size: 0.9rem;
+}
+
+.evaluation-table th,
+.evaluation-table td {
+  padding: 0.8rem 1rem;
+  text-align: left;
+  border-bottom: 1px solid var(--border);
+  overflow-wrap: anywhere;
+}
+
+.evaluation-table thead {
+  background: color-mix(in srgb, var(--accent) 15%, var(--bg-panel));
+}
+
+.evaluation-table tbody th {
+  width: 45%;
+  font-weight: 500;
+  color: var(--text-muted);
+}
+
+.solved-row {
+  display: grid;
+  grid-template-columns: 6.5rem minmax(0, 1fr) 7rem;
+  align-items: stretch;
+  border-bottom: 1px solid var(--border);
+}
+
+.solved-score {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.8rem 0.5rem;
+  background: color-mix(in srgb, var(--accent) 15%, var(--bg-panel));
+  color: var(--text);
+  border-right: 1px solid var(--border);
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+}
+
+.solved-score small {
+  color: var(--accent);
+  font-size: 0.7rem;
+}
+
+.solved-description {
+  align-self: center;
+  min-width: 0;
+  padding: 0.8rem 1rem;
+}
+
+.solved-metrics {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-end;
+  padding: 0.8rem 1rem;
+  border-left: 1px solid var(--border);
+  font-size: 0.8rem;
+  white-space: nowrap;
+}
+
+.achievement-layout {
+  display: grid;
+  grid-template-columns: 15rem minmax(0, 1fr);
+  gap: 2.5rem;
+  align-items: start;
+}
+
+.achievement-profile {
+  display: grid;
+  gap: 1rem;
+}
+
+.achievement-profile img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1;
+  object-fit: cover;
+  border: 2px solid var(--line-strong);
+  border-radius: 50%;
+}
+
+.achievement-profile h2 {
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+
+.achievement-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(11rem, 1fr));
+  gap: 1rem;
+}
+
+.achievement-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 1.5rem 1rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  color: var(--text);
+  background: var(--card-bg);
+  box-shadow: var(--shadow);
+  transition: border-color 0.2s var(--ease), transform 0.2s var(--ease);
+}
+
+.achievement-card:hover {
+  transform: translateY(-3px);
+  border-color: var(--accent);
+}
+
+.achievement-card span {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.achievement-card img {
+  width: 128px;
+  height: 128px;
+}
+
+.achievement-dialog {
+  width: min(29rem, calc(100% - 2rem));
+}
+
+.achievement-art {
+  display: grid;
+  place-items: center;
+  padding: 1.5rem;
+  background: color-mix(in srgb, var(--accent) 16%, var(--bg-panel));
+  border-bottom: 1px solid var(--border);
+}
+
+.achievement-art img {
+  width: 144px;
+  height: 144px;
+}
+
+.achievement-history {
+  margin-top: 1.4rem;
+  padding-top: 1.2rem;
+  border-top: 1px solid var(--border);
+}
+
+.achievement-history h3 {
+  font-size: 1rem;
+}
+
+.achievement-history p {
+  font-size: 0.88rem;
+}
+
+.achievement-earned {
+  color: var(--accent);
+  font-weight: 600;
+}
+
+@media (max-width: 720px) {
+  .achievement-layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .achievement-profile img {
+    width: 96px;
+  }
+
+  .solved-row {
+    grid-template-columns: 6.5rem minmax(0, 1fr);
+  }
+
+  .solved-metrics {
+    grid-column: 2;
+    flex-direction: row;
+    justify-content: flex-start;
+    gap: 1rem;
+    padding-top: 0;
+    border-left: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .achievement-card {
+    transition: none;
+  }
+}

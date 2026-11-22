@@ -4,6 +4,86 @@
   const ROOT = new URL("../", document.currentScript.src);
   const THEME_KEY = "astra-theme";
   const html = document.documentElement;
+  const Auth = window.AstraAuth;
+  let resolveReady;
+  const ready = new Promise((resolve) => { resolveReady = resolve; });
+  const returnFocus = new WeakMap();
+
+  function openDialog(dialog, trigger = document.activeElement) {
+    if (!dialog || dialog.open) return;
+    returnFocus.set(dialog, trigger);
+    dialog.showModal();
+  }
+
+  function closeDialog(dialog) {
+    if (dialog && dialog.open) dialog.close();
+  }
+
+  window.AstraUI = Object.freeze({ ready, openDialog, closeDialog });
+
+  async function requestLogin(next) {
+    await ready;
+    if (Auth.isLoggedIn()) return;
+    const dialog = document.getElementById("authDialog");
+    if (!dialog) return;
+    const login = new URL("login.html", ROOT);
+    const target = new URL(Auth.safeNext(next));
+    login.searchParams.set("next", target.pathname.slice(ROOT.pathname.length) + target.search + target.hash);
+    dialog.querySelector("[data-auth-signin]").href = login.href;
+    openDialog(dialog);
+  }
+
+  document.addEventListener("astra:request-login", (event) => requestLogin(event.detail.next));
+
+  function fillUser() {
+    const user = Auth.user();
+    document.querySelectorAll("[data-current-user]").forEach((element) => {
+      element.textContent = user ? user.identifier : "";
+    });
+    document.querySelectorAll("[data-current-user-row]").forEach((element) => {
+      element.dataset.handle = user ? user.identifier : "";
+    });
+  }
+
+  // Capture before page handlers so a guest action cannot write local account data.
+  document.addEventListener("click", (event) => {
+    const target = event.target.closest("[data-requires-auth], a[href]");
+    if (!target || Auth.isLoggedIn()) return;
+    const link = target.closest("a[href]");
+    const next = target.dataset.authNext || (link ? link.href : location.href);
+    if (target.hasAttribute("data-requires-auth") || (link && Auth.isPrivate(link.href))) {
+      event.preventDefault();
+      event.stopImmediatePropagation();
+      Auth.requireLogin(next);
+    }
+  }, true);
+
+  document.addEventListener("submit", (event) => {
+    if (!Auth.isLoggedIn() && (event.target.matches("[data-requires-auth]") || Auth.isPrivate())) {
+      event.preventDefault();
+      event.stopImmediatePropagation();
+      Auth.requireLogin();
+    }
+  }, true);
+
+  document.addEventListener("click", (event) => {
+    const button = event.target.closest("[data-dialog-close]");
+    if (button) closeDialog(button.closest("dialog"));
+    if (event.target.matches("dialog.site-dialog")) {
+      const rect = event.target.getBoundingClientRect();
+      if (event.clientX < rect.left || event.clientX > rect.right || event.clientY < rect.top || event.clientY > rect.bottom) {
+        closeDialog(event.target);
+      }
+    }
+  });
+
+  document.addEventListener("close", (event) => {
+    const trigger = returnFocus.get(event.target);
+    if (trigger && trigger.isConnected) trigger.focus({ preventScroll: true });
+  }, true);
+
+  document.addEventListener("astra:auth-change", fillUser);
+
 
   function applyTheme(theme) {
     html.setAttribute("data-theme", theme);
@@ -26,41 +106,31 @@
   applyTheme(savedTheme() || (prefersDark ? "dark" : "light"));
 
 
-  /* ---------------------------------------------------------
-     Login state
-     TODO: replace with a real session from the backend. Until then
-     js/auth.js saves { identifier } under SESSION_KEY after a valid login.
-     <html data-auth="in|out"> drives data-auth-only="in|out" in style.css.
-     --------------------------------------------------------- */
-
-  const SESSION_KEY = "astra-session";
-  const READ_KEY = "astra-notifications-read"; // same key js/account.js uses
-
-  function readSession() {
-    try { return JSON.parse(localStorage.getItem(SESSION_KEY)); } catch (e) { return null; }
-  }
+  const READ_KEY = Auth.userKey("astra-notifications-read");
 
   function readReadIds() {
-    try { return JSON.parse(localStorage.getItem(READ_KEY)) || []; } catch (e) { return []; }
+    try {
+      const ids = JSON.parse(localStorage.getItem(READ_KEY));
+      return Array.isArray(ids) ? ids : [];
+    } catch (error) { return []; }
   }
 
-  const session = readSession();
-  const isLoggedIn = Boolean(session && session.identifier);
-  html.setAttribute("data-auth", isLoggedIn ? "in" : "out");
+  async function requestLogout(trigger) {
+    await ready;
+    if (!Auth.isLoggedIn()) return;
+    const dialog = document.getElementById("logoutDialog");
+    const returnTo = document.querySelector(trigger.closest(".nav-only-mobile") ? ".hamburger" : ".profile-toggle");
+    closePopups();
+    setMenu(false);
+    document.getElementById("logoutStatus").textContent = "";
+    openDialog(dialog, returnTo);
+  }
 
   function logout() {
-    try { localStorage.removeItem(SESSION_KEY); } catch (e) { /* storage blocked */ }
-    location.href = new URL("index.html", ROOT).href;
+    if (!document.getElementById("logoutDialog").open) return;
+    if (Auth.setSession(null)) location.href = new URL("index.html", ROOT).href;
+    else document.getElementById("logoutStatus").textContent = "Could not log out. Please try again.";
   }
-
-  function fillUserInitials() {
-    if (!isLoggedIn) return;
-    const initials = String(session.identifier).replace(/[^A-Za-z0-9]/g, "").slice(0, 2).toUpperCase() || "?";
-    document.querySelectorAll("[data-user-initials]").forEach((el) => {
-      el.textContent = initials;
-    });
-  }
-
 
   /* ---------------------------------------------------------
      Notifications popup (bell)
@@ -74,7 +144,7 @@
   }
 
   async function loadNotifications() {
-    if (!isLoggedIn || !document.querySelector("[data-notification-list]")) return;
+    if (!Auth.isLoggedIn() || !document.querySelector("[data-notification-list]")) return;
 
     try {
       // TODO: replace with an API call. For now notifications.html is the only copy of the list.
@@ -145,12 +215,17 @@
   });
 
 
+  const includes = new Map();
+
   async function include(slot) {
     const url = new URL("components/" + slot.dataset.include + ".html", ROOT);
-    const res = await fetch(url);
-    if (!res.ok) throw new Error("Could not load " + url + " (" + res.status + ")");
-
-    const text = (await res.text()).replace(
+    if (!includes.has(url.href)) {
+      includes.set(url.href, fetch(url).then((res) => {
+        if (!res.ok) throw new Error("Could not load " + url + " (" + res.status + ")");
+        return res.text();
+      }));
+    }
+    const text = (await includes.get(url.href)).replace(
       /<!--\s*Code injected by live-server\s*-->\s*<script[\s\S]*?<\/script>/gi, ""
     );
 
@@ -165,6 +240,13 @@
       });
     });
 
+    if (slot.dataset.include === "back-link") {
+      const link = tpl.content.querySelector("a");
+      link.href = new URL(slot.dataset.href || "index.html", ROOT).href;
+      link.setAttribute("aria-label", "Back " + (slot.dataset.label || "to main page"));
+      link.querySelector(".back-extra").textContent = slot.dataset.label || "to main page";
+      if (slot.hasAttribute("data-fixed")) link.classList.add("back-link-fixed");
+    }
     slot.replaceWith(tpl.content);
   }
 
@@ -186,7 +268,16 @@
     }
     applyTheme(html.getAttribute("data-theme"));
     markActiveLink();
-    fillUserInitials();
+    resolveReady();
+    fillUser();
+    if (Auth.isPrivate() && !Auth.isLoggedIn()) {
+      const template = document.getElementById("authGateTemplate");
+      if (template) {
+        document.querySelector("main").appendChild(template.content.cloneNode(true));
+        await Promise.all([...document.querySelectorAll(".auth-gate [data-include]")].map(include));
+      }
+      Auth.requireLogin();
+    }
     loadNotifications();
     document.querySelectorAll("[data-year]").forEach((el) => {
       el.textContent = new Date().getFullYear();
@@ -228,7 +319,8 @@
       setExpanded(popupToggle, popupToggle.getAttribute("aria-expanded") !== "true");
     } else if (collapseToggle) {
       setExpanded(collapseToggle, collapseToggle.getAttribute("aria-expanded") !== "true");
-    } else if (e.target.closest("[data-logout]")) logout();
+    } else if (e.target.closest("[data-logout]")) requestLogout(e.target.closest("[data-logout]"));
+    else if (e.target.closest("[data-confirm-logout]")) logout();
     else if (e.target.closest(".hamburger")) {
       setMenu(!document.querySelector(".nav-links").classList.contains("open"));
     } else if (e.target.closest(".nav-links a")) setMenu(false);

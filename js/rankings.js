@@ -16,18 +16,7 @@
     'Poland': 'PL', 'India': 'IN', 'Thailand': 'TH', 'Germany': 'DE'
   };
 
-  /* ---------- Đăng nhập ---------- */
-  // [EDIT] Dùng đúng khóa phiên mà auth.js ghi khi đăng nhập: localStorage "astra-session" = {"identifier": "..."}.
-  // (main.js cũng đọc khóa này để đổi header.) Khi có backend thì thay bằng kiểm tra phiên thật.
-  const SESSION_KEY = 'astra-session';
-  function isLoggedIn() {
-    try {
-      const session = JSON.parse(localStorage.getItem(SESSION_KEY));
-      return Boolean(session && session.identifier);
-    } catch (e) {
-      return false; // chưa có phiên, JSON hỏng hoặc trình duyệt chặn storage
-    }
-  }
+  const isLoggedIn = () => AstraAuth.isLoggedIn();
 
   /* ---------- Dữ liệu mẫu ---------- */
   const stat = (a) => ({ rating: a[0], solved: a[1], change: a[2] });
@@ -372,7 +361,7 @@
   nextBtn.addEventListener('click', () => { page += 1; render(); });
 
   // [EDIT] Đăng nhập / đăng xuất ở tab khác thì cập nhật Friends ngay
-  window.addEventListener('storage', (e) => { if (!e.key || e.key === SESSION_KEY) refreshAuth(); });
+  document.addEventListener('astra:auth-change', refreshAuth);
 
   refreshAuth();
   syncSearchHint();

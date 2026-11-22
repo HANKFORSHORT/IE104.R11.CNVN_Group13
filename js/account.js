@@ -14,11 +14,10 @@
 (function () {
   "use strict";
 
-  const ACCOUNT_KEY = "astra-account";
-  const READ_KEY = "astra-notifications-read";
+  const ACCOUNT_KEY = AstraAuth.userKey("astra-account");
+  const READ_KEY = AstraAuth.userKey("astra-notifications-read");
 
-  // TODO: replace with the signed-in user once login talks to a backend.
-  const CURRENT_USER = "oppixelnew246";
+  const CURRENT_USER = AstraAuth.user() ? AstraAuth.user().identifier : null;
 
   // TODO: sample data that matches rankings.html / profile.js. Replace with API calls.
   const USERS = {
@@ -32,17 +31,6 @@
     baolong: { name: "", location: "Can Tho, Vietnam", rating: 2264, rank: 7, solved: 159 },
     mkhanh: { name: "", location: "Hai Phong, Vietnam", rating: 2187, rank: 8, solved: 151 },
   };
-
-  // TODO: sample problems that match problems.html. A real user's list comes from the API.
-  const SAMPLE_SOLVED = [
-    { id: "2264A", name: "Rumb Needs a Hand", topics: ["implementation", "two pointers"], rating: 900, level: "easy" },
-    { id: "2264B", name: "Knife's Pill Farm", topics: ["data structures", "greedy"], rating: 1300, level: "easy" },
-    { id: "2264C", name: "Madamant's Skating Dynasty", topics: ["combinatorics", "sortings"], rating: 1600, level: "medium" },
-    { id: "2264D", name: "Dr. Agos's Dark Mode", topics: ["brute force", "strings"], rating: 1400, level: "medium" },
-    { id: "2264E1", name: "A Prime Flood (Easy Version)", topics: ["combinatorics", "dp"], rating: 2100, level: "hard" },
-    { id: "2264F", name: "Deranged Calculator", topics: ["math", "constructive"], rating: 1900, level: "medium" },
-  ];
-
 
   /* ---------------------------------------------------------
      Small helpers
@@ -139,6 +127,15 @@
 
   function requestedUser() {
     const handle = new URLSearchParams(window.location.search).get("user") || CURRENT_USER;
+    if (!handle) return null;
+    if (handle === CURRENT_USER) {
+      const own = AstraData.profile();
+      return { handle, data: { name: "", location: "", rating: own.points, rank: own.rank, solved: own.solved } };
+    }
+    if (handle === AstraData.demoUser) {
+      const accepted = AstraData.solved(handle);
+      return { handle, data: { name: "", location: "", rating: accepted.reduce((sum, row) => sum + row.score, 0), rank: 47158, solved: accepted.length } };
+    }
     const key = Object.keys(USERS).find(function (name) {
       return name.toLowerCase() === handle.toLowerCase();
     });
@@ -156,6 +153,7 @@
     const passwordForm = document.getElementById("password-form");
     const preferencesForm = document.getElementById("preferences-form");
     const saved = readStore(ACCOUNT_KEY, {});
+    profileForm.elements.username.value = CURRENT_USER;
 
     profileForm.elements.displayName.value = saved.displayName || "";
     profileForm.elements.email.value = saved.email || "you@example.com";
@@ -303,59 +301,65 @@
 
     // Links to other per-user pages keep the same ?user=
     document.querySelectorAll("[data-user-link]").forEach(function (link) {
-      link.href = link.getAttribute("href").split("?")[0] + "?user=" + encodeURIComponent(user.handle);
+      const url = new URL(link.href);
+      url.searchParams.set("user", user.handle);
+      link.href = url.href;
     });
 
+    document.querySelectorAll("[data-owner-only]").forEach((element) => {
+      element.hidden = user.handle !== CURRENT_USER;
+    });
     document.title = user.handle + " · Astra";
     profile.hidden = false;
 
-    if (document.body.querySelector("[data-account-page='solved']")) {
-      renderSolved(user.data.solved);
-    }
   }
 
-  function renderSolved(solvedCount) {
+  function initSolved() {
+    const handle = new URLSearchParams(location.search).get("user") || CURRENT_USER;
+    const rows = AstraData.solved(handle);
+    document.querySelector("[data-solved-owner]").textContent = handle || "";
+    document.querySelector("[data-solved-count]").textContent = rows.length;
+    document.querySelector("[data-sample-note]").hidden = handle !== AstraData.demoUser;
     const list = document.getElementById("solved-list");
-    const shown = SAMPLE_SOLVED.slice(0, solvedCount);
-
-    shown.forEach(function (problem) {
-      const row = document.createElement("tr");
-      const idCell = document.createElement("td");
-      const nameCell = document.createElement("td");
-      const topicsCell = document.createElement("td");
-      const levelCell = document.createElement("td");
+    rows.forEach((submission) => {
+      const row = document.createElement("li");
+      row.className = "solved-row";
+      const score = document.createElement("div");
+      score.className = "solved-score";
+      const points = document.createElement("strong");
+      points.textContent = submission.score + " / 100";
+      const verdict = document.createElement("small");
+      verdict.textContent = "AC | " + submission.language;
+      score.append(points, verdict);
+      const description = document.createElement("div");
+      description.className = "solved-description";
       const link = document.createElement("a");
-      const pill = document.createElement("span");
-
-      idCell.textContent = problem.id;
-
-      link.className = "problem-link";
-      link.href = "problem-detail.html";
-      link.textContent = problem.name;
-      nameCell.appendChild(link);
-
-      problem.topics.forEach(function (topic) {
-        const tag = document.createElement("span");
-
-        tag.className = "tag";
-        tag.textContent = topic;
-        topicsCell.appendChild(tag);
-      });
-
-      pill.className = "pill pill-" + problem.level;
-      pill.textContent = problem.rating;
-      levelCell.appendChild(pill);
-
-      [idCell, nameCell, topicsCell, levelCell].forEach(function (cell) {
-        row.appendChild(cell);
-      });
+      link.className = "solved-title";
+      link.href = "problem-detail.html?problem=" + encodeURIComponent(submission.problem);
+      link.textContent = submission.title;
+      const meta = document.createElement("p");
+      meta.className = "submission-meta";
+      meta.textContent = handle + " · " + AstraData.dateTime(submission.submittedAt);
+      description.append(link, meta);
+      const metrics = document.createElement("div");
+      metrics.className = "solved-metrics";
+      const runtime = document.createElement("strong");
+      runtime.textContent = AstraData.runtime(submission.runtime);
+      const memory = document.createElement("span");
+      memory.textContent = AstraData.memory(submission.memory);
+      metrics.append(runtime, memory);
+      row.append(score, description, metrics);
       list.appendChild(row);
     });
-
-    document.querySelector("[data-solved-empty]").hidden = shown.length > 0;
-    document.querySelector("[data-solved-table]").hidden = shown.length === 0;
+    document.querySelector("[data-solved-empty]").hidden = rows.length > 0;
+    list.hidden = rows.length === 0;
+    AstraUI.ready.then(() => {
+      if (handle && handle !== CURRENT_USER) {
+        const back = document.querySelector(".actions .back-link");
+        back.href = "public-profile.html?user=" + encodeURIComponent(handle);
+      }
+    });
   }
-
 
   /* ---------------------------------------------------------
      notifications.html
@@ -412,7 +416,7 @@
   function initAccountPage() {
     const page = document.querySelector("[data-account-page]");
 
-    if (!page) {
+    if (!page || (AstraAuth.isPrivate() && !AstraAuth.isLoggedIn())) {
       return;
     }
 
@@ -420,7 +424,7 @@
       settings: initSettings,
       "reset-password": initResetPassword,
       "public-profile": initUserPages,
-      solved: initUserPages,
+      solved: initSolved,
       notifications: initNotifications,
     };
 

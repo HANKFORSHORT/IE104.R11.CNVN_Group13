@@ -12,6 +12,7 @@
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/contest.css">
   <link rel="stylesheet" href="css/table.css">
+  <script src="js/session.js"></script>
   <script src="js/main.js" defer></script>
   <script src="js/table-filter.js" defer></script>
   <style>
@@ -119,7 +120,7 @@
               <div><strong id="wsSolved">0</strong>Solved</div>
               <div><strong id="wsPenalty">0</strong>Penalty (min)</div>
             </div>
-            <button type="button" class="btn btn-primary btn-block" id="wsRegister" style="margin-top:1.1rem;">Register for round</button>
+            <button type="button" class="btn btn-primary btn-block" id="wsRegister" data-requires-auth style="margin-top:1.1rem;">Register for round</button>
             <p class="ws-msg" id="wsPartMsg" style="margin:.6rem 0 0;"></p>
           </div>
 
@@ -140,7 +141,7 @@
               <label>Source code
                 <textarea id="wsCode" spellcheck="false" placeholder="Paste your code here"></textarea>
               </label>
-              <button type="button" class="btn btn-primary btn-block" id="wsSubmit">Submit solution</button>
+              <button type="button" class="btn btn-primary btn-block" id="wsSubmit" data-requires-auth>Submit solution</button>
               <p class="ws-msg" id="wsMsg" role="status"></p>
             </form>
           </div>
@@ -157,6 +158,7 @@
        (remove the <script src="js/contest-workspace.js"> tag if you keep it inline). */
     (function () {
       "use strict";
+      if (!AstraAuth.isLoggedIn()) return;
       const PROBLEMS = [
         { id: "A", name: "Warm-Up Signal",       diff: 800,  cls: "easy" },
         { id: "B", name: "Orbit Pairs",          diff: 1100, cls: "easy" },
@@ -168,7 +170,7 @@
       // 17 Oct 2026, 21:35 ICT (UTC+7), 2 hours
       const START = new Date("2026-10-17T21:35:00+07:00").getTime();
       const END = START + 2 * 3600 * 1000;
-      const KEY = "astra.r118.workspace";
+      const KEY = AstraAuth.userKey("astra.r118.workspace");
       const $ = (id) => document.getElementById(id);
 
       // ?state=upcoming|running|ended lets you preview each state while developing
@@ -276,6 +278,7 @@
       }
 
       $("wsRegister").addEventListener("click", () => {
+        if (!AstraAuth.requireLogin()) return;
         const p = phase();
         if (p === "ended") { $("wsPartMsg").textContent = "Virtual mode on: submit solutions below to practice."; return; }
         data.registered = !data.registered;
@@ -298,6 +301,7 @@
       });
 
       $("wsSubmit").addEventListener("click", () => {
+        if (!AstraAuth.requireLogin()) return;
         const code = $("wsCode").value.trim();
         if (!code) { $("wsMsg").textContent = "Paste your source code before submitting."; return; }
         const sub = { id: 100000 + data.subs.length + 1, at: now(), problem: $("wsProblemSel").value, lang: $("wsLang").value, verdict: "Pending", code: code, virtual: phase() === "ended" };
@@ -323,5 +327,6 @@
       }, 1000);
     })();
   </script>
+  <div data-include="auth-popup"></div>
 </body>
 </html>

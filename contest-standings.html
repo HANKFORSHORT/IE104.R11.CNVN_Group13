@@ -12,6 +12,7 @@
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/contest.css">
   <link rel="stylesheet" href="css/table.css">
+  <script src="js/session.js"></script>
   <script src="js/main.js" defer></script>
   <script src="js/table-filter.js" defer></script>
 </head>
@@ -39,7 +40,7 @@
           <div><div class="stat-label">Participants</div><div class="stat-value">4,208</div></div>
           <div><div class="stat-label">Duration</div><div class="stat-value">02:00</div></div>
           <div><div class="stat-label">Max points</div><div class="stat-value">10,500</div></div>
-          <div><div class="stat-label">Your rank</div><div class="stat-value">#214</div></div>
+          <div data-auth-only="in"><div class="stat-label">Your rank</div><div class="stat-value">#214</div></div>
         </div>
 
         <!-- Bộ lọc -->
@@ -75,7 +76,7 @@
             <tbody id="standingsBody">
               <tr data-handle="abakan" data-solved="6">
                 <td class="rank-cell">1</td>
-                <td><a class="problem-link" href="profile.html">abakan</a></td>
+                <td><a class="problem-link" href="public-profile.html?user=abakan">abakan</a></td>
                 <td class="st-center st-points">10,500</td>
                 <td class="st-center">296</td>
                 <td class="st-cell st-ok">500<small>0:04</small></td>
@@ -87,7 +88,7 @@
               </tr>
               <tr data-handle="NHQ0914" data-solved="5">
                 <td class="rank-cell">2</td>
-                <td><a class="problem-link" href="profile.html">NHQ0914</a></td>
+                <td><a class="problem-link" href="public-profile.html?user=NHQ0914">NHQ0914</a></td>
                 <td class="st-center st-points">7,500</td>
                 <td class="st-center">284</td>
                 <td class="st-cell st-ok">500<small>0:08</small></td>
@@ -99,7 +100,7 @@
               </tr>
               <tr data-handle="Sherwin" data-solved="4">
                 <td class="rank-cell">3</td>
-                <td><a class="problem-link" href="profile.html">Sherwin</a></td>
+                <td><a class="problem-link" href="public-profile.html?user=Sherwin">Sherwin</a></td>
                 <td class="st-center st-points">5,000</td>
                 <td class="st-center">181</td>
                 <td class="st-cell st-ok">500<small>0:06</small></td>
@@ -111,7 +112,7 @@
               </tr>
               <tr data-handle="Cerq" data-solved="4">
                 <td class="rank-cell">4</td>
-                <td><a class="problem-link" href="profile.html">Cerq</a></td>
+                <td><a class="problem-link" href="public-profile.html?user=Cerq">Cerq</a></td>
                 <td class="st-center st-points">5,000</td>
                 <td class="st-center">222</td>
                 <td class="st-cell st-ok">500<small>0:09</small></td>
@@ -123,7 +124,7 @@
               </tr>
               <tr data-handle="harryleee" data-solved="3">
                 <td class="rank-cell">5</td>
-                <td><a class="problem-link" href="profile.html">harryleee</a></td>
+                <td><a class="problem-link" href="public-profile.html?user=harryleee">harryleee</a></td>
                 <td class="st-center st-points">3,000</td>
                 <td class="st-center">116</td>
                 <td class="st-cell st-ok">500<small>0:05</small></td>
@@ -135,7 +136,7 @@
               </tr>
               <tr data-handle="tuongll" data-solved="3">
                 <td class="rank-cell">6</td>
-                <td><a class="problem-link" href="profile.html">tuongll</a></td>
+                <td><a class="problem-link" href="public-profile.html?user=tuongll">tuongll</a></td>
                 <td class="st-center st-points">3,000</td>
                 <td class="st-center">138</td>
                 <td class="st-cell st-ok">500<small>0:11</small></td>
@@ -147,7 +148,7 @@
               </tr>
               <tr data-handle="lenhanbo" data-solved="2">
                 <td class="rank-cell">7</td>
-                <td><a class="problem-link" href="profile.html">lenhanbo</a></td>
+                <td><a class="problem-link" href="public-profile.html?user=lenhanbo">lenhanbo</a></td>
                 <td class="st-center st-points">1,500</td>
                 <td class="st-center">43</td>
                 <td class="st-cell st-ok">500<small>0:07 &middot; &minus;1</small></td>
@@ -159,7 +160,7 @@
               </tr>
               <tr data-handle="minhanh_dev" data-solved="1">
                 <td class="rank-cell">8</td>
-                <td><a class="problem-link" href="profile.html">minhanh_dev</a></td>
+                <td><a class="problem-link" href="public-profile.html?user=minhanh_dev">minhanh_dev</a></td>
                 <td class="st-center st-points">500</td>
                 <td class="st-center">14</td>
                 <td class="st-cell st-ok">500<small>0:14</small></td>
@@ -170,9 +171,9 @@
                 <td class="st-cell st-empty">&ndash;</td>
               </tr>
               <!-- Hàng của người dùng hiện tại -->
-              <tr class="row-me" data-handle="your_handle" data-solved="2">
+              <tr data-auth-only="in" data-current-user-row class="row-me" data-handle="your_handle" data-solved="2">
                 <td class="rank-cell">214</td>
-                <td><a class="problem-link" href="profile.html">your_handle</a><span class="tag-you">You</span></td>
+                <td><a class="problem-link" href="profile.html" data-current-user>your_handle</a><span class="tag-you">You</span></td>
                 <td class="st-center st-points">1,000</td>
                 <td class="st-center">64</td>
                 <td class="st-cell st-ok">500<small>0:12</small></td>
@@ -203,5 +204,6 @@
   </main>
 
   <div data-include="footer"></div>
+  <div data-include="auth-popup"></div>
 </body>
 </html>

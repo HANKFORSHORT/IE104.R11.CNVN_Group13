@@ -1,9 +1,9 @@
 .profile-page {
   --pf-l0: color-mix(in srgb, var(--text) 9%, var(--card-bg));
-  --pf-l1: color-mix(in srgb, var(--accent-2) 30%, var(--card-bg));
-  --pf-l2: color-mix(in srgb, var(--accent-2) 55%, var(--card-bg));
-  --pf-l3: color-mix(in srgb, var(--accent-2) 80%, var(--card-bg));
-  --pf-l4: var(--teal-dark);
+  --pf-l1: color-mix(in srgb, var(--accent) 30%, var(--card-bg));
+  --pf-l2: color-mix(in srgb, var(--accent) 55%, var(--card-bg));
+  --pf-l3: color-mix(in srgb, var(--accent) 80%, var(--card-bg));
+  --pf-l4: var(--accent-dark);
   --pf-gap: 3px;
 
   --pf-face-top: color-mix(in srgb, var(--accent) 55%, white);
@@ -531,18 +531,6 @@
   color: var(--ink);
 }
 
-.pf-act-foot {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-  gap: 0.5rem;
-  padding: 0.6rem 0.9rem;
-  border-top: 1px solid var(--border);
-  font-size: 0.82rem;
-  color: var(--text-muted);
-}
-
 .pf-tip {
   position: fixed;
   z-index: 50;
@@ -591,4 +579,22 @@
   .pf-act-body {
     padding-inline: 0.4rem;
   }
+}
+
+.pf-avatar {
+  height: auto;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 2px solid var(--line-strong);
+}
+
+.pf-badge {
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+}
+
+.pf-badge:hover {
+  box-shadow: var(--focus-ring);
 }

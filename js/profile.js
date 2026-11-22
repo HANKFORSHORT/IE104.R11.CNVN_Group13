@@ -3,41 +3,9 @@
 
   function init() {
 
-  var PROFILE = {
-    handle: 'oppixelnew246',
-    email: 'you@example.com',
-    bio: '',
-    solved: 0,
-    rank: 47158,
-    points: 0,
-    contribution: 0,
-    badges: [],
-    achievements: [],
-    submissions: {}
-  };
-
-  // Preview with fake activity: profile.html?demo=1
-  if (/[?&]demo=1\b/.test(location.search)) {
-    PROFILE.solved = 42; PROFILE.points = 1234.5; PROFILE.contribution = 7;
-    PROFILE.bio = 'Competitive programmer. Likes graphs and DP.';
-    PROFILE.badges = [{ icon: '🏆', name: 'Round winner' }, { icon: '🔥', name: '30-day streak' }];
-    var seed = 7;
-    for (var i = 0; i < 365; i++) {
-      seed = (seed * 9301 + 49297) % 233280;
-      var r = seed / 233280;
-      if (r > 0.62) {
-        var d = new Date(); d.setDate(d.getDate() - i);
-        PROFILE.submissions[iso(d)] = Math.floor(r * 12) - 6;
-      }
-    }
-    // Demo achievements are spread over the months before the current one
-    var demoYear = new Date().getFullYear(), demoMonth = new Date().getMonth() + 1;
-    [['First solve', 9], ['Graph master', 7], ['Round winner', 5], ['30-day streak', 3], ['Grand Round 1 Champion', 1]]
-      .forEach(function (a) {
-        var m = Math.max(1, demoMonth - a[1]);
-        PROFILE.achievements.push({ name: a[0], date: demoYear + '-' + String(m).padStart(2, '0') + '-01' });
-      });
-  }
+  if (!AstraAuth.isLoggedIn()) return;
+  var PROFILE = AstraData.profile();
+  document.querySelector('[data-profile-sample]').hidden = PROFILE.handle !== AstraData.demoUser;
 
   function $(id) { return document.getElementById(id); }
   // Null-safe text setter: a missing element must never stop the rest of the page rendering.
@@ -65,29 +33,20 @@
   if (!PROFILE.badges.length) {
     badges.innerHTML = '<em>This user has not earned any badges or awards.</em>';
   } else {
-    PROFILE.badges.forEach(function (b) {
-      var s = document.createElement('span');
-      s.className = 'pf-badge';
-      s.textContent = (b.icon || '★') + ' ' + b.name;
-      badges.appendChild(s);
+    PROFILE.badges.forEach(function (badge) {
+      var link = document.createElement('a');
+      link.className = 'pf-badge';
+      link.href = 'achievements.html?tab=achievements&achievement=' + encodeURIComponent(badge.id);
+      link.setAttribute('aria-label', 'View ' + badge.name + ' achievement');
+      var image = document.createElement('img');
+      image.src = badge.image;
+      image.alt = badge.name;
+      image.width = 64;
+      image.height = 64;
+      link.appendChild(image);
+      badges.appendChild(link);
     });
   }
-
-  /* ---------- Identicon avatar (symmetric 5x5, derived from handle) ---------- */
-  (function avatar() {
-    var h = 2166136261;
-    for (var i = 0; i < PROFILE.handle.length; i++) { h ^= PROFILE.handle.charCodeAt(i); h = Math.imul(h, 16777619); }
-    var hue = Math.abs(h) % 360, svg = $('pf-avatar'), out = '';
-    if (!svg) return;
-    out += '<rect width="5" height="5" fill="hsl(' + hue + ',70%,95%)"/>';
-    for (var y = 0; y < 5; y++) for (var x = 0; x < 3; x++) {
-      if ((h >>> (y * 3 + x)) & 1) {
-        out += '<rect x="' + x + '" y="' + y + '" width="1" height="1" fill="hsl(' + hue + ',65%,58%)"/>';
-        if (x < 2) out += '<rect x="' + (4 - x) + '" y="' + y + '" width="1" height="1" fill="hsl(' + hue + ',65%,58%)"/>';
-      }
-    }
-    svg.innerHTML = out;
-  })();
 
   /* ---------- Heatmap (53 weeks ending today, weeks start on Sunday) ----------
      Cell size comes from CSS (fractional columns), so JS only places cells and month labels. */
@@ -185,7 +144,7 @@
       var date = String(a.date || '');
       return {
         name: a.name,
-        href: a.href || 'achievements.html',
+        href: a.href || 'achievements.html?tab=achievements',
         number: i + 1,
         month: date.slice(0, 4) === String(YEAR) ? Number(date.slice(5, 7)) - 1 : -1,
         tip: a.name + (date ? ' · ' + MONTHS[Number(date.slice(5, 7)) - 1] + ' ' + Number(date.slice(8, 10)) + ', ' + date.slice(0, 4) : '')
@@ -206,7 +165,6 @@
     var chartLabel = 'Submissions per month in ' + YEAR + ': ' + counts.map(function (n, i) { return MONTHS[i] + ' ' + n; }).join(', ');
     setText('pf-act-title', 'Submissions per month · ' + YEAR);
     setText('pf-act-summary', summary);
-    setText('pf-act-note', pins.length ? 'Pinned: ' + pins.length + ' most notable achievement' + (pins.length === 1 ? '' : 's') : 'This user has not unlocked any achievements this year.');
 
     // Phone layout lists the pinned achievements below the chart instead of labelling them on it
     pins.forEach(function (p) {

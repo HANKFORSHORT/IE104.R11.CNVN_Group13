@@ -12,6 +12,7 @@
   <link rel="stylesheet" href="css/style.css" />
   <link rel="stylesheet" href="css/problems.css" />
   <link rel="stylesheet" href="css/problem-detail.css" />
+  <script src="js/session.js"></script>
   <script src="js/main.js"></script>
   <script src="js/problem-detail.js" defer></script>
 </head>
@@ -47,8 +48,8 @@
     <div class="container pd-layout">
       <nav class="pd-tabs" aria-label="Problem sections">
         <a id="pd-nav-statement" href="#statement" aria-controls="statement" aria-current="page" data-problem-nav="statement">Statement</a>
-        <a id="pd-nav-submit" href="#submit" aria-controls="submit" data-problem-nav="submit">Submit</a>
-        <a id="pd-nav-submissions" href="#submissions" aria-controls="submissions" data-problem-nav="submissions">My submissions</a>
+        <a id="pd-nav-submit" href="#submit" aria-controls="submit" data-problem-nav="submit" data-requires-auth>Submit</a>
+        <a id="pd-nav-submissions" href="#submissions" aria-controls="submissions" data-problem-nav="submissions" data-requires-auth>My submissions</a>
         <a id="pd-nav-editorial" href="#editorial" aria-controls="editorial" data-problem-nav="editorial">Editorial</a>
       </nav>
 
@@ -106,7 +107,7 @@
           <p>2264F · Deranged Calculator</p>
           <p class="pd-notice">Practice mode: submissions are saved in this browser. They are not sent to an online judge or graded.</p>
 
-          <form id="pd-submit-form" novalidate>
+          <form data-requires-auth id="pd-submit-form" novalidate>
             <div class="pd-form-row">
               <label for="pd-language">Language</label>
               <select id="pd-language" name="language">
@@ -148,13 +149,13 @@
         <section id="submissions" class="card pd-panel" aria-labelledby="pd-submissions-title" data-problem-panel hidden>
           <div class="pd-section-heading">
             <h2 id="pd-submissions-title" tabindex="-1">My submissions</h2>
-            <a href="#submit" class="btn btn-secondary btn-sm">New submission</a>
+            <a href="#submit" class="btn btn-secondary btn-sm" data-requires-auth>New submission</a>
           </div>
           <p>Submissions saved for this problem in this browser. No judging results are available in practice mode.</p>
           <div id="pd-submissions-empty" class="pd-empty">
             <h3>No submissions yet</h3>
             <p>Prepare your solution and save your first submission.</p>
-            <a href="#submit" class="btn btn-primary btn-sm">Submit a solution</a>
+            <a href="#submit" class="btn btn-primary btn-sm" data-requires-auth>Submit a solution</a>
           </div>
           <div id="pd-submissions-table" class="table-wrap" hidden>
             <table class="data-table pd-submissions-table">
@@ -186,10 +187,11 @@
         </section>
       </div>
 
-      <a href="problems.html" class="pd-back-link">Back to problemset</a>
+      <span data-include="back-link" data-href="problems.html" data-label="to problemset"></span>
     </div>
   </main>
 
   <div data-include="footer"></div>
+  <div data-include="auth-popup"></div>
 </body>
 </html>

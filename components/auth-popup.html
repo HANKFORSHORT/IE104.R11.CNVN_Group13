@@ -1,0 +1,37 @@
+<dialog class="site-dialog auth-dialog" id="authDialog" aria-labelledby="authDialogTitle" aria-describedby="authDialogDescription">
+  <div class="dialog-body">
+    <span class="eyebrow">Your Astra account</span>
+    <h2 id="authDialogTitle">Sign in to continue</h2>
+    <p id="authDialogDescription">Sign in to submit solutions, join contests and view your personal progress.</p>
+    <div class="dialog-actions">
+      <button type="button" class="btn btn-secondary" data-dialog-close>Cancel</button>
+      <a class="btn btn-primary" href="login.html" data-auth-signin>Sign in</a>
+    </div>
+  </div>
+</dialog>
+
+<dialog class="site-dialog auth-dialog" id="logoutDialog" aria-labelledby="logoutDialogTitle" aria-describedby="logoutDialogDescription">
+  <div class="dialog-body">
+    <h2 id="logoutDialogTitle">Log out of Astra?</h2>
+    <p id="logoutDialogDescription">Are you sure you want to log out? You can sign in again at any time.</p>
+    <p id="logoutStatus" role="status"></p>
+    <div class="dialog-actions">
+      <button type="button" class="btn btn-secondary" data-dialog-close autofocus>Cancel</button>
+      <button type="button" class="btn btn-primary" data-confirm-logout>Log out</button>
+    </div>
+  </div>
+</dialog>
+
+<template id="authGateTemplate">
+  <section class="auth-gate container" aria-labelledby="authGateTitle">
+    <div class="card">
+      <span class="eyebrow">Account</span>
+      <h1 id="authGateTitle">Your progress starts here</h1>
+      <p>This page is available when you sign in. You can still explore problems, contests and public profiles.</p>
+      <div class="dialog-actions">
+        <span data-include="back-link" data-href="index.html" data-label="to main page"></span>
+        <button type="button" class="btn btn-primary" data-requires-auth>Sign in</button>
+      </div>
+    </div>
+  </section>
+</template>

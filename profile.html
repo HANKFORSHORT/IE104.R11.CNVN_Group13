@@ -11,7 +11,9 @@
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,500;0,600;0,700;1,500&family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="css/style.css" />
   <link rel="stylesheet" href="css/profile.css" />
+  <script src="js/session.js"></script>
   <script src="js/main.js"></script>
+  <script src="js/user-data.js"></script>
   <script src="js/profile.js"></script>
 </head>
 <body>
@@ -22,7 +24,7 @@
 
       <aside class="pf-side" aria-label="Profile summary">
         <div class="pf-id">
-          <svg id="pf-avatar" class="pf-avatar" viewBox="0 0 5 5" role="img" aria-label="Avatar"></svg>
+          <img id="pf-avatar" class="pf-avatar" src="images/profile-picture.jpg" alt="Your profile picture" width="200" height="200" />
           <div class="pf-id-text">
             <h1 class="pf-handle" id="pf-handle">username</h1>
             <p class="pf-bio" id="pf-bio"></p>
@@ -43,7 +45,9 @@
           <div class="pf-stat"><dt>Contribution</dt><dd id="pf-contrib">0</dd></div>
         </dl>
 
-        <a class="pf-link" href="submissions.html" id="pf-subs-link">View submissions</a>
+        <a class="pf-link" href="submissions.html" id="pf-subs-link">My Submissions</a>
+        <a class="pf-link" href="solved.html">Solved problems</a>
+        <a class="pf-link" href="achievements.html?tab=achievements">Achievements</a>
       </aside>
 
       <section class="pf-main">
@@ -51,14 +55,13 @@
         <div class="pf-tabbar">
           <div class="pf-tabs" role="tablist">
             <button class="pf-tab active" id="tab-about" role="tab" data-tab="about" aria-selected="true" aria-controls="panel-about">About</button>
-            <button class="pf-tab" id="tab-blogs" role="tab" data-tab="blogs" aria-selected="false" aria-controls="panel-blogs">Blogs</button>
           </div>
-          <a class="btn btn-primary btn-sm" href="#blog-new">+ Create new blog post</a>
         </div>
 
         <div class="pf-panel" id="panel-about" role="tabpanel" aria-labelledby="tab-about" data-panel="about">
 
           <h2 class="pf-h2">Badges &amp; Awards</h2>
+          <p class="sample-note" data-profile-sample hidden>Sample progress for the demo account.</p>
           <div id="pf-badges" class="pf-badges"></div>
 
           <h2 class="pf-h2" id="pf-heat-title">0 submissions in the last year</h2>
@@ -92,16 +95,7 @@
               <div class="pf-act-canvas" id="pf-act-canvas"></div>
               <ol class="pf-act-list" id="pf-act-list" hidden></ol>
             </div>
-            <div class="pf-act-foot">
-              <span id="pf-act-note"></span>
-              <a class="pf-link" href="achievements.html">View all achievements</a>
-            </div>
           </figure>
-        </div>
-
-        <div class="pf-panel" id="panel-blogs" role="tabpanel" aria-labelledby="tab-blogs" data-panel="blogs" hidden>
-          <h2 class="pf-h2">Blogs</h2>
-          <p class="pf-empty">This user has not written any blog posts yet.</p>
         </div>
 
       </section>
@@ -112,5 +106,6 @@
   </main>
 
   <div data-include="footer"></div>
+  <div data-include="auth-popup"></div>
 </body>
 </html>
