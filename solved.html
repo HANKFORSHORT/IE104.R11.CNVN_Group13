@@ -12,81 +12,27 @@
   <link rel="stylesheet" href="css/style.css" />
   <link rel="stylesheet" href="css/problems.css" />
   <link rel="stylesheet" href="css/account.css" />
+  <script src="js/session.js"></script>
   <script src="js/main.js"></script>
+  <script src="js/user-data.js"></script>
   <script src="js/account.js" defer></script>
 </head>
 <body>
   <div data-include="header"></div>
-
   <main class="account-page" data-account-page="solved">
-
-    <div data-user-notfound hidden>
-    <div class="page-header">
-      <div class="container">
-        <div class="breadcrumb"><a href="index.html">Home</a> / <a href="rankings.html">Rankings</a></div>
-        <h1>User not found</h1>
-        <p>We could not find that competitor.</p>
-      </div>
-    </div>
-
-      <section class="account-section">
-        <div class="container">
-          <div class="panel panel-narrow empty-state">
-            <h2>No such user</h2>
-            <p>Pick someone from the Rankings to view their profile.</p>
-            <a class="btn btn-primary" href="rankings.html">Go to Rankings</a>
-          </div>
-        </div>
-      </section>
-    </div>
-
-    <div data-user-profile hidden>
-      <div class="page-header">
-        <div class="container">
-          <div class="breadcrumb"><a href="index.html">Home</a> / <a href="rankings.html">Rankings</a> / <a href="public-profile.html" data-user-link>Profile</a> / Solved</div>
-          <div class="profile-head">
-            <span class="avatar" aria-hidden="true" data-user-field="initials">?</span>
-            <div>
-              <h1 data-user-field="handle">username</h1>
-              <p data-user-field="subtitle"></p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <section class="account-section">
-        <div class="container">
-          <p class="toolbar"><span><strong data-user-field="solved">0</strong> problems solved</span></p>
-
-          <div class="table-wrap" data-solved-table>
-            <table class="data-table">
-              <caption class="sr-only">Solved problems</caption>
-              <thead>
-                <tr>
-                  <th scope="col">#</th>
-                  <th scope="col">Name</th>
-                  <th scope="col">Topics</th>
-                  <th scope="col">Difficulty</th>
-                </tr>
-              </thead>
-              <tbody id="solved-list"></tbody>
-            </table>
-          </div>
-
-          <div class="panel empty-state" data-solved-empty hidden>
-            <h2>Nothing solved yet</h2>
-            <p>Solved problems appear here after the first Accepted submission.</p>
-            <a class="btn btn-primary" href="problems.html">Browse problems</a>
-          </div>
-
-          <div class="actions">
-            <a class="btn btn-secondary" href="public-profile.html" data-user-link>Back to profile</a>
-          </div>
-        </div>
-      </section>
-    </div>
+    <div class="page-header"><div class="container">
+      <div class="breadcrumb"><a href="index.html">Home</a> / <a href="profile.html">Account</a> / Solved problems</div>
+      <h1>Solved problems</h1><p>Accepted solutions by <span data-solved-owner></span>.</p>
+    </div></div>
+    <section class="account-section"><div class="container">
+      <div class="toolbar"><h2>Accepted solutions</h2><span><strong data-solved-count>0</strong> problems solved</span></div>
+      <p class="sample-note" data-sample-note hidden>Sample accepted solutions for the demo account.</p>
+      <ul class="solved-list" id="solved-list" aria-label="Solved problems"></ul>
+      <div class="panel empty-state" data-solved-empty hidden><h2>No solved problems to display</h2><p>Accepted solutions will appear here when results are available.</p><a class="btn btn-primary" href="problems.html">Browse problems</a></div>
+      <div class="actions"><span data-include="back-link" data-href="profile.html" data-label="to profile"></span></div>
+    </div></section>
   </main>
-
   <div data-include="footer"></div>
+  <div data-include="auth-popup"></div>
 </body>
 </html>

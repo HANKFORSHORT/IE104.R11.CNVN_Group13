@@ -11,13 +11,12 @@
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,500;0,600;0,700;1,500&family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="css/style.css" />
   <link rel="stylesheet" href="css/auth.css" />
+  <script src="js/session.js"></script>
   <script src="js/main.js"></script>
   <script src="js/auth.js" defer></script>
 </head>
 <body>
-  <a href="index.html" class="auth-back-link" aria-label="Back to main page">
-    <span aria-hidden="true">&larr;</span> Back<span class="auth-back-extra" aria-hidden="true">to main page</span>
-  </a>
+  <span data-include="back-link" data-href="index.html" data-label="to main page" data-fixed></span>
 
   <button class="theme-toggle auth-theme-toggle" type="button" aria-label="Toggle dark mode" aria-pressed="false">
     <img class="icon-sun" src="images/sun.svg" alt="">
@@ -117,5 +116,6 @@
       </div>
     </section>
   </main>
+  <div data-include="auth-popup"></div>
 </body>
 </html>

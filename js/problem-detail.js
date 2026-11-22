@@ -32,8 +32,8 @@
     }
   }
 
-  const session = readStore("astra-session", null);
-  const owner = session && typeof session.identifier === "string" ? session.identifier : "guest";
+  const session = AstraAuth.user();
+  const owner = session ? session.identifier : "guest";
   const storePrefix = "astra.problem.2264F." + encodeURIComponent(owner);
   const DRAFT_KEY = storePrefix + ".draft";
   const SUBMISSIONS_KEY = storePrefix + ".submissions";
@@ -64,7 +64,7 @@
 
   function saveDraft() {
     clearTimeout(draftTimer);
-    if (!draftDirty) return;
+    if (!draftDirty || !AstraAuth.isLoggedIn()) return;
     if (byteLength(source.value) > MAX_BYTES) {
       draftStatus.textContent = "Draft not saved: code exceeds 256 KB.";
       return;
@@ -94,7 +94,13 @@
 
   function showSection(shouldFocus) {
     const name = location.hash.slice(1);
-    const section = ["statement", "submit", "submissions", "editorial"].includes(name) ? name : "statement";
+    let section = ["statement", "submit", "submissions", "editorial"].includes(name) ? name : "statement";
+    if (["submit", "submissions"].includes(section) && !AstraAuth.isLoggedIn()) {
+      const next = location.href;
+      section = "statement";
+      history.replaceState(null, "", location.pathname + location.search + "#statement");
+      AstraAuth.requireLogin(next);
+    }
     document.querySelectorAll("[data-problem-panel]").forEach(function (panel) {
       panel.hidden = panel.id !== section;
     });
@@ -111,6 +117,7 @@
   }
 
   function readSubmissions() {
+    if (!AstraAuth.isLoggedIn()) return [];
     const stored = readStore(SUBMISSIONS_KEY, []);
     if (!Array.isArray(stored)) return [];
     return stored.filter(function (item) {
@@ -166,6 +173,7 @@
   // Local records deliberately have no Accepted/Wrong answer verdict or score.
   document.getElementById("pd-submit-form").addEventListener("submit", function (event) {
     event.preventDefault();
+    if (!AstraAuth.requireLogin(location.pathname + location.search + "#submit")) return;
     if (loadingFile) {
       submitStatus.textContent = "Wait for the source file to finish loading.";
       return;

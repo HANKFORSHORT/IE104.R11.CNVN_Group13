@@ -1,9 +1,8 @@
 document.addEventListener("DOMContentLoaded", () => {
   const CONTEST_ID = "round-118";
-  const REGISTERED_KEY = "astra-registered-contests";
+  const REGISTERED_KEY = AstraAuth.userKey("astra-registered-contests");
 
-  // main.js đặt data-auth="in" khi đã login (key astra-session)
-  const isLoggedIn = () => document.documentElement.dataset.auth === "in";
+  const isLoggedIn = () => AstraAuth.isLoggedIn();
 
   const getRegistered = () => {
     try { return JSON.parse(localStorage.getItem(REGISTERED_KEY)) || []; }
@@ -28,24 +27,18 @@ document.addEventListener("DOMContentLoaded", () => {
 
   if (isLoggedIn() && getRegistered().includes(CONTEST_ID)) markRegistered();
 
-  const openModal = () => { modal.hidden = false; };
-  const closeModal = () => { modal.hidden = true; };
+  const openModal = () => { AstraUI.openDialog(modal, btn); };
+  const closeModal = () => { AstraUI.closeDialog(modal); };
 
   btn.addEventListener("click", () => {
-    if (!isLoggedIn()) {
-      // chưa login -> sang login, login xong quay lại trang này
-      const here = location.pathname.split("/").pop() || "contest.html";
-      location.href = "login.html?next=" + encodeURIComponent(here);
-      return;
-    }
+    if (!AstraAuth.requireLogin()) return;
     openModal();
   });
 
   cancelBtn.addEventListener("click", closeModal);
-  modal.addEventListener("click", (e) => { if (e.target === modal) closeModal(); });
-  document.addEventListener("keydown", (e) => { if (e.key === "Escape") closeModal(); });
 
   confirmBtn.addEventListener("click", () => {
+    if (!AstraAuth.requireLogin()) return;
     const list = getRegistered();
     if (!list.includes(CONTEST_ID)) list.push(CONTEST_ID);
     saveRegistered(list);

@@ -11,6 +11,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,500;0,600;0,700;1,500&family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="css/style.css" />
   <link rel="stylesheet" href="css/home.css" />
+  <script src="js/session.js"></script>
   <script src="js/main.js"></script>
 </head>
 <body>
@@ -25,7 +26,8 @@
           <p class="home-tagline">For the benefit of all.</p>
           <p class="home-lede">Astra is a free training ground for algorithmic thinking: a deep problemset, timed rated contests, and a rating that actually reflects how you solve — not just what you memorised.</p>
           <div class="home-actions">
-            <a href="register.html" class="btn btn-primary">Start solving — it's free <span aria-hidden="true">→</span></a>
+            <a href="problems.html" class="btn btn-primary" data-auth-only="in">Continue solving <span aria-hidden="true">→</span></a>
+            <a href="register.html" class="btn btn-primary" data-auth-only="out">Start solving — it's free <span aria-hidden="true">→</span></a>
             <a href="contests.html" class="btn btn-ghost">See upcoming contests</a>
           </div>
           <div class="home-meta" aria-label="Astra community statistics">
@@ -93,7 +95,7 @@
             <div><strong>Rated</strong><span>Up to 3000</span></div>
           </div>
           <div class="home-actions">
-            <a href="contest.html" class="btn btn-primary">Register for round</a>
+            <a href="contest.html" data-requires-auth class="btn btn-primary">Register for round</a>
             <a href="contests.html" class="btn btn-ghost">View all contests</a>
           </div>
         </div>
@@ -178,7 +180,8 @@ using namespace std;
         <h2>Your first accepted verdict is a few clicks away.</h2>
         <p>Join for free and get a starting problem set matched to your first placement round.</p>
         <div class="home-actions">
-          <a href="register.html" class="btn btn-primary">Create free account</a>
+          <a href="register.html" class="btn btn-primary" data-auth-only="out">Create free account</a>
+          <a href="problems.html" class="btn btn-primary" data-auth-only="in">Explore problems</a>
           <a href="pricing.html" class="btn btn-secondary">Compare plans</a>
         </div>
       </div>
@@ -186,5 +189,6 @@ using namespace std;
   </main>
 
   <div data-include="footer"></div>
+  <div data-include="auth-popup"></div>
 </body>
 </html>
