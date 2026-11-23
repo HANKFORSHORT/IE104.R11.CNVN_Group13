@@ -20,17 +20,20 @@
 <body>
   <div data-include="header"></div>
   <main class="account-page" data-account-page="solved">
+    <div id="solvedContent">
     <div class="page-header"><div class="container">
-      <div class="breadcrumb"><a href="index.html">Home</a> / <a href="profile.html">Account</a> / Solved problems</div>
+      <div class="breadcrumb"><a href="index.html">Home</a> / <a id="solvedParent" href="profile.html">Account</a> / Solved problems</div>
       <h1>Solved problems</h1><p>Accepted solutions by <span data-solved-owner></span>.</p>
     </div></div>
     <section class="account-section"><div class="container">
       <div class="toolbar"><h2>Accepted solutions</h2><span><strong data-solved-count>0</strong> problems solved</span></div>
       <p class="sample-note" data-sample-note hidden>Sample accepted solutions for the demo account.</p>
       <ul class="solved-list" id="solved-list" aria-label="Solved problems"></ul>
-      <div class="panel empty-state" data-solved-empty hidden><h2>No solved problems to display</h2><p>Accepted solutions will appear here when results are available.</p><a class="btn btn-primary" href="problems.html">Browse problems</a></div>
+      <div class="panel empty-state" data-solved-empty hidden><h2 id="solvedEmptyTitle">No solved problems to display</h2><p id="solvedEmptyText">Accepted solutions will appear here when results are available.</p><a class="btn btn-primary" id="solvedEmptyAction" href="problems.html">Browse problems</a></div>
       <div class="actions"><span data-include="back-link" data-href="profile.html" data-label="to profile"></span></div>
     </div></section>
+    </div>
+    <section class="account-section" id="solvedNotfound" hidden><div class="container"><div class="panel panel-narrow empty-state"><h1>User not found</h1><p>Pick someone from Rankings or Contest Standings to view solved problems.</p><a class="btn btn-primary" href="rankings.html">Go to Rankings</a></div></div></section>
   </main>
   <div data-include="footer"></div>
   <div data-include="auth-popup"></div>
