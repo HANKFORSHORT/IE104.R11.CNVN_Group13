@@ -19,7 +19,36 @@
     if (dialog && dialog.open) dialog.close();
   }
 
-  window.AstraUI = Object.freeze({ ready, openDialog, closeDialog });
+  function isValidEmail(value) {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+  }
+
+  function isValidUsername(value) {
+    return /^[A-Za-z0-9]+(?:-[A-Za-z0-9]+)*$/.test(value);
+  }
+
+  function passwordRule(value) {
+    if (!value) return "Enter a password.";
+    return value.length >= 8 && /\d/.test(value) && /[a-z]/.test(value)
+      ? "" : "Use at least 8 characters, including a number and a lowercase letter.";
+  }
+
+  function confirmRule(value, form) {
+    if (!value) return "Re-type your password.";
+    return value === form.elements.password.value ? "" : "Passwords don't match.";
+  }
+
+  function setAuthFieldError(input, message) {
+    const wrapper = input.closest(".auth-field");
+    wrapper.querySelector(".auth-error").textContent = message;
+    wrapper.classList.toggle("has-error", Boolean(message));
+    input.setAttribute("aria-invalid", message ? "true" : "false");
+  }
+
+  window.AstraUI = Object.freeze({
+    ready, openDialog, closeDialog, isValidEmail, isValidUsername,
+    passwordRule, confirmRule, setAuthFieldError
+  });
 
   async function requestLogin(next) {
     await ready;
@@ -240,6 +269,9 @@
       });
     });
 
+    if (slot.dataset.include === "theme-toggle" && slot.dataset.class) {
+      tpl.content.firstElementChild.classList.add(slot.dataset.class);
+    }
     if (slot.dataset.include === "back-link") {
       const link = tpl.content.querySelector("a");
       link.href = new URL(slot.dataset.href || "index.html", ROOT).href;
@@ -247,6 +279,7 @@
       link.querySelector(".back-extra").textContent = slot.dataset.label || "to main page";
       if (slot.hasAttribute("data-fixed")) link.classList.add("back-link-fixed");
     }
+    await Promise.all([...tpl.content.querySelectorAll("[data-include]")].map(include));
     slot.replaceWith(tpl.content);
   }
 
