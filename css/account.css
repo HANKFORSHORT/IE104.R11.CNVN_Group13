@@ -76,7 +76,6 @@
   color: var(--accent);
 }
 
-
 /* ---------------------------------------------------------
    Panels and forms (settings, reset password)
    --------------------------------------------------------- */
@@ -270,7 +269,6 @@ textarea.field-input {
   display: none;
 }
 
-
 /* ---------------------------------------------------------
    Profile header and stats (public profile, solved)
    --------------------------------------------------------- */
@@ -338,7 +336,6 @@ textarea.field-input {
 .empty-state p {
   margin-inline: auto;
 }
-
 
 /* ---------------------------------------------------------
    Notifications
@@ -448,7 +445,6 @@ textarea.field-input {
 .notice[data-read="true"] .notice-status {
   color: var(--text-muted);
 }
-
 
 /* ---------------------------------------------------------
    Submissions list: rows that expand (details/summary)
@@ -598,7 +594,6 @@ details[open] > summary .disclosure-icon::before {
   margin-bottom: 1.4rem;
 }
 
-
 /* ---------------------------------------------------------
    Responsive
    --------------------------------------------------------- */
@@ -660,7 +655,6 @@ details[open] > summary .disclosure-icon::before {
     padding-inline: 1.1rem;
   }
 }
-
 
 /* Visually hidden text that stays available to screen readers */
 .account-page .sr-only {

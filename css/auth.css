@@ -46,7 +46,6 @@
   line-height: 1.5;
 }
 
-
 /* ---------------------------------------------------------
    4. Cards
    --------------------------------------------------------- */
@@ -112,7 +111,6 @@
 .auth-form-wrap .auth-form {
   width: min(100%, 24rem);
 }
-
 
 /* ---------------------------------------------------------
    5. Form fields, errors, banner
@@ -291,16 +289,6 @@ select.auth-input {
   line-height: 1.5;
 }
 
-.auth-link {
-  color: var(--accent);
-  text-decoration: underline;
-  text-underline-offset: 2px;
-}
-
-[data-theme="dark"] .auth-link {
-  color: var(--sandy);
-}
-
 .auth-divider {
   display: flex;
   align-items: center;
@@ -336,7 +324,6 @@ select.auth-input {
   color: var(--brand);
   border-color: var(--line-strong);
 }
-
 
 /* ---------------------------------------------------------
    6. Responsive
