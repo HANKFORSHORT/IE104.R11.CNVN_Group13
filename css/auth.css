@@ -79,8 +79,8 @@
   text-align: center;
   color: var(--peach);
   background:
-    linear-gradient(180deg, transparent 50%, var(--oxford) 100%),
-    url("../images/auth-bg.jpg") center / cover no-repeat,
+    linear-gradient(180deg, var(--oxford) 0%, transparent 70%, var(--oxford) 100%),
+    url("../images/sign-up-backplate.jpg") center / cover no-repeat,
     var(--oxford);
 }
 
