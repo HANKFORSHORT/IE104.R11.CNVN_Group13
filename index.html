@@ -11,6 +11,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,500;0,600;0,700;1,500&family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="css/style.css" />
   <link rel="stylesheet" href="css/home.css" />
+  <script src="js/session.js"></script>
   <script src="js/main.js"></script>
 </head>
 <body>
@@ -25,7 +26,8 @@
           <p class="home-tagline">For the benefit of all.</p>
           <p class="home-lede">Astra is a free training ground for algorithmic thinking: a deep problemset, timed rated contests, and a rating that actually reflects how you solve — not just what you memorised.</p>
           <div class="home-actions">
-            <a href="register.html" class="btn btn-primary">Start solving — it's free <span aria-hidden="true">→</span></a>
+            <a href="problems.html" class="btn btn-primary" data-auth-only="in">Continue solving <span aria-hidden="true">→</span></a>
+            <a href="register.html" class="btn btn-primary" data-auth-only="out">Start solving — it's free <span aria-hidden="true">→</span></a>
             <a href="contests.html" class="btn btn-ghost">See upcoming contests</a>
           </div>
           <div class="home-meta" aria-label="Astra community statistics">
@@ -35,14 +37,7 @@
           </div>
         </div>
         <div class="home-orbit" aria-hidden="true">
-          <span class="orbit-ring orbit-ring-one"></span>
-          <span class="orbit-ring orbit-ring-two"></span>
-          <span class="orbit-ring orbit-ring-three"></span>
-          <span class="orbit-core"></span>
-          <span class="orbit-node orbit-node-one">DP</span>
-          <span class="orbit-node orbit-node-two">#4</span>
-          <span class="orbit-node orbit-node-three">1900</span>
-          <span class="orbit-node orbit-node-four">A+B</span>
+          <img src="images/orbit-ring.svg" alt="" />
         </div>
       </div>
       <span class="home-hero-peaks" aria-hidden="true"></span>
@@ -58,28 +53,28 @@
         <div class="home-feature-grid">
           <article class="home-feature">
             <div class="feature-icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+              <img src="images/code.svg" alt="" />
             </div>
             <h3>2,600+ problems</h3>
             <p>Sorted by difficulty and topic, from your first loop to segment trees with lazy propagation.</p>
           </article>
           <article class="home-feature">
             <div class="feature-icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-1.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98 1.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/></svg>
+              <img src="images/trophy.svg" alt="" />
             </div>
             <h3>Weekly rated rounds</h3>
             <p>Div. 1 and Div. 2 rounds every week, ICPC and OI formats, real-time standings and hacks.</p>
           </article>
           <article class="home-feature">
             <div class="feature-icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+              <img src="images/chart.svg" alt="" />
             </div>
             <h3>A rating worth earning</h3>
             <p>Astra’s rating system rewards consistent solving over lucky guesses — and it’s public.</p>
           </article>
           <article class="home-feature">
             <div class="feature-icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 7v10"/><path d="M3 9.5v5"/><path d="M18 7v10"/><path d="M21 9.5v5"/><path d="M6 12h12"/></svg>
+              <img src="images/dumbbell.svg" alt="" />
             </div>
             <h3>Gym &amp; mashups</h3>
             <p>Build your own practice sets from past rounds, or drop into an unrated virtual contest any time.</p>
@@ -100,7 +95,7 @@
             <div><strong>Rated</strong><span>Up to 3000</span></div>
           </div>
           <div class="home-actions">
-            <a href="contest.html" class="btn btn-primary">Register for round</a>
+            <a href="contest.html" data-requires-auth class="btn btn-primary">Register for round</a>
             <a href="contests.html" class="btn btn-ghost">View all contests</a>
           </div>
         </div>
@@ -185,7 +180,8 @@ using namespace std;
         <h2>Your first accepted verdict is a few clicks away.</h2>
         <p>Join for free and get a starting problem set matched to your first placement round.</p>
         <div class="home-actions">
-          <a href="register.html" class="btn btn-primary">Create free account</a>
+          <a href="register.html" class="btn btn-primary" data-auth-only="out">Create free account</a>
+          <a href="problems.html" class="btn btn-primary" data-auth-only="in">Explore problems</a>
           <a href="pricing.html" class="btn btn-secondary">Compare plans</a>
         </div>
       </div>
@@ -193,5 +189,6 @@ using namespace std;
   </main>
 
   <div data-include="footer"></div>
+  <div data-include="auth-popup"></div>
 </body>
 </html>

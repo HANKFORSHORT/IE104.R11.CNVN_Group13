@@ -12,8 +12,11 @@
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/contest.css">
   <link rel="stylesheet" href="css/table.css">
+  <link rel="stylesheet" href="css/auth.css">
+  <script src="js/session.js"></script>
   <script src="js/main.js" defer></script>
   <script src="js/table-filter.js" defer></script>
+  <script src="js/gym-detail.js" defer></script>
 </head>
 <body>
   <div data-include="header"></div>
@@ -131,8 +134,8 @@
             <div class="card">
               <h4>Ready to run?</h4>
               <p style="font-size:0.9rem;">The clock starts as soon as you begin. Pick solo, or invite a friend to race.</p>
-              <a href="gym-detail.html#start" class="btn btn-primary btn-block">Start virtual run</a>
-              <a href="gym-detail.html#race" class="btn btn-secondary btn-block" style="margin-top:0.7rem;">Race a friend</a>
+              <a href="gym-detail.html#start" class="btn btn-primary btn-block" data-requires-auth>Start virtual run</a>
+              <a href="gym-detail.html#race" class="btn btn-secondary btn-block" style="margin-top:0.7rem;" data-requires-auth>Race a friend</a>
             </div>
           </aside>
         </div>
@@ -141,6 +144,44 @@
     </section>
   </main>
 
+  <!-- Popups: opened by gym-detail.js from the #start / #race links above -->
+  <dialog class="site-dialog auth-dialog" id="start-dialog" aria-labelledby="start-dialog-title">
+    <div class="dialog-body">
+      <h3 id="start-dialog-title">Confirm virtual run</h3>
+      <p>Bạn chắc chắn muốn bắt đầu virtual run <strong>ICPC Regional Training Camp Vol. 3</strong>?</p>
+      <p class="modal-note">10 problems · 5:00:00 · Unrated. Đồng hồ bắt đầu chạy ngay khi bạn xác nhận và không ảnh hưởng đến rating.</p>
+
+      <!-- TODO: point data-start-url at the real run page once the backend creates runs -->
+      <div class="modal-actions">
+        <button type="button" class="btn btn-secondary" data-dialog-close>Cancel</button>
+        <a href="problem-detail.html" class="btn btn-primary" data-start-url>Confirm</a>
+      </div>
+    </div>
+  </dialog>
+
+  <dialog class="site-dialog auth-dialog" id="race-dialog" aria-labelledby="race-dialog-title">
+    <div class="dialog-body">
+      <h2 id="race-dialog-title">Race a friend</h2>
+      <p>Invite a friend to run this training set at the same time.</p>
+
+      <form class="auth-form" data-race-form novalidate>
+        <div class="auth-field">
+          <label class="auth-label" for="race-handle">Friend's username <span class="required-mark">*</span></label>
+          <input class="auth-input" id="race-handle" name="handle" type="text" autocomplete="off" spellcheck="false" aria-describedby="race-handle-error">
+          <p class="auth-error" id="race-handle-error" role="alert"></p>
+        </div>
+
+        <p class="auth-hint" data-race-status aria-live="polite"></p>
+
+        <div class="dialog-actions">
+          <button type="button" class="btn btn-secondary" data-dialog-close>Cancel</button>
+          <button type="submit" class="btn btn-primary">Send invite</button>
+        </div>
+      </form>
+    </div>
+  </dialog>
+
   <div data-include="footer"></div>
+  <div data-include="auth-popup"></div>
 </body>
 </html>

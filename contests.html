@@ -12,6 +12,7 @@
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/contest.css">
   <link rel="stylesheet" href="css/table.css">
+  <script src="js/session.js"></script>
   <script src="js/main.js" defer></script>
   <script src="js/table-filter.js" defer></script>
 </head>
@@ -40,7 +41,7 @@
               <h3 class="mt-0">Astra Round 118 (Div. 1 + Div. 2)</h3>
               <p style="margin-bottom:0;">Starts Oct 17, 2026 &middot; 21:35 ICT &middot; Duration 02:00 &middot; Rated for everyone</p>
             </div>
-            <a href="contest.html" class="btn btn-primary">Register</a>
+            <a href="contest.html" data-requires-auth class="btn btn-primary">Register</a>
           </div>            
         </div>
         
@@ -95,5 +96,6 @@
   </main>
 
   <div data-include="footer"></div>
+  <div data-include="auth-popup"></div>
 </body>
 </html>

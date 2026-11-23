@@ -11,7 +11,10 @@
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,500;0,600;0,700;1,500&family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="css/style.css" />
   <link rel="stylesheet" href="css/rankings.css" />
+  <script src="js/session.js"></script>
   <script src="js/main.js"></script>
+  <!-- [EDIT] Thêm script xử lý sort / filter / phân trang cho trang Rankings -->
+  <script src="js/rankings.js" defer></script>
 </head>
 <body>
   <div data-include="header"></div>
@@ -27,112 +30,106 @@
             <h1>Rankings</h1>
             <p>See who is leading the field and track the ratings, progress, and momentum of the Astra community.</p>
           </div>
-          <div class="season-note">Season 04 · Updated 2m ago</div>
+          <!-- [EDIT] Thêm id để JS cập nhật theo kỳ xếp hạng đang chọn -->
+          <div class="season-note" id="season-note">Season 04 · Updated 2m ago</div>
         </header>
 
-        <!-- Top-three podium. -->
-        <section class="podium" aria-label="Top three competitors">
-          <article class="podium-card">
-            <span class="podium-rank">01</span>
-            <div>
-              <h2><a href="public-profile.html?user=minhtriet">minhtriet</a></h2>
-              <p class="podium-handle">Nguyen Minh Triet · Vietnam</p>
-            </div>
-            <div class="podium-score"><strong>2,984</strong><span>rating</span></div>
-          </article>
-          <article class="podium-card">
-            <span class="podium-rank">02</span>
-            <div>
-              <h2><a href="public-profile.html?user=khangdev">khangdev</a></h2>
-              <p class="podium-handle">Tran Gia Khang · Vietnam</p>
-            </div>
-            <div class="podium-score"><strong>2,741</strong><span>rating</span></div>
-          </article>
-          <article class="podium-card">
-            <span class="podium-rank">03</span>
-            <div>
-              <h2><a href="public-profile.html?user=lemontea">lemontea</a></h2>
-              <p class="podium-handle">Le Hoang Anh · Vietnam</p>
-            </div>
-            <div class="podium-score"><strong>2,608</strong><span>rating</span></div>
-          </article>
-        </section>
+        <!-- [EDIT] Podium: nội dung do rankings.js render theo bộ lọc hiện tại (top 3 theo rating) -->
+        <section class="podium" id="ranking-podium" aria-label="Top three competitors"></section>
 
-        <!-- Data filters. -->
-        <div class="rankings-toolbar">
-          <div class="ranking-tabs" role="tablist" aria-label="Ranking scope">
-            <button class="ranking-tab" type="button" role="tab" aria-selected="true">Global</button>
-            <button class="ranking-tab" type="button" role="tab" aria-selected="false">Friends</button>
-            <button class="ranking-tab" type="button" role="tab" aria-selected="false">Country</button>
+        <!-- [EDIT] Filter: chuyển thành <form> có nhãn hiển thị rõ + nút Apply filters / Reset -->
+        <form class="rankings-filter" id="ranking-filter" aria-label="Filter rankings">
+          <div class="filter-field filter-scope">
+            <span class="filter-label" id="scope-label">Scope</span>
+            <!-- [EDIT] Friends chỉ hiện khi đã đăng nhập (rankings.js bỏ thuộc tính hidden qua isLoggedIn()); Country = bảng xếp hạng theo quốc gia -->
+            <div class="scope-options" role="radiogroup" aria-labelledby="scope-label">
+              <label class="scope-option"><input type="radio" name="scope" value="global" checked /><span>Global</span></label>
+              <label class="scope-option" data-requires-auth hidden><input type="radio" name="scope" value="friends" /><span>Friends</span></label>
+              <label class="scope-option"><input type="radio" name="scope" value="country" /><span>Country</span></label>
+            </div>
           </div>
-          <div class="ranking-filters">
-            <label for="ranking-period">Ranking period</label>
-            <select id="ranking-period">
-              <option>Season 04</option>
-              <option>Season 03</option>
-              <option>All time</option>
-            </select>
-            <label for="ranking-region">Region</label>
-            <select id="ranking-region">
-              <option>All regions</option>
-              <option>Vietnam</option>
-              <option>Asia Pacific</option>
+
+          <div class="filter-field filter-search">
+            <label class="filter-label" for="ranking-search" id="search-label">Competitor</label>
+            <input type="search" id="ranking-search" name="q" placeholder="Handle, name or city" autocomplete="off" />
+          </div>
+
+          <div class="filter-field">
+            <label class="filter-label" for="ranking-period">Ranking period</label>
+            <select id="ranking-period" name="period">
+              <option value="s04" selected>Season 04</option>
+              <option value="s03">Season 03</option>
+              <option value="all">All time</option>
             </select>
           </div>
+
+          <div class="filter-field">
+            <label class="filter-label" for="ranking-region">Region</label>
+            <select id="ranking-region" name="region">
+              <option value="all" selected>All regions</option>
+              <option value="vietnam">Vietnam</option>
+              <option value="apac">Asia Pacific</option>
+              <option value="europe">Europe</option>
+            </select>
+          </div>
+
+          <div class="filter-actions">
+            <button type="submit" class="btn btn-primary btn-sm">Apply filters</button>
+            <button type="button" class="btn btn-secondary btn-sm" id="filter-reset">Reset</button>
+          </div>
+        </form>
+
+        <!-- [EDIT] Bộ lọc đang áp dụng (chip bấm để bỏ) + trạng thái chưa apply -->
+        <div class="filter-summary">
+          <ul class="filter-chips" id="filter-chips" aria-label="Applied filters" hidden></ul>
+          <p class="filter-status" id="filter-status" aria-live="polite"></p>
         </div>
 
-        <!-- Rankings table data. -->
+        <!-- [EDIT] Bảng xếp hạng: tiêu đề cột bấm được để sort tăng/giảm, thân bảng do JS render. Scope Country đổi nhãn cột sang Country / Total rating / Total solved / Competitors -->
         <div class="ranking-table-wrap">
-          <table class="ranking-table">
-            <caption class="sr-only">Astra competitor rankings</caption>
+          <table class="ranking-table" id="ranking-table">
+            <caption class="sr-only" id="ranking-caption">Astra competitor rankings. Use the column headers to sort.</caption>
             <thead>
               <tr>
-                <th scope="col">Rank</th>
-                <th scope="col">Competitor</th>
-                <th scope="col">Rating</th>
-                <th scope="col">Solved</th>
-                <th scope="col">Change</th>
+                <th scope="col" class="col-rank" data-col="rank" aria-sort="ascending">
+                  <button type="button" class="sort-btn" data-sort="rank" data-label="Rank"><span class="sort-label">Rank</span><svg class="sort-icon" viewBox="0 0 10 14" aria-hidden="true" focusable="false"><path class="sort-up" d="M5 1 9 5H1z"/><path class="sort-down" d="M5 13 1 9h8z"/></svg></button>
+                </th>
+                <th scope="col" class="col-name" data-col="name" aria-sort="none">
+                  <button type="button" class="sort-btn" data-sort="name" data-label="Competitor" data-label-country="Country"><span class="sort-label">Competitor</span><svg class="sort-icon" viewBox="0 0 10 14" aria-hidden="true" focusable="false"><path class="sort-up" d="M5 1 9 5H1z"/><path class="sort-down" d="M5 13 1 9h8z"/></svg></button>
+                </th>
+                <th scope="col" class="col-num" data-col="rating" aria-sort="none">
+                  <button type="button" class="sort-btn" data-sort="rating" data-label="Rating" data-label-country="Total rating"><span class="sort-label">Rating</span><svg class="sort-icon" viewBox="0 0 10 14" aria-hidden="true" focusable="false"><path class="sort-up" d="M5 1 9 5H1z"/><path class="sort-down" d="M5 13 1 9h8z"/></svg></button>
+                </th>
+                <th scope="col" class="col-num" data-col="solved" aria-sort="none">
+                  <button type="button" class="sort-btn" data-sort="solved" data-label="Solved" data-label-country="Total solved"><span class="sort-label">Solved</span><svg class="sort-icon" viewBox="0 0 10 14" aria-hidden="true" focusable="false"><path class="sort-up" d="M5 1 9 5H1z"/><path class="sort-down" d="M5 13 1 9h8z"/></svg></button>
+                </th>
+                <th scope="col" class="col-num" data-col="change" aria-sort="none">
+                  <button type="button" class="sort-btn" data-sort="change" data-label="Change" data-label-country="Competitors"><span class="sort-label">Change</span><svg class="sort-icon" viewBox="0 0 10 14" aria-hidden="true" focusable="false"><path class="sort-up" d="M5 1 9 5H1z"/><path class="sort-down" d="M5 13 1 9h8z"/></svg></button>
+                </th>
               </tr>
             </thead>
-            <tbody>
-              <tr>
-                <td class="rank-number">04</td>
-                <td><div class="user-cell"><span class="user-avatar">QD</span><span><span class="user-name"><a href="public-profile.html?user=quangdo">quangdo</a></span><span class="user-country">Da Nang, Vietnam</span></span></div></td>
-                <td class="rating">2,487</td><td class="solved">186</td><td class="trend-up">+3</td>
-              </tr>
-              <tr>
-                <td class="rank-number">05</td>
-                <td><div class="user-cell"><span class="user-avatar">HA</span><span><span class="user-name"><a href="public-profile.html?user=huyanh">huyanh</a></span><span class="user-country">Hanoi, Vietnam</span></span></div></td>
-                <td class="rating">2,392</td><td class="solved">174</td><td class="trend-up">+1</td>
-              </tr>
-              <tr>
-                <td class="rank-number">06</td>
-                <td><div class="user-cell"><span class="user-avatar">NT</span><span><span class="user-name"><a href="public-profile.html?user=nami_t">nami_t</a></span><span class="user-country">Ho Chi Minh City, Vietnam</span></span></div></td>
-                <td class="rating">2,315</td><td class="solved">168</td><td class="trend-down">−2</td>
-              </tr>
-              <tr>
-                <td class="rank-number">07</td>
-                <td><div class="user-cell"><span class="user-avatar">BL</span><span><span class="user-name"><a href="public-profile.html?user=baolong">baolong</a></span><span class="user-country">Can Tho, Vietnam</span></span></div></td>
-                <td class="rating">2,264</td><td class="solved">159</td><td class="trend-up">+4</td>
-              </tr>
-              <tr>
-                <td class="rank-number">08</td>
-                <td><div class="user-cell"><span class="user-avatar">MK</span><span><span class="user-name"><a href="public-profile.html?user=mkhanh">mkhanh</a></span><span class="user-country">Hai Phong, Vietnam</span></span></div></td>
-                <td class="rating">2,187</td><td class="solved">151</td><td class="trend-up">+2</td>
-              </tr>
+            <tbody id="ranking-body">
+              <tr class="empty-row"><td colspan="5"><noscript>Turn on JavaScript to load the rankings.</noscript></td></tr>
             </tbody>
           </table>
         </div>
+        <p class="sr-only" id="sort-status" aria-live="polite"></p>
 
-        <!-- Data summary. -->
+        <!-- [EDIT] Footer: số lượng hiển thị + phân trang Previous / Next -->
         <div class="rankings-footer">
-          <span>Showing 8 of 1,248 competitors</span>
-          <span>Rating updates after each contest</span>
+          <p class="footer-count" id="ranking-count" aria-live="polite"></p>
+          <nav class="pager" aria-label="Rankings pages">
+            <button type="button" class="btn btn-secondary btn-sm" id="page-prev">Previous</button>
+            <span class="pager-status" id="page-status"></span>
+            <button type="button" class="btn btn-secondary btn-sm" id="page-next">Next</button>
+          </nav>
         </div>
+        <p class="rankings-note">Rating updates after each contest.</p>
       </div>
     </div>
   </main>
 
   <div data-include="footer"></div>
+  <div data-include="auth-popup"></div>
 </body>
 </html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Achievements · Astra</title>
+  <meta name="description" content="Collect the achievements you have earned on Astra." />
+  <link rel="icon" href="images/favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,500;0,600;0,700;1,500&family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/problems.css" />
+  <link rel="stylesheet" href="css/account.css" />
+  <script src="js/session.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/user-data.js"></script>
+  <script src="js/achievements.js" defer></script>
+</head>
+<body>
+  <div data-include="header"></div>
+  <main class="account-page">
+    <div class="page-header"><div class="container">
+      <div class="breadcrumb"><a href="index.html">Home</a> / <a href="profile.html">Account</a> / Achievements</div>
+      <h1>Achievements</h1><p>Small milestones. A collection of your progress.</p>
+    </div></div>
+    <section class="account-section"><div class="container achievement-layout">
+      <aside class="achievement-profile" aria-label="Achievement owner">
+        <img src="images/profile-picture.jpg" alt="Profile picture" width="200" height="200" />
+        <h2 id="achievementHandle"></h2>
+        <a class="btn btn-secondary btn-sm" id="achievementProfile" href="profile.html">View profile</a>
+        <span data-include="back-link" data-href="index.html" data-label="to main page"></span>
+      </aside>
+      <div>
+        <div class="toolbar"><h2>Earned achievements</h2><span id="achievementCount"></span></div>
+        <p class="sample-note" data-sample-note hidden>Sample earned badges for the demo account.</p>
+        <p id="achievementNotice" role="status"></p>
+        <div class="achievement-grid" id="achievementList"></div>
+        <div class="panel empty-state" id="achievementEmpty" hidden><h3>Your collection is waiting</h3><p>Earned badges will appear here as you reach new milestones.</p><a class="btn btn-primary" href="problems.html">Explore problems</a></div>
+      </div>
+    </div></section>
+  </main>
+  <dialog class="site-dialog achievement-dialog" id="achievementDialog" aria-labelledby="achievementTitle" aria-describedby="achievementDescription">
+    <div class="dialog-topbar"><button type="button" class="btn btn-secondary btn-sm" data-dialog-close>Close</button></div>
+    <div class="achievement-art"><img id="achievementArt" alt="" width="144" height="144" /></div>
+    <div class="dialog-body">
+      <h2 id="achievementTitle"></h2><p id="achievementDescription"></p>
+      <h3>How to earn it</h3><p id="achievementRequirement"></p>
+      <div class="achievement-history"><h3>History</h3><p class="achievement-earned">Unlocked · <time id="achievementDate"></time></p><p id="achievementEvidence"></p></div>
+    </div>
+  </dialog>
+  <div data-include="footer"></div>
+  <div data-include="auth-popup"></div>
+</body>
+</html>

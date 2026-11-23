@@ -12,6 +12,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,500;0,600;0,700;1,500&family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="css/style.css" />
   <link rel="stylesheet" href="css/docs.css" />
+  <script src="js/session.js"></script>
   <script src="js/main.js"></script>
   <script src="js/docs.js" defer></script>
 </head>
@@ -38,9 +39,7 @@
       <!-- Left Navigation Sidebar -->
       <aside class="docs-sidebar" aria-label="Documentation navigation">
         <div class="docs-sidebar-top">
-          <a href="index.html" class="docs-back-link">
-            <span aria-hidden="true">&larr;</span> Home
-          </a>
+          <span data-include="back-link" data-href="index.html" data-label="to main page"></span>
 
           <button type="button" class="docs-nav-overview active" data-doc-target="overview" aria-current="true">
             Site policy
@@ -410,6 +409,7 @@
 
 
   <div data-include="footer"></div>
+  <div data-include="auth-popup"></div>
 </body>
 
 </html>

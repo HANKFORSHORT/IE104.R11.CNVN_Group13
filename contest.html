@@ -12,8 +12,10 @@
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/contest.css">
     <link rel="stylesheet" href="css/table.css">
-    <script src="js/main.js" defer></script>
+    <script src="js/session.js"></script>
+  <script src="js/main.js" defer></script>
     <script src="js/table-filter.js" defer></script>
+    <script src="js/contest.js" defer></script>
 </head>
 <body>
   <div data-include="header"></div>
@@ -52,37 +54,37 @@
                             <tbody>
                                 <tr>
                                     <td class="rank-cell">A</td>
-                                    <td><a class="problem-link" href="problem-detail.html">Warm-Up Signal</a></td>
+                                    <td><a class="problem-link" href="workspace.html">Warm-Up Signal</a></td>
                                     <td><span class="pill pill-easy">800</span></td>
                                     <td>18,204</td>
                                 </tr>
                                 <tr>
                                     <td class="rank-cell">B</td>
-                                    <td><a class="problem-link" href="problem-detail.html">Orbit Pairs</a></td>
+                                    <td><a class="problem-link" href="workspace.html">Orbit Pairs</a></td>
                                     <td><span class="pill pill-easy">1100</span></td>
                                     <td>14,551</td>
                                 </tr>
                                 <tr>
                                     <td class="rank-cell">C</td>
-                                    <td><a class="problem-link" href="problem-detail.html">Deranged Calculator</a></td>
+                                    <td><a class="problem-link" href="workspace.html">Deranged Calculator</a></td>
                                     <td><span class="pill pill-medium">1900</span></td>
                                     <td>6,204</td>
                                 </tr>
                                 <tr>
                                     <td class="rank-cell">D</td>
-                                    <td><a class="problem-link" href="problem-detail.html">Star Chart Reassembly</a></td>
+                                    <td><a class="problem-link" href="workspace.html">Star Chart Reassembly</a></td>
                                     <td><span class="pill pill-hard">2200</span></td>
                                     <td>2,118</td>
                                 </tr>
                                 <tr>
                                     <td class="rank-cell">E</td>
-                                    <td><a class="problem-link" href="problem-detail.html">Meteor Shower DP</a></td>
+                                    <td><a class="problem-link" href="workspace.html">Meteor Shower DP</a></td>
                                     <td><span class="pill pill-hard">2600</span></td>
                                     <td>540</td>
                                 </tr>
                                 <tr>
                                     <td class="rank-cell">F</td>
-                                    <td><a class="problem-link" href="problem-detail.html">Nebula Segment Tree</a></td>
+                                    <td><a class="problem-link" href="workspace.html">Nebula Segment Tree</a></td>
                                     <td><span class="pill pill-hard">3000</span></td>
                                     <td>88</td>
                                 </tr>
@@ -108,16 +110,29 @@
                         <img src="https://i.pravatar.cc/64?img=45" alt="" />
                         <img src="https://i.pravatar.cc/64?img=8" alt="" />
                     </div>
-                    <a href="register.html" class="btn btn-primary btn-block">Register for round</a>
+                    <button type="button" id="registerBtn" data-requires-auth class="btn btn-primary btn-block">Register for round</button>
                     <a href="gym.html" class="btn btn-secondary btn-block" style="margin-top:0.7rem;">Practice similar problems</a>
                     </div>
                 </aside>
             </div>
         </section>
 
+        <dialog class="site-dialog auth-dialog" id="registerModal" aria-labelledby="registerTitle">
+      <div class="dialog-body">
+            <h3 id="registerTitle">Confirm registration</h3>
+            <p>Bạn chắc chắn muốn đăng ký <strong>Astra Round 118 (Div. 1 + Div. 2)</strong>?</p>
+            <p class="modal-note">Bắt đầu Oct 17, 2026 · 21:35 ICT. Đăng ký đóng 5 phút trước khi round bắt đầu.</p>
+            <div class="modal-actions">
+              <button type="button" class="btn btn-secondary" id="registerCancel">Cancel</button>
+              <button type="button" class="btn btn-primary" id="registerConfirm">Confirm</button>
+            </div>
+          </div>
+    </dialog>
 
+        <div class="toast" id="registerToast" hidden>Đăng ký thành công!</div>
     </main>
 
   <div data-include="footer"></div>
+  <div data-include="auth-popup"></div>
 </body>
 </html>

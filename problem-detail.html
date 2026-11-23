@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Deranged Calculator · Astra</title>
+  <meta name="description" content="Read the problem statement, prepare your solution, and submit source code for Deranged Calculator." />
+  <link rel="icon" href="images/favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,500;0,600;0,700;1,500&family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/problems.css" />
+  <link rel="stylesheet" href="css/problem-detail.css" />
+  <script src="js/session.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/problem-detail.js" defer></script>
+</head>
+<body>
+  <div data-include="header"></div>
+
+  <main class="problem-page">
+    <div class="page-header pd-header">
+      <div class="container">
+        <div class="breadcrumb"><a href="index.html">Home</a> / <a href="problems.html">Problemset</a> / 2264F</div>
+        <div class="pd-title-row">
+          <div>
+            <p class="pd-contest">Astra Round 118 · Problem F</p>
+            <h1>Deranged Calculator</h1>
+          </div>
+          <span class="pill pd-rating">1900</span>
+        </div>
+        <p class="pd-header-meta">
+          <span>Time limit: 2 seconds</span>
+          <span>Memory limit: 256 MB</span>
+          <span>Solve rate: 62.4%</span>
+          <span>Input: stdin</span>
+          <span>Output: stdout</span>
+          <span>Languages: C++20, Python 3, Java 21, Rust</span>
+        </p>
+        <details class="pd-topics">
+          <summary>Topic tags</summary>
+          <div class="pd-topic-tags"><span class="tag">math</span><span class="tag">constructive algorithms</span><span class="tag">bitmask dp</span></div>
+        </details>
+      </div>
+    </div>
+
+    <div class="container pd-layout">
+      <nav class="pd-tabs" aria-label="Problem sections">
+        <a id="pd-nav-statement" href="#statement" aria-controls="statement" aria-current="page" data-problem-nav="statement">Statement</a>
+        <a id="pd-nav-submit" href="#submit" aria-controls="submit" data-problem-nav="submit" data-requires-auth>Submit</a>
+        <a id="pd-nav-submissions" href="#submissions" aria-controls="submissions" data-problem-nav="submissions" data-requires-auth>My submissions</a>
+        <a id="pd-nav-editorial" href="#editorial" aria-controls="editorial" data-problem-nav="editorial">Editorial</a>
+      </nav>
+
+      <div class="pd-main">
+        <section id="statement" class="card pd-panel pd-statement" aria-labelledby="pd-statement-title" data-problem-panel>
+          <h2 id="pd-statement-title" tabindex="-1">Problem statement</h2>
+          <p>A calculator has mixed up its display. Whenever you enter a number, it must rearrange the digits so that <strong>every position contains a different digit from the original number</strong>.</p>
+          <p>For each integer <var>x</var> in the inclusive range [<var>l</var>, <var>r</var>], find the smallest number that can be formed this way. Use every digit exactly once, and do not allow a leading zero. If no rearrangement is possible, print <code>-1</code>.</p>
+          <p>Equal digits are indistinguishable: moving a digit to a position that originally contained the same value does not satisfy the rule.</p>
+
+          <h3>Input</h3>
+          <p>The input contains two integers <var>l</var> and <var>r</var>.</p>
+          <ul class="pd-constraints">
+            <li>10 ≤ <var>l</var> ≤ <var>r</var> ≤ 10<sup>9</sup></li>
+            <li>0 ≤ <var>r</var> − <var>l</var> ≤ 100</li>
+          </ul>
+
+          <h3>Output</h3>
+          <p>Print <var>r</var> − <var>l</var> + 1 lines. For each number in the range, in increasing order, print its smallest valid rearrangement, or <code>-1</code> if none exists.</p>
+
+          <h3>Examples</h3>
+          <div class="pd-example">
+            <div class="pd-sample">
+              <div class="pd-sample-heading"><strong>Input</strong><button type="button" class="pd-text-button" data-copy-sample="pd-input-1">Copy input</button></div>
+              <pre id="pd-input-1">21 24</pre>
+            </div>
+            <div class="pd-sample">
+              <div class="pd-sample-heading"><strong>Output</strong><button type="button" class="pd-text-button" data-copy-sample="pd-output-1">Copy output</button></div>
+              <pre id="pd-output-1">12
+-1
+32
+42</pre>
+            </div>
+          </div>
+          <div class="pd-example">
+            <div class="pd-sample">
+              <div class="pd-sample-heading"><strong>Input</strong><button type="button" class="pd-text-button" data-copy-sample="pd-input-2">Copy input</button></div>
+              <pre id="pd-input-2">100 102</pre>
+            </div>
+            <div class="pd-sample">
+              <div class="pd-sample-heading"><strong>Output</strong><button type="button" class="pd-text-button" data-copy-sample="pd-output-2">Copy output</button></div>
+              <pre id="pd-output-2">-1
+-1
+210</pre>
+            </div>
+          </div>
+          <p class="pd-feedback" id="pd-copy-status" role="status"></p>
+
+          <h3>Explanation</h3>
+          <p>For <code>21</code>, swapping the digits gives <code>12</code>. For <code>22</code>, both positions would still contain <code>2</code>, so no answer exists. For <code>102</code>, the smallest valid number without a leading zero is <code>210</code>.</p>
+        </section>
+
+        <section id="submit" class="card pd-panel" aria-labelledby="pd-submit-title" data-problem-panel hidden>
+          <h2 id="pd-submit-title" tabindex="-1">Submit a solution</h2>
+          <p>2264F · Deranged Calculator</p>
+          <p class="pd-notice">Practice mode: submissions are saved in this browser. They are not sent to an online judge or graded.</p>
+
+          <form data-requires-auth id="pd-submit-form" novalidate>
+            <div class="pd-form-row">
+              <label for="pd-language">Language</label>
+              <select id="pd-language" name="language">
+                <option value="cpp20">C++20 (GCC)</option>
+                <option value="python3">Python 3</option>
+                <option value="java21">Java 21</option>
+                <option value="rust">Rust</option>
+              </select>
+            </div>
+
+            <div class="pd-source-heading">
+              <label for="pd-source">Source code</label>
+              <span id="pd-draft-status" class="pd-helper" role="status">Your draft is saved automatically.</span>
+            </div>
+            <div class="pd-editor">
+              <div id="pd-line-numbers" class="pd-line-numbers" aria-hidden="true">1</div>
+              <textarea id="pd-source" name="source" spellcheck="false" autocapitalize="off" autocomplete="off" autocorrect="off" wrap="off" aria-describedby="pd-source-help pd-source-error" placeholder="Write or paste your solution here…" required></textarea>
+            </div>
+            <div class="pd-editor-footer"><span id="pd-cursor">Ln 1, Col 1</span><span id="pd-code-size">0 B / 256 KB</span></div>
+            <p id="pd-source-error" class="pd-error" role="alert" hidden></p>
+            <p id="pd-source-help" class="pd-helper">Use Tab to indent. Press Escape, then Tab to leave the editor.</p>
+
+            <div class="pd-upload">
+              <label for="pd-source-file">Or load a source file</label>
+              <input id="pd-source-file" type="file" accept=".cpp,.cc,.cxx,.py,.java,.rs" aria-describedby="pd-file-help" />
+              <p id="pd-file-help" class="pd-helper">C++, Python, Java or Rust · up to 256 KB. Loading a file replaces the code above.</p>
+              <p id="pd-file-status" class="pd-helper" role="status"></p>
+            </div>
+
+            <div class="pd-submit-actions">
+              <button type="submit" class="btn btn-primary" id="pd-submit-button">Submit solution</button>
+              <button type="button" class="btn btn-secondary" id="pd-download-code">Download source</button>
+            </div>
+            <p id="pd-submit-status" class="pd-feedback" role="status"></p>
+          </form>
+          <noscript><p class="pd-error">Enable JavaScript to edit and save submissions.</p></noscript>
+        </section>
+
+        <section id="submissions" class="card pd-panel" aria-labelledby="pd-submissions-title" data-problem-panel hidden>
+          <div class="pd-section-heading">
+            <h2 id="pd-submissions-title" tabindex="-1">My submissions</h2>
+            <a href="#submit" class="btn btn-secondary btn-sm" data-requires-auth>New submission</a>
+          </div>
+          <p>Submissions saved for this problem in this browser. No judging results are available in practice mode.</p>
+          <div id="pd-submissions-empty" class="pd-empty">
+            <h3>No submissions yet</h3>
+            <p>Prepare your solution and save your first submission.</p>
+            <a href="#submit" class="btn btn-primary btn-sm" data-requires-auth>Submit a solution</a>
+          </div>
+          <div id="pd-submissions-table" class="table-wrap" hidden>
+            <table class="data-table pd-submissions-table">
+              <caption class="pd-helper">Up to 20 recent submissions are kept on this device. Download source code to keep a copy.</caption>
+              <thead><tr><th scope="col">Submitted</th><th scope="col">Language</th><th scope="col">Status</th><th scope="col">Source</th></tr></thead>
+              <tbody id="pd-submission-list"></tbody>
+            </table>
+          </div>
+          <p id="pd-history-status" class="pd-feedback" role="status"></p>
+        </section>
+
+        <section id="editorial" class="card pd-panel pd-statement" aria-labelledby="pd-editorial-title" data-problem-panel hidden>
+          <h2 id="pd-editorial-title" tabindex="-1">Editorial</h2>
+          <p>Try solving the problem before opening the hints below.</p>
+          <details class="pd-hint">
+            <summary>Hint 1 · Build the answer from left to right</summary>
+            <p>Try the remaining digits in increasing order. A digit cannot equal the original digit at the current position, and the first digit cannot be zero. Keep the first choice that allows a complete valid answer.</p>
+          </details>
+          <details class="pd-hint">
+            <summary>Hint 2 · Remember impossible states</summary>
+            <p>Represent the used digit positions with a bitmask. The number of set bits gives the next output position. Cache whether each mask can be completed, so repeated branches do not need to be explored again.</p>
+          </details>
+          <details class="pd-hint">
+            <summary>Solution approach and complexity</summary>
+            <p>Sort the original digit positions by their digit values. At each state, try every unused position whose digit differs from the original digit at the next output position. Skip a leading zero. The state is feasible if any allowed choice reaches a feasible next state; the full mask is the base case.</p>
+            <p>If the empty mask is infeasible, print <code>-1</code>. Otherwise, reconstruct the answer by taking the smallest allowed digit that leads to a feasible state. This produces the lexicographically smallest answer, which is also the smallest number because all candidates have the same length.</p>
+            <p>For <var>d</var> digits, the time complexity per number is O(<var>d</var> · 2<sup><var>d</var></sup>) after sorting, and the extra space is O(2<sup><var>d</var></sup>). Here <var>d</var> ≤ 10.</p>
+          </details>
+        </section>
+      </div>
+
+      <span data-include="back-link" data-href="problems.html" data-label="to problemset"></span>
+    </div>
+  </main>
+
+  <div data-include="footer"></div>
+  <div data-include="auth-popup"></div>
+</body>
+</html>

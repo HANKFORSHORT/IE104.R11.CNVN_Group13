@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Submissions · Astra</title>
-  <meta name="description" content="Submission history on Astra, filterable by problem, user and verdict." />
+  <title>My Submissions · Astra</title>
+  <meta name="description" content="Your submissions, scores and evaluation details on Astra." />
   <link rel="icon" href="images/favicon.svg" type="image/svg+xml" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -12,191 +12,55 @@
   <link rel="stylesheet" href="css/style.css" />
   <link rel="stylesheet" href="css/problems.css" />
   <link rel="stylesheet" href="css/account.css" />
+  <script src="js/session.js"></script>
   <script src="js/main.js"></script>
-  <script src="js/table-filter.js"></script>
+  <script src="js/user-data.js"></script>
+  <script src="js/submissions.js" defer></script>
+  <script src="js/table-filter.js" defer></script>
 </head>
 <body>
   <div data-include="header"></div>
-
   <main class="account-page" data-account-page="submissions">
     <div class="page-header">
       <div class="container">
-        <div class="breadcrumb"><a href="index.html">Home</a> / Account / Submissions</div>
-        <h1>Submissions</h1>
-        <p>Filter by problem, user or verdict, then open a row to see its details.</p>
+        <div class="breadcrumb"><a href="index.html">Home</a> / <a href="profile.html">Account</a> / My Submissions</div>
+        <h1>My Submissions</h1>
+        <p>Your solutions, their scores, and the details behind each result.</p>
       </div>
     </div>
-
     <section class="account-section">
       <div class="container">
-        <div class="filters-bar" data-filter-table="#submission-list">
-          <input type="text" data-filter-search placeholder="Search problem or user..." aria-label="Search submissions" />
-          <select data-filter="problem" aria-label="Filter by problem">
-            <option value="any">All problems</option>
-            <option value="2264A">2264A · Rumb Needs a Hand</option>
-            <option value="2264B">2264B · Knife’s Pill Farm</option>
-            <option value="2264C">2264C · Madamant’s Skating Dynasty</option>
-            <option value="2264D">2264D · Dr. Agos’s Dark Mode</option>
-            <option value="2264E1">2264E1 · A Prime Flood (Easy Version)</option>
-            <option value="2264F">2264F · Deranged Calculator</option>
-          </select>
-          <select data-filter="user" aria-label="Filter by user">
-            <option value="any">All users</option>
-            <option value="oppixelnew246">oppixelnew246</option>
-            <option value="minhtriet">minhtriet</option>
-            <option value="nami_t">nami_t</option>
-            <option value="huyanh">huyanh</option>
-          </select>
+        <div class="toolbar"><h2>Submission history</h2><span id="submissionCount" role="status"></span></div>
+        <p class="sample-note" data-sample-note hidden>Sample results for the demo account. New submissions saved on this device remain unjudged.</p>
+        <form class="filters-bar" data-filter-table="#submission-list">
+          <input type="search" data-filter-search placeholder="Search problem or language…" aria-label="Search my submissions" />
+          <select data-filter="problem" aria-label="Filter by problem"><option value="any">All problems</option></select>
           <select data-filter="verdict" aria-label="Filter by verdict">
             <option value="any">All verdicts</option>
-            <option value="accepted">Accepted</option>
-            <option value="wrong-answer">Wrong answer</option>
-            <option value="time-limit">Time limit exceeded</option>
-            <option value="runtime-error">Runtime error</option>
+            <option>Accepted</option><option>Wrong answer</option><option>Time limit exceeded</option><option>Runtime error</option><option>Not judged</option>
           </select>
-          <button type="button" class="btn btn-primary btn-sm" data-filter-apply>Apply filters</button>
-        </div>
-
-        <div class="table-wrap">
-          <div class="sub-columns" aria-hidden="true">
-            <span></span><span>Problem</span><span>Verdict</span><span>User</span><span>Submitted</span>
-          </div>
-          <ul class="sub-list" id="submission-list" aria-label="Submissions">
-          <li class="sub-row" data-user="oppixelnew246" data-problem="2264A" data-verdict="accepted">
-            <details>
-              <summary>
-                <span class="disclosure-icon" aria-hidden="true"></span>
-                <span class="sub-problem"><span class="sub-id">2264A</span>Rumb Needs a Hand</span>
-                <span><span class="pill pill-easy">Accepted</span></span>
-                <span class="sub-user">oppixelnew246</span>
-                <span class="sub-time">Nov 18, 21:04</span>
-              </summary>
-              <div class="sub-detail">
-                <dl>
-                  <div><dt>Language</dt><dd>C++17</dd></div>
-                  <div><dt>Time</dt><dd>46 ms</dd></div>
-                  <div><dt>Memory</dt><dd>3.1 MB</dd></div>
-                  <div><dt>Result</dt><dd>12 / 12 tests passed</dd></div>
-                </dl>
-                <a class="btn btn-secondary btn-sm" href="problem-detail.html">Open problem</a>
-              </div>
-            </details>
-          </li>
-
-          <li class="sub-row" data-user="oppixelnew246" data-problem="2264B" data-verdict="wrong-answer">
-            <details>
-              <summary>
-                <span class="disclosure-icon" aria-hidden="true"></span>
-                <span class="sub-problem"><span class="sub-id">2264B</span>Knife’s Pill Farm</span>
-                <span><span class="pill pill-hard">Wrong answer</span></span>
-                <span class="sub-user">oppixelnew246</span>
-                <span class="sub-time">Nov 18, 20:41</span>
-              </summary>
-              <div class="sub-detail">
-                <dl>
-                  <div><dt>Language</dt><dd>Python 3</dd></div>
-                  <div><dt>Time</dt><dd>112 ms</dd></div>
-                  <div><dt>Memory</dt><dd>9.8 MB</dd></div>
-                  <div><dt>Result</dt><dd>Failed on test 7</dd></div>
-                </dl>
-                <a class="btn btn-secondary btn-sm" href="problem-detail.html">Open problem</a>
-              </div>
-            </details>
-          </li>
-
-          <li class="sub-row" data-user="oppixelnew246" data-problem="2264D" data-verdict="time-limit">
-            <details>
-              <summary>
-                <span class="disclosure-icon" aria-hidden="true"></span>
-                <span class="sub-problem"><span class="sub-id">2264D</span>Dr. Agos’s Dark Mode</span>
-                <span><span class="pill pill-medium">Time limit exceeded</span></span>
-                <span class="sub-user">oppixelnew246</span>
-                <span class="sub-time">Nov 17, 19:12</span>
-              </summary>
-              <div class="sub-detail">
-                <dl>
-                  <div><dt>Language</dt><dd>Python 3</dd></div>
-                  <div><dt>Time</dt><dd>2000 ms</dd></div>
-                  <div><dt>Memory</dt><dd>14.2 MB</dd></div>
-                  <div><dt>Result</dt><dd>Failed on test 15</dd></div>
-                </dl>
-                <a class="btn btn-secondary btn-sm" href="problem-detail.html">Open problem</a>
-              </div>
-            </details>
-          </li>
-
-          <li class="sub-row" data-user="minhtriet" data-problem="2264C" data-verdict="accepted">
-            <details>
-              <summary>
-                <span class="disclosure-icon" aria-hidden="true"></span>
-                <span class="sub-problem"><span class="sub-id">2264C</span>Madamant’s Skating Dynasty</span>
-                <span><span class="pill pill-easy">Accepted</span></span>
-                <span class="sub-user">minhtriet</span>
-                <span class="sub-time">Nov 17, 18:30</span>
-              </summary>
-              <div class="sub-detail">
-                <dl>
-                  <div><dt>Language</dt><dd>C++17</dd></div>
-                  <div><dt>Time</dt><dd>78 ms</dd></div>
-                  <div><dt>Memory</dt><dd>5.6 MB</dd></div>
-                  <div><dt>Result</dt><dd>20 / 20 tests passed</dd></div>
-                </dl>
-                <a class="btn btn-secondary btn-sm" href="problem-detail.html">Open problem</a>
-              </div>
-            </details>
-          </li>
-
-          <li class="sub-row" data-user="nami_t" data-problem="2264F" data-verdict="runtime-error">
-            <details>
-              <summary>
-                <span class="disclosure-icon" aria-hidden="true"></span>
-                <span class="sub-problem"><span class="sub-id">2264F</span>Deranged Calculator</span>
-                <span><span class="pill pill-hard">Runtime error</span></span>
-                <span class="sub-user">nami_t</span>
-                <span class="sub-time">Nov 16, 22:05</span>
-              </summary>
-              <div class="sub-detail">
-                <dl>
-                  <div><dt>Language</dt><dd>Java 17</dd></div>
-                  <div><dt>Time</dt><dd>64 ms</dd></div>
-                  <div><dt>Memory</dt><dd>21.0 MB</dd></div>
-                  <div><dt>Result</dt><dd>Crashed on test 3</dd></div>
-                </dl>
-                <a class="btn btn-secondary btn-sm" href="problem-detail.html">Open problem</a>
-              </div>
-            </details>
-          </li>
-
-          <li class="sub-row" data-user="huyanh" data-problem="2264E1" data-verdict="accepted">
-            <details>
-              <summary>
-                <span class="disclosure-icon" aria-hidden="true"></span>
-                <span class="sub-problem"><span class="sub-id">2264E1</span>A Prime Flood (Easy Version)</span>
-                <span><span class="pill pill-easy">Accepted</span></span>
-                <span class="sub-user">huyanh</span>
-                <span class="sub-time">Nov 16, 17:48</span>
-              </summary>
-              <div class="sub-detail">
-                <dl>
-                  <div><dt>Language</dt><dd>C++17</dd></div>
-                  <div><dt>Time</dt><dd>331 ms</dd></div>
-                  <div><dt>Memory</dt><dd>18.4 MB</dd></div>
-                  <div><dt>Result</dt><dd>30 / 30 tests passed</dd></div>
-                </dl>
-                <a class="btn btn-secondary btn-sm" href="problem-detail.html">Open problem</a>
-              </div>
-            </details>
-          </li>
-
-            <li class="sub-empty" data-filter-empty hidden>
-              <p>No submissions match these filters.</p>
-            </li>
-          </ul>
-        </div>
+          <button type="submit" class="btn btn-primary btn-sm" data-filter-apply>Apply filters</button>
+        </form>
+        <ul class="submission-list" id="submission-list" aria-label="My submissions">
+          <li class="shared-empty" data-filter-empty hidden><p>No submissions to show. Try another filter or submit a solution.</p><a href="problems.html" class="btn btn-secondary btn-sm">Browse problems</a></li>
+        </ul>
+        <div class="actions"><span data-include="back-link" data-href="profile.html" data-label="to profile"></span></div>
       </div>
     </section>
   </main>
-
+  <dialog class="site-dialog" id="submissionDialog" aria-labelledby="submissionTitle">
+    <div class="dialog-topbar"><button type="button" class="btn btn-secondary btn-sm" id="copySubmission">Copy</button><button type="button" class="btn btn-secondary btn-sm" data-dialog-close>Close</button></div>
+    <div class="dialog-body">
+      <h2 id="submissionTitle">Submission evaluation</h2>
+      <p class="sample-note" id="submissionOrigin"></p>
+      <h3>Overall Evaluation</h3>
+      <table class="evaluation-table"><thead><tr><th scope="col">Metric</th><th scope="col">Value</th></tr></thead><tbody id="submissionOverall"></tbody></table>
+      <h3>Execution details</h3>
+      <table class="evaluation-table" aria-label="Execution details"><tbody id="submissionMetrics"></tbody></table>
+      <p role="status" id="submissionCopyStatus"></p>
+    </div>
+  </dialog>
   <div data-include="footer"></div>
+  <div data-include="auth-popup"></div>
 </body>
 </html>

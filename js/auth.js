@@ -218,16 +218,20 @@
         return;
       }
 
-      // TODO: replace with a session issued by the backend. main.js reads this
-      // key to switch the header to its logged-in state; it is not real security.
-      try {
-        localStorage.setItem("astra-session", JSON.stringify({ identifier: identifier }));
-      } catch (error) {
-        // Storage blocked: the user stays logged out
+      if (!AstraAuth.setSession({ identifier: identifier })) {
+        showBanner("Sign in could not be saved. Allow browser storage and try again.");
+        return;
       }
     }
 
-    window.location.href = kind === "register" ? "login.html?registered=1" : "index.html";
+    let target = kind === "register" ? "login.html?registered=1" : "index.html";
+
+    if (kind === "login") {
+      const next = new URLSearchParams(window.location.search).get("next");
+      target = AstraAuth.safeNext(next);
+    }
+
+    window.location.href = target;
   }
 
 

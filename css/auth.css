@@ -4,47 +4,13 @@
   display: grid;
   place-items: center;
 }
-.auth-back-link,
+
 .auth-theme-toggle {
   position: fixed;
   top: 1rem;
+  right: var(--pad);
   z-index: 10;
 }
-
-.auth-back-link {
-  left: var(--pad);
-  display: inline-flex;
-  align-items: center;
-  gap: 0.45rem;
-  min-height: 42px;
-  font-family: var(--font-mono);
-  font-size: 0.9rem;
-  color: var(--text-muted);
-  transition: color 0.2s var(--ease);
-}
-
-.auth-back-link:hover {
-  color: var(--accent);
-}
-
-.auth-theme-toggle {
-  right: var(--pad);
-}
-
-.auth-back-extra {
-  display: inline-block;
-  max-width: 0;
-  overflow: hidden;
-  white-space: nowrap;
-  vertical-align: bottom;
-  transition: max-width 0.25s var(--ease);
-}
-
-.auth-back-link:hover .auth-back-extra,
-.auth-back-link:focus-visible .auth-back-extra {
-  max-width: 10rem;
-}
-
 
 /* ---------------------------------------------------------
    3. Logo, title, subtitle
@@ -113,8 +79,8 @@
   text-align: center;
   color: var(--peach);
   background:
-    linear-gradient(180deg, transparent 50%, var(--oxford) 100%),
-    url("../images/auth-bg.jpg") center / cover no-repeat,
+    linear-gradient(180deg, var(--oxford) 0%, transparent 70%, var(--oxford) 100%),
+    url("../images/sign-up-backplate.jpg") center / cover no-repeat,
     var(--oxford);
 }
 
@@ -391,11 +357,5 @@ select.auth-input {
   .auth-visual .auth-logo img {
     width: 4.75rem;
     height: 4.75rem;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .auth-back-extra {
-    transition: none;
   }
 }

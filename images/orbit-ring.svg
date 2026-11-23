@@ -1,0 +1,35 @@
+<svg viewBox="0 -14 400 423" xmlns="http://www.w3.org/2000/svg" focusable="false">
+  <style>
+    .orbit-ring { fill: none; stroke: rgba(234, 225, 200, 0.24); stroke-width: 1; stroke-dasharray: 5 5; }
+    .orbit-ring-two { stroke: rgba(70, 209, 138, 0.35); }
+
+    .orbit-stop-a { stop-color: var(--teal, #46D18A); }
+    .orbit-stop-b { stop-color: var(--oxford-2, #241F3D); }
+    .orbit-stop-c { stop-color: #0b0c14; }
+    .orbit-core { filter: drop-shadow(0 0 26px rgba(70, 209, 138, 0.25)); }
+
+    .orbit-node circle { fill: var(--peach, #EAE1C8); filter: drop-shadow(0 4px 7px rgba(0, 0, 0, 0.35)); }
+    .orbit-node text { fill: var(--oxford, #1B1830); font: 700 10px var(--font-mono, "Space Grotesk", monospace); text-anchor: middle; dominant-baseline: central; }
+    .orbit-node-one circle { fill: var(--indigo, #6C6CE0); }
+    .orbit-node-one text { fill: #fff; }
+    .orbit-node-three circle, .orbit-node-four circle { fill: var(--sandy, #D3AD5C); }
+  </style>
+
+  <defs>
+    <radialGradient id="orbit-core-grad" cx="35%" cy="30%" r="75%">
+      <stop class="orbit-stop-a" offset="0"/>
+      <stop class="orbit-stop-b" offset="0.65"/>
+      <stop class="orbit-stop-c" offset="1"/>
+    </radialGradient>
+  </defs>
+
+  <circle class="orbit-ring orbit-ring-one" cx="200" cy="200" r="199"/>
+  <circle class="orbit-ring orbit-ring-two" cx="200" cy="200" r="152"/>
+  <circle class="orbit-ring orbit-ring-three" cx="200" cy="200" r="100"/>
+  <circle class="orbit-core" cx="200" cy="200" r="64" fill="url(#orbit-core-grad)"/>
+
+  <g class="orbit-node orbit-node-one" transform="translate(204 3)"><circle r="16"/><text>DP</text></g>
+  <g class="orbit-node orbit-node-two" transform="translate(48 200)"><circle r="16"/><text>#4</text></g>
+  <g class="orbit-node orbit-node-three" transform="translate(320 107)"><circle r="16"/><text>1900</text></g>
+  <g class="orbit-node orbit-node-four" transform="translate(248 393)"><circle r="16"/><text>A+B</text></g>
+</svg>

@@ -13,7 +13,7 @@
                 aria-expanded="false"
                 aria-controls="mobileProfileMenu"
                 data-collapse-toggle>
-          <span class="nav-avatar" aria-hidden="true" data-user-initials></span>
+          <span class="nav-avatar-frame" aria-hidden="true"><img class="nav-avatar" src="images/profile-picture.jpg" alt="" width="40" height="40" /></span>
           Profile
           <svg class="nav-chevron" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <path d="m6 9 6 6 6-6" />
@@ -21,9 +21,11 @@
         </button>
         <ul class="nav-profile-menu" id="mobileProfileMenu" hidden>
           <li><a href="solved.html">Solved problems</a></li>
-          <li><a href="notifications.html">Notifications</a></li>
-          <li><a href="profile.html">Profile</a></li>
+          <li><a href="achievements.html?tab=achievements">Achievements</a></li>
+          <li><a href="submissions.html">My Submissions</a></li>
+          <li class="nav-menu-separator"><a href="profile.html">Profile</a></li>
           <li><a href="settings.html">Settings</a></li>
+          <li><a href="notifications.html">Notifications</a></li>
           <li><button type="button" data-logout>Log out</button></li>
         </ul>
       </li>
@@ -85,7 +87,7 @@
                 aria-expanded="false"
                 aria-controls="profilePopup"
                 data-popup-toggle>
-          <span class="nav-avatar" aria-hidden="true" data-user-initials></span>
+          <span class="nav-avatar-frame" aria-hidden="true"><img class="nav-avatar" src="images/profile-picture.jpg" alt="" width="40" height="40" /></span>
           Profile
           <svg class="nav-chevron" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <path d="m6 9 6 6 6-6" />
@@ -95,7 +97,9 @@
         <div class="nav-popup nav-popup-profile" id="profilePopup" hidden>
           <ul class="nav-popup-menu">
             <li><a class="nav-popup-link" href="solved.html">Solved problems</a></li>
-            <li><a class="nav-popup-link" href="profile.html">Profile</a></li>
+            <li><a class="nav-popup-link" href="achievements.html?tab=achievements">Achievements</a></li>
+            <li><a class="nav-popup-link" href="submissions.html">My Submissions</a></li>
+            <li class="nav-menu-separator"><a class="nav-popup-link" href="profile.html">Profile</a></li>
             <li><a class="nav-popup-link" href="settings.html">Settings</a></li>
             <li><button class="nav-popup-link" type="button" data-logout>Log out</button></li>
           </ul>
