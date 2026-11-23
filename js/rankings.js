@@ -19,29 +19,7 @@
   const isLoggedIn = () => AstraAuth.isLoggedIn();
 
   /* ---------- Dữ liệu mẫu ---------- */
-  const stat = (a) => ({ rating: a[0], solved: a[1], change: a[2] });
-  const person = (handle, initials, name, place, country, region, friend, s04, s03, all) => ({
-    handle, initials, name, place, country, region, friend,
-    stats: { s04: stat(s04), s03: stat(s03), all: stat(all) }
-  });
-  // [rating, solved, change]; change = null khi không có (All time)
-  const COMPETITORS = [
-    person('minhtriet', 'MT', 'Nguyen Minh Triet', 'Vietnam', 'Vietnam', 'apac', false, [2984, 212, 1], [2897, 228, 2], [3012, 934, null]),
-    person('khangdev', 'KD', 'Tran Gia Khang', 'Vietnam', 'Vietnam', 'apac', true, [2741, 205, 0], [2788, 219, -1], [2830, 811, null]),
-    person('lemontea', 'LT', 'Le Hoang Anh', 'Vietnam', 'Vietnam', 'apac', false, [2608, 198, 2], [2540, 190, 3], [2655, 742, null]),
-    person('quangdo', 'QD', null, 'Da Nang, Vietnam', 'Vietnam', 'apac', true, [2487, 186, 3], [2455, 177, 1], [2519, 688, null]),
-    person('huyanh', 'HA', null, 'Hanoi, Vietnam', 'Vietnam', 'apac', false, [2392, 174, 1], [2410, 181, -2], [2440, 655, null]),
-    person('nami_t', 'NT', null, 'Ho Chi Minh City, Vietnam', 'Vietnam', 'apac', true, [2315, 168, -2], [2372, 172, 1], [2398, 630, null]),
-    person('baolong', 'BL', null, 'Can Tho, Vietnam', 'Vietnam', 'apac', false, [2264, 159, 4], [2201, 150, 2], [2290, 598, null]),
-    person('mkhanh', 'MK', null, 'Hai Phong, Vietnam', 'Vietnam', 'apac', false, [2187, 151, 2], [2160, 143, -1], [2215, 571, null]),
-    person('sora_k', 'SK', null, 'Osaka, Japan', 'Japan', 'apac', true, [2104, 138, -1], [2131, 141, 0], [2160, 520, null]),
-    person('minseo', 'MS', null, 'Seoul, South Korea', 'South Korea', 'apac', false, [2058, 131, 1], [2012, 126, 2], [2089, 497, null]),
-    person('lintan', 'LT', null, 'Singapore', 'Singapore', 'apac', false, [1986, 122, 0], [1975, 120, -1], [2002, 468, null]),
-    person('pawel_z', 'PZ', null, 'Warsaw, Poland', 'Poland', 'europe', false, [1921, 115, 2], [1890, 109, 1], [1950, 440, null]),
-    person('arjun_r', 'AR', null, 'Bengaluru, India', 'India', 'apac', false, [1874, 108, 1], [1850, 104, 0], [1902, 410, null]),
-    person('ploy_n', 'PN', null, 'Bangkok, Thailand', 'Thailand', 'apac', false, [1832, 101, -1], [1860, 106, 1], [1871, 395, null]),
-    person('lena_b', 'LB', null, 'Berlin, Germany', 'Germany', 'europe', false, [1795, 97, 3], [1760, 92, 2], [1820, 372, null])
-  ];
+  const COMPETITORS = AstraData.competitors;
 
   /* ---------- DOM ---------- */
   const $ = (id) => document.getElementById(id);

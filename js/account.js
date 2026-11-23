@@ -19,18 +19,7 @@
 
   const CURRENT_USER = AstraAuth.user() ? AstraAuth.user().identifier : null;
 
-  // TODO: sample data that matches rankings.html / profile.js. Replace with API calls.
-  const USERS = {
-    oppixelnew246: { name: "", location: "", rating: 0, rank: 47158, solved: 0 },
-    minhtriet: { name: "Nguyen Minh Triet", location: "Vietnam", rating: 2984, rank: 1, solved: 212 },
-    khangdev: { name: "Tran Gia Khang", location: "Vietnam", rating: 2741, rank: 2, solved: 205 },
-    lemontea: { name: "Le Hoang Anh", location: "Vietnam", rating: 2608, rank: 3, solved: 198 },
-    quangdo: { name: "", location: "Da Nang, Vietnam", rating: 2487, rank: 4, solved: 186 },
-    huyanh: { name: "", location: "Hanoi, Vietnam", rating: 2392, rank: 5, solved: 174 },
-    nami_t: { name: "", location: "Ho Chi Minh City, Vietnam", rating: 2315, rank: 6, solved: 168 },
-    baolong: { name: "", location: "Can Tho, Vietnam", rating: 2264, rank: 7, solved: 159 },
-    mkhanh: { name: "", location: "Hai Phong, Vietnam", rating: 2187, rank: 8, solved: 151 },
-  };
+
 
   /* ---------------------------------------------------------
      Small helpers
@@ -126,21 +115,8 @@
   }
 
   function requestedUser() {
-    const handle = new URLSearchParams(window.location.search).get("user") || CURRENT_USER;
-    if (!handle) return null;
-    if (handle === CURRENT_USER) {
-      const own = AstraData.profile();
-      return { handle, data: { name: "", location: "", rating: own.points, rank: own.rank, solved: own.solved } };
-    }
-    if (handle === AstraData.demoUser) {
-      const accepted = AstraData.solved(handle);
-      return { handle, data: { name: "", location: "", rating: accepted.reduce((sum, row) => sum + row.score, 0), rank: 47158, solved: accepted.length } };
-    }
-    const key = Object.keys(USERS).find(function (name) {
-      return name.toLowerCase() === handle.toLowerCase();
-    });
-
-    return key ? { handle: key, data: USERS[key] } : null;
+    const handle = new URLSearchParams(window.location.search).get("user");
+    return AstraData.user(handle);
   }
 
 
@@ -284,15 +260,19 @@
       return;
     }
 
+    const format = (value) => typeof value === "number" ? value.toLocaleString("en-US") : "—";
+    const isContest = user.kind === "contest";
+    const isAccount = user.kind === "account";
     const fields = {
       handle: user.handle,
-      name: user.data.name,
-      location: user.data.location,
-      rating: user.data.rating.toLocaleString("en-US"),
-      rank: "#" + user.data.rank.toLocaleString("en-US"),
-      solved: user.data.solved,
-      initials: user.handle.slice(0, 2),
-      subtitle: [user.data.name, user.data.location].filter(Boolean).join(" · ") || "Astra competitor",
+      rating: format(user.rating),
+      rank: user.rank == null ? "—" : "#" + format(user.rank),
+      solved: format(user.solved),
+      ratingLabel: isContest ? "Contest points" : isAccount ? "Total points" : "Rating",
+      rankLabel: isContest ? "Contest rank" : isAccount ? "Rank by points" : "Rank",
+      solvedLabel: isContest ? "Contest problems solved" : "Problems solved",
+      initials: user.handle.slice(0, 2).toUpperCase(),
+      subtitle: [user.name, user.location].filter(Boolean).join(" · ") || "Astra competitor",
     };
 
     document.querySelectorAll("[data-user-field]").forEach(function (element) {
@@ -315,11 +295,28 @@
   }
 
   function initSolved() {
-    const handle = new URLSearchParams(location.search).get("user") || CURRENT_USER;
-    const rows = AstraData.solved(handle);
-    document.querySelector("[data-solved-owner]").textContent = handle || "";
-    document.querySelector("[data-solved-count]").textContent = rows.length;
+    const query = new URLSearchParams(location.search);
+    const hasRequestedUser = query.has("user");
+    const requested = hasRequestedUser ? query.get("user") : CURRENT_USER;
+    const user = AstraData.user(requested);
+    if (!user) {
+      if (hasRequestedUser) {
+        document.getElementById("solvedContent").hidden = true;
+        document.getElementById("solvedNotfound").hidden = false;
+      }
+      return;
+    }
+
+    const handle = user.handle;
+    const own = CURRENT_USER && CURRENT_USER.toLowerCase() === handle.toLowerCase();
+    const rows = user.detailsAvailable ? AstraData.solved(handle) : [];
+    const parent = document.getElementById("solvedParent");
+    parent.href = own ? "profile.html" : "public-profile.html?user=" + encodeURIComponent(handle);
+    parent.textContent = own ? "Account" : handle;
+    document.querySelector("[data-solved-owner]").textContent = handle;
+    document.querySelector("[data-solved-count]").textContent = user.detailsAvailable ? rows.length : user.solved;
     document.querySelector("[data-sample-note]").hidden = handle !== AstraData.demoUser;
+    document.title = handle + " · Solved problems · Astra";
     const list = document.getElementById("solved-list");
     rows.forEach((submission) => {
       const row = document.createElement("li");
@@ -353,10 +350,18 @@
     });
     document.querySelector("[data-solved-empty]").hidden = rows.length > 0;
     list.hidden = rows.length === 0;
+    if (!user.detailsAvailable) {
+      document.getElementById("solvedEmptyTitle").textContent = "Solution details unavailable";
+      document.getElementById("solvedEmptyText").textContent =
+        "This profile has summary stats, but no individual accepted solutions.";
+      document.getElementById("solvedEmptyAction").hidden = true;
+    }
     AstraUI.ready.then(() => {
-      if (handle && handle !== CURRENT_USER) {
+      if (!own) {
         const back = document.querySelector(".actions .back-link");
         back.href = "public-profile.html?user=" + encodeURIComponent(handle);
+        back.setAttribute("aria-label", "Back to " + handle + "'s profile");
+        back.querySelector(".back-extra").textContent = "to " + handle + "'s profile";
       }
     });
   }

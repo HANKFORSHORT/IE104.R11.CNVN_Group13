@@ -4,6 +4,44 @@
   // Demonstration records belong only to the existing test account (123 / 123).
   // Replace this data adapter with authenticated API responses when available.
   const DEMO_USER = "123";
+
+  // Public sample records shared by Rankings and the public user pages.
+  const stat = (a) => ({ rating: a[0], solved: a[1], change: a[2] });
+  const person = (handle, initials, name, place, country, region, friend, s04, s03, all) => ({
+    handle, initials, name, place, country, region, friend,
+    stats: { s04: stat(s04), s03: stat(s03), all: stat(all) }
+  });
+  // [rating, solved, change]; change = null khi không có (All time)
+  const COMPETITORS = [
+    person('minhtriet', 'MT', 'Nguyen Minh Triet', 'Vietnam', 'Vietnam', 'apac', false, [2984, 212, 1], [2897, 228, 2], [3012, 934, null]),
+    person('khangdev', 'KD', 'Tran Gia Khang', 'Vietnam', 'Vietnam', 'apac', true, [2741, 205, 0], [2788, 219, -1], [2830, 811, null]),
+    person('lemontea', 'LT', 'Le Hoang Anh', 'Vietnam', 'Vietnam', 'apac', false, [2608, 198, 2], [2540, 190, 3], [2655, 742, null]),
+    person('quangdo', 'QD', null, 'Da Nang, Vietnam', 'Vietnam', 'apac', true, [2487, 186, 3], [2455, 177, 1], [2519, 688, null]),
+    person('huyanh', 'HA', null, 'Hanoi, Vietnam', 'Vietnam', 'apac', false, [2392, 174, 1], [2410, 181, -2], [2440, 655, null]),
+    person('nami_t', 'NT', null, 'Ho Chi Minh City, Vietnam', 'Vietnam', 'apac', true, [2315, 168, -2], [2372, 172, 1], [2398, 630, null]),
+    person('baolong', 'BL', null, 'Can Tho, Vietnam', 'Vietnam', 'apac', false, [2264, 159, 4], [2201, 150, 2], [2290, 598, null]),
+    person('mkhanh', 'MK', null, 'Hai Phong, Vietnam', 'Vietnam', 'apac', false, [2187, 151, 2], [2160, 143, -1], [2215, 571, null]),
+    person('sora_k', 'SK', null, 'Osaka, Japan', 'Japan', 'apac', true, [2104, 138, -1], [2131, 141, 0], [2160, 520, null]),
+    person('minseo', 'MS', null, 'Seoul, South Korea', 'South Korea', 'apac', false, [2058, 131, 1], [2012, 126, 2], [2089, 497, null]),
+    person('lintan', 'LT', null, 'Singapore', 'Singapore', 'apac', false, [1986, 122, 0], [1975, 120, -1], [2002, 468, null]),
+    person('pawel_z', 'PZ', null, 'Warsaw, Poland', 'Poland', 'europe', false, [1921, 115, 2], [1890, 109, 1], [1950, 440, null]),
+    person('arjun_r', 'AR', null, 'Bengaluru, India', 'India', 'apac', false, [1874, 108, 1], [1850, 104, 0], [1902, 410, null]),
+    person('ploy_n', 'PN', null, 'Bangkok, Thailand', 'Thailand', 'apac', false, [1832, 101, -1], [1860, 106, 1], [1871, 395, null]),
+    person('lena_b', 'LB', null, 'Berlin, Germany', 'Germany', 'europe', false, [1795, 97, 3], [1760, 92, 2], [1820, 372, null])
+  ];
+
+  // Round 118 standings provide contest results, not global ratings.
+  const CONTEST_COMPETITORS = [
+    { handle: "abakan", rank: 1, points: 10500, solved: 6 },
+    { handle: "NHQ0914", rank: 2, points: 7500, solved: 5 },
+    { handle: "Sherwin", rank: 3, points: 5000, solved: 4 },
+    { handle: "Cerq", rank: 4, points: 5000, solved: 4 },
+    { handle: "harryleee", rank: 5, points: 3000, solved: 3 },
+    { handle: "tuongll", rank: 6, points: 3000, solved: 3 },
+    { handle: "lenhanbo", rank: 7, points: 1500, solved: 2 },
+    { handle: "minhanh_dev", rank: 8, points: 500, solved: 1 }
+  ];
+
   const SAMPLES = [
     { id: "sample-106", problem: "olp25-tree", title: "Olympic Sinh Viên 2025 - Siêu cúp - Tối ưu độ trễ", language: "C++17", submittedAt: "2026-11-21T04:17:56+07:00", verdict: "Accepted", score: 100, attained: 16, maximum: 16, passed: 16, tests: 16, runtime: 740, memory: 67.86, size: 1840 },
     { id: "sample-105", problem: "voi26-b4", title: "VOI 26 Bài 4 - Tất niên", language: "C++20", submittedAt: "2026-11-21T04:15:15+07:00", verdict: "Accepted", score: 100, attained: 20, maximum: 20, passed: 20, tests: 20, runtime: 850, memory: 27.38, size: 2160 },
@@ -94,8 +132,56 @@
     };
   }
 
+
+  function user(handle) {
+    if (typeof handle !== "string" || !handle.trim()) return null;
+    const requested = handle.trim().toLowerCase();
+    const current = currentHandle();
+
+    if (current && current.toLowerCase() === requested) {
+      const own = profile();
+      return {
+        handle: current, name: "", location: "", kind: "account",
+        rating: own.points, rank: typeof own.rank === "number" ? own.rank : null,
+        solved: own.solved, detailsAvailable: true
+      };
+    }
+
+    if (requested === DEMO_USER) {
+      const accepted = solved(DEMO_USER);
+      return {
+        handle: DEMO_USER, name: "", location: "", kind: "account",
+        rating: accepted.reduce((sum, row) => sum + row.score, 0),
+        rank: 47158, solved: accepted.length, detailsAvailable: true
+      };
+    }
+
+    const rankingIndex = COMPETITORS.findIndex((person) => person.handle.toLowerCase() === requested);
+    if (rankingIndex !== -1) {
+      const person = COMPETITORS[rankingIndex];
+      return {
+        handle: person.handle, name: person.name || "", location: person.place,
+        kind: "ranking", rating: person.stats.s04.rating,
+        rank: rankingIndex + 1, solved: person.stats.s04.solved,
+        detailsAvailable: false
+      };
+    }
+
+    const contestant = CONTEST_COMPETITORS.find((person) => person.handle.toLowerCase() === requested);
+    if (contestant) {
+      return {
+        handle: contestant.handle, name: "", location: "Round 118 participant",
+        kind: "contest", rating: contestant.points,
+        rank: contestant.rank, solved: contestant.solved,
+        detailsAvailable: false
+      };
+    }
+
+    return null;
+  }
+
   const dateTime = (value) => new Date(value).toLocaleString("en-GB", { dateStyle: "medium", timeStyle: "medium" });
   const runtime = (value) => value == null ? "—" : (value / 1000).toFixed(3).replace(/0+$/, "").replace(/\.$/, "") + " s";
   const memory = (value) => value == null ? "—" : value.toFixed(2) + " MB";
-  window.AstraData = Object.freeze({ submissions, solved, achievements, profile, dateTime, runtime, memory, demoUser: DEMO_USER });
+  window.AstraData = Object.freeze({ submissions, solved, achievements, profile, user, competitors: COMPETITORS, dateTime, runtime, memory, demoUser: DEMO_USER });
 })();
