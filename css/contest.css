@@ -85,3 +85,27 @@ body.light .modal {
   padding: 0.8rem 1.2rem; border-radius: 10px;
 }
 .toast[hidden] { display: none; }
+
+.run-summary {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(7rem, 1fr));
+  gap: 1rem;
+  margin: 1.25rem 0 0;
+  padding: 1rem 1.25rem;
+  background: var(--bg-alt);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+}
+
+.run-summary dt {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.run-summary dd {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: var(--step-1);
+  color: var(--text);
+}
