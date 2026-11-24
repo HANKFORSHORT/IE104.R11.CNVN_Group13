@@ -11,22 +11,7 @@
     font-weight: 700; 
 }
 
-.card {
-  background: var(--card-bg);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 1.8rem;
-  box-shadow: var(--shadow);
-  transition: transform .2s var(--ease), border-color .2s var(--ease);
-}
-.card:hover { transform: translateY(-3px); border-color: var(--accent-2); }
-.card-icon {
-  width: 46px; height: 46px; border-radius: var(--radius-sm);
-  display: flex; align-items: center; justify-content: center;
-  background: var(--bg-alt); color: var(--oxford); margin-bottom: 1.1rem;
-}
-[data-theme="dark"] .card-icon { background: rgba(143, 168, 115,0.18); color: var(--teal); }
-.card-icon svg { width: 22px; height: 22px; }
+[data-theme="dark"] .card-icon { background: rgba(143, 168, 115,0.18); }
 .card h3 { font-size: 1.15rem; margin-bottom: 0.4rem; }
 .card p { font-size: 0.94rem; margin-bottom: 0; }
 
