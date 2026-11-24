@@ -1,0 +1,228 @@
+:root {
+  --ws-field-bg: var(--bg-panel);
+  --ws-field-text: var(--text);
+  --ws-field-border: var(--line-strong);
+  --ws-placeholder: var(--text-muted);
+  --ws-ok: #2f855a;
+  --ws-warn: #b7791f;
+  --ws-bad: #c53030;
+  --ws-mute: #718096;
+  --ws-tab-border: var(--line-strong);
+}
+
+:root[data-theme="dark"] {
+  --ws-field-bg: #14112a;
+  --ws-field-text: #f3ecdc;
+  --ws-field-border: rgba(246,220,172,.35);
+  --ws-placeholder: rgba(243,236,220,.55);
+  --ws-ok: #6ee7a0;
+  --ws-warn: #fbbf6a;
+  --ws-bad: #ff8a8a;
+  --ws-mute: #a8a3c0;
+  --ws-tab-border: rgba(246,220,172,.35);
+}
+
+.ws-clock {
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 2.6rem;
+  font-weight: 700;
+  letter-spacing: .02em;
+  color: var(--peach);
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+
+.ws-clock-label {
+  font-size: .85rem;
+  color: rgba(246,220,172,.75);
+  margin-bottom: .35rem;
+}
+
+.ws-progress {
+  height: 6px;
+  border-radius: 3px;
+  background: rgba(246,220,172,.2);
+  margin-top: .9rem;
+  overflow: hidden;
+}
+
+.ws-progress > span {
+  display: block;
+  height: 100%;
+  width: 0;
+  background: var(--orange, #e8833a);
+  transition: width 1s linear;
+}
+
+.ws-state {
+  display: inline-flex;
+  align-items: center;
+  gap: .45rem;
+  font-size: .85rem;
+  font-weight: 600;
+  padding: .25rem .7rem;
+  border-radius: 999px;
+  border: 1px solid currentColor;
+}
+
+.ws-state::before {
+  content: "";
+  width: .5rem;
+  height: .5rem;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+.ws-state[data-state="upcoming"] {
+  color: var(--ws-warn);
+}
+
+.ws-state[data-state="running"] {
+  color: var(--ws-ok);
+}
+
+.ws-state[data-state="ended"] {
+  color: var(--ws-mute);
+}
+
+.ws-status {
+  font-weight: 600;
+  font-size: .88rem;
+}
+
+.ws-status[data-s="solved"] {
+  color: var(--ws-ok);
+}
+
+.ws-status[data-s="attempted"] {
+  color: var(--ws-warn);
+}
+
+.ws-status[data-s="none"] {
+  color: var(--text-muted, #777);
+  font-weight: 500;
+}
+
+.ws-verdict[data-v="Accepted"] {
+  color: var(--ws-ok);
+  font-weight: 600;
+}
+
+.ws-verdict[data-v="Wrong answer"], .ws-verdict[data-v="Runtime error"] {
+  color: var(--ws-bad);
+  font-weight: 600;
+}
+
+.ws-verdict[data-v="Pending"] {
+  color: var(--ws-warn);
+  font-weight: 600;
+}
+
+.ws-form {
+  display: grid;
+  gap: .8rem;
+}
+
+.ws-form label {
+  font-size: .85rem;
+  font-weight: 600;
+  display: grid;
+  gap: .3rem;
+}
+
+.ws-form select, .ws-form textarea {
+  font: inherit;
+  padding: .55rem .7rem;
+  border: 1px solid var(--ws-field-border);
+  border-radius: 6px;
+  background-color: var(--ws-field-bg);
+  color: var(--ws-field-text);
+}
+
+.ws-form select option {
+  background-color: var(--ws-field-bg);
+  color: var(--ws-field-text);
+}
+
+.ws-form textarea::placeholder {
+  color: var(--ws-placeholder);
+  opacity: 1;
+}
+
+.ws-form textarea {
+  min-height: 150px;
+  font-family: ui-monospace, Menlo, Consolas, monospace;
+  font-size: .85rem;
+  resize: vertical;
+}
+
+.ws-form :focus-visible, .ws-tabs button:focus-visible {
+  outline: 2px solid var(--orange, #e8833a);
+  outline-offset: 2px;
+}
+
+.ws-form select:disabled, .ws-form textarea:disabled {
+  opacity: .7;
+  cursor: not-allowed;
+}
+
+.ws-form .btn[disabled] {
+  opacity: .55;
+  cursor: not-allowed;
+}
+
+.ws-msg {
+  font-size: .88rem;
+  min-height: 1.2em;
+  color: var(--text-muted);
+}
+
+.ws-tabs {
+  display: flex;
+  gap: .4rem;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+}
+
+.ws-tabs button {
+  font: inherit;
+  font-weight: 600;
+  padding: .4rem .9rem;
+  border-radius: 6px;
+  border: 1px solid var(--ws-tab-border);
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+}
+
+.ws-tabs button[aria-selected="true"] {
+  background: var(--orange, #e8833a);
+  border-color: var(--orange, #e8833a);
+  color: #fff;
+}
+
+.ws-score {
+  display: flex;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  margin: .6rem 0 0;
+  font-size: .9rem;
+}
+
+.ws-score strong {
+  font-size: 1.3rem;
+  display: block;
+  font-family: "Space Grotesk", sans-serif;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ws-progress > span {
+    transition: none;
+  }
+}
+
+@media (max-width: 640px) {
+  .ws-clock {
+    font-size: 2rem;
+  }
+}
