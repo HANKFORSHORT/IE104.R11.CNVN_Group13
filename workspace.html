@@ -104,6 +104,18 @@
     </section>
   </main>
 
+  <dialog class="site-dialog auth-dialog" id="wsVirtualDialog" aria-labelledby="wsVirtualTitle">
+    <div class="dialog-body">
+      <h2 id="wsVirtualTitle">Start virtual practice?</h2>
+      <p>Practice this round after it has ended. Your submissions are unrated and do not change your score or penalty.</p>
+      <p class="modal-note">Choose a problem and submit a solution in the workspace.</p>
+      <div class="dialog-actions">
+        <button type="button" class="btn btn-secondary" data-dialog-close>Cancel</button>
+        <button type="button" class="btn btn-primary" id="wsVirtualConfirm">Start practicing</button>
+      </div>
+    </div>
+  </dialog>
+
   <div data-include="footer"></div>
 
   <script src="js/workspace.js"></script>

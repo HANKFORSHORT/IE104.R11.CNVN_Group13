@@ -69,13 +69,19 @@
       $("wsPart").textContent = data.registered ? "Participated" : "Virtual participation";
       btn.textContent = "Practice in virtual mode";
       btn.disabled = false;
+      btn.setAttribute("aria-haspopup", "dialog");
+      btn.setAttribute("aria-controls", "wsVirtualDialog");
       msg.textContent = "Submissions are not rated after the round.";
     } else if (data.registered) {
+      btn.removeAttribute("aria-haspopup");
+      btn.removeAttribute("aria-controls");
       $("wsPart").textContent = p === "running" ? "Competing" : "Registered";
       btn.textContent = p === "running" ? "Registered" : "Cancel registration";
       btn.disabled = p === "running";
       msg.textContent = p === "upcoming" ? "Registration closes 5 minutes before the start." : "";
     } else {
+      btn.removeAttribute("aria-haspopup");
+      btn.removeAttribute("aria-controls");
       $("wsPart").textContent = "Not registered";
       btn.textContent = "Register for round";
       btn.disabled = p === "running";
@@ -122,9 +128,14 @@
   $("wsRegister").addEventListener("click", () => {
     if (!AstraAuth.requireLogin()) return;
     const p = phase();
-    if (p === "ended") { $("wsPartMsg").textContent = "Virtual mode on: submit solutions below to practice."; return; }
+    if (p === "ended") { AstraUI.openDialog($("wsVirtualDialog"), $("wsRegister")); return; }
     data.registered = !data.registered;
     save(); renderAll();
+  });
+
+  $("wsVirtualConfirm").addEventListener("click", () => {
+    AstraUI.closeDialog($("wsVirtualDialog"));
+    $("wsPartMsg").textContent = "Virtual practice is ready. Choose a problem and submit a solution below.";
   });
 
   $("wsProblems").addEventListener("click", (e) => {
