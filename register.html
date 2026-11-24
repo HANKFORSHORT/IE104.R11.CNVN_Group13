@@ -6,9 +6,6 @@
   <title>Sign up · Astra</title>
   <meta name="description" content="" />
   <link rel="icon" href="images/favicon.svg" type="image/svg+xml" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,500;0,600;0,700;1,500&family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="css/style.css" />
   <link rel="stylesheet" href="css/auth.css" />
   <script src="js/session.js"></script>
@@ -18,10 +15,7 @@
 <body>
   <span data-include="back-link" data-href="index.html" data-label="to main page" data-fixed></span>
 
-  <button class="theme-toggle auth-theme-toggle" type="button" aria-label="Toggle dark mode" aria-pressed="false">
-    <img class="icon-sun" src="images/sun.svg" alt="">
-    <img class="icon-moon" src="images/moon.svg" alt="">
-  </button>
+  <span data-include="theme-toggle" data-class="auth-theme-toggle"></span>
 
   <main class="auth-page">
     <section class="auth-card-signup" aria-labelledby="auth-title">
@@ -56,9 +50,7 @@
           <label for="password" class="auth-label">Password<span class="required-mark" aria-hidden="true">*</span></label>
           <div class="auth-password">
             <input type="password" id="password" name="password" class="auth-input" placeholder="Enter your password" autocomplete="new-password" aria-invalid="false" aria-describedby="password-hint password-error" required aria-required="true" />
-            <button type="button" class="auth-password-toggle" data-toggle-password aria-label="Show password" aria-pressed="false">
-              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path class="eye-open" d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle class="eye-open" cx="12" cy="12" r="3"/><path class="eye-closed" d="M3 3l18 18M10.6 6.1A9.8 9.8 0 0 1 12 5c6.5 0 10 7 10 7a17 17 0 0 1-3.2 4.2M6.6 6.6A16.6 16.6 0 0 0 2 12s3.5 7 10 7c1.7 0 3.2-.4 4.5-1M9.9 9.9a3 3 0 0 0 4.2 4.2"/></svg>
-            </button>
+            <span data-include="password-toggle"></span>
           </div>
           <p class="auth-hint" id="password-hint">Password should be at least 8 characters including a number and a lowercase letter.</p>
           <p class="auth-error" id="password-error"></p>
@@ -68,9 +60,7 @@
           <label for="confirm" class="auth-label">Confirm your password<span class="required-mark" aria-hidden="true">*</span></label>
           <div class="auth-password">
             <input type="password" id="confirm" name="confirm" class="auth-input" placeholder="Re-type your password" autocomplete="new-password" aria-invalid="false" aria-describedby="confirm-error" required aria-required="true" />
-            <button type="button" class="auth-password-toggle" data-toggle-password aria-label="Show password" aria-pressed="false">
-              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path class="eye-open" d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle class="eye-open" cx="12" cy="12" r="3"/><path class="eye-closed" d="M3 3l18 18M10.6 6.1A9.8 9.8 0 0 1 12 5c6.5 0 10 7 10 7a17 17 0 0 1-3.2 4.2M6.6 6.6A16.6 16.6 0 0 0 2 12s3.5 7 10 7c1.7 0 3.2-.4 4.5-1M9.9 9.9a3 3 0 0 0 4.2 4.2"/></svg>
-            </button>
+            <span data-include="password-toggle"></span>
           </div>
           <p class="auth-error" id="confirm-error"></p>
         </div>
@@ -102,16 +92,7 @@
         <button type="submit" class="btn btn-primary auth-btn-block">Create account</button>
         <a class="btn btn-secondary auth-btn-block" href="login.html">I already have an account</a>
 
-        <div class="auth-divider" role="separator">or</div>
-
-        <button type="button" class="btn btn-secondary auth-btn-block" disabled title="Not available yet: needs backend integration">
-          <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="#4285F4" d="M23.5 12.3c0-.8-.1-1.6-.2-2.3H12v4.5h6.5a5.6 5.6 0 0 1-2.4 3.6v3h3.9c2.3-2.1 3.5-5.2 3.5-8.8z"/><path fill="#34A853" d="M12 24c3.2 0 6-1.1 7.9-2.9l-3.9-3c-1.1.7-2.5 1.2-4 1.2-3.1 0-5.7-2.1-6.6-4.9H1.4v3.1A12 12 0 0 0 12 24z"/><path fill="#FBBC05" d="M5.4 14.4a7.2 7.2 0 0 1 0-4.6V6.7H1.4a12 12 0 0 0 0 10.8l4-3.1z"/><path fill="#EA4335" d="M12 4.8c1.8 0 3.3.6 4.6 1.8l3.4-3.4A12 12 0 0 0 1.4 6.7l4 3.1C6.3 7 8.9 4.8 12 4.8z"/></svg>
-          Continue with Google
-        </button>
-        <button type="button" class="btn btn-secondary auth-btn-block" disabled title="Not available yet: needs backend integration">
-          <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="#1877F2" d="M24 12a12 12 0 1 0-13.9 11.9v-8.4H7.1V12h3V9.4c0-3 1.8-4.7 4.5-4.7 1.3 0 2.7.2 2.7.2v3h-1.5c-1.5 0-2 .9-2 1.9V12h3.4l-.5 3.5h-2.9v8.4A12 12 0 0 0 24 12z"/></svg>
-          Continue with Facebook
-        </button>
+        <div data-include="auth-social"></div>
         </form>
       </div>
     </section>

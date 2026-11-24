@@ -43,10 +43,6 @@
     }
   }
 
-  function isValidEmail(value) {
-    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
-  }
-
   function setStatus(form, message) {
     const status = form.querySelector("[data-form-status]");
 
@@ -96,24 +92,6 @@
     });
   }
 
-  function passwordRule(value) {
-    if (!value) {
-      return "Enter a password.";
-    }
-
-    const isStrongEnough = value.length >= 8 && /\d/.test(value) && /[a-z]/.test(value);
-
-    return isStrongEnough ? "" : "Use at least 8 characters, including a number and a lowercase letter.";
-  }
-
-  function confirmRule(value, form) {
-    if (!value) {
-      return "Re-type your password.";
-    }
-
-    return value === form.elements.password.value ? "" : "Passwords don't match.";
-  }
-
   function requestedUser() {
     const handle = new URLSearchParams(window.location.search).get("user");
     return AstraData.user(handle);
@@ -152,7 +130,7 @@
             return "Enter your email address.";
           }
 
-          return isValidEmail(value.trim()) ? "" : "Enter a valid email address, like name@example.com.";
+          return AstraUI.isValidEmail(value.trim()) ? "" : "Enter a valid email address, like name@example.com.";
         },
         displayName: function (value) {
           return value.length <= 40 ? "" : "Use 40 characters or fewer.";
@@ -186,8 +164,8 @@
         current: function (value) {
           return value ? "" : "Enter your current password.";
         },
-        password: passwordRule,
-        confirm: confirmRule,
+        password: AstraUI.passwordRule,
+        confirm: AstraUI.confirmRule,
       });
 
       if (!valid) {
@@ -236,7 +214,7 @@
     form.addEventListener("submit", function (event) {
       event.preventDefault();
 
-      if (!validateForm(form, { password: passwordRule, confirm: confirmRule })) {
+      if (!validateForm(form, { password: AstraUI.passwordRule, confirm: confirmRule })) {
         return;
       }
 

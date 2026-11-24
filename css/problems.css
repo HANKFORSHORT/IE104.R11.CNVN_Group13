@@ -9,22 +9,9 @@
     --tbl-radius: 12px;
 }
 
-[hidden] {
-    display: none !important;
-}
-
 /* filter */
 .filters-bar {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
     gap: 0.8rem;
-    align-items: center;
-    padding: 16px 20px;
-    margin-bottom: 24px;
-    background: var(--tbl-surface);
-    border: 1px solid var(--tbl-border);
-    border-radius: var(--tbl-radius);
 }
 
 .filters-bar select,
@@ -35,16 +22,7 @@ button {
 
 .filters-bar select,
 .filters-bar input {
-    height: 42px;
-    padding: 0 14px;
-    font: inherit;
-    font-size: 0.95rem;
-    color: var(--tbl-text);
     background: var(--tbl-head-bg);
-    border: 1px solid var(--tbl-border);
-    border-radius: 8px;
-    outline: none;
-    transition: border-color 0.15s, box-shadow 0.15s;
     flex: 1;
 }
 
@@ -54,25 +32,13 @@ button {
 
 .filters-bar select:focus,
 .filters-bar input:focus {
-    border-color: var(--tbl-accent);
     box-shadow: 0 0 0 3px rgba(108, 99, 217, 0.25);
-}
-
-.filters-bar input::placeholder {
-    color: var(--tbl-muted);
 }
 
 /* table */
 .table-wrap {
-    overflow-x: auto;
     border: 1px solid var(--border);
     border-radius: 10px;
-    background: var(--tbl-surface);
-}
-
-.data-table {
-    width: 100%;
-    border-collapse: collapse;
 }
 
 .data-table th {
@@ -116,16 +82,6 @@ button {
     margin: 0 0.3em 0.3em 0;
 }
 
-.pill {
-    display: inline-flex;
-    align-items: center;
-    gap: .4em;
-    font-size: 0.72rem;
-    font-weight: 700;
-    letter-spacing: 0.03em;
-    padding: 0.3em 0.75em;
-    border-radius: 999px;
-}
 
 .pill-easy {
     color: var(--teal);

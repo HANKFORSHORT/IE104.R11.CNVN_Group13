@@ -11,8 +11,6 @@
   "use strict";
 
 
-  const USERNAME_PATTERN = /^[A-Za-z0-9]+(?:-[A-Za-z0-9]+)*$/;
-
   // TODO: temporary test account so the logged-in header can be tried without a backend.
   const TEMP_ACCOUNT = { username: "123", password: "123" };
 
@@ -33,16 +31,12 @@
      Keys are the inputs' name attributes.
      --------------------------------------------------------- */
 
-  function isValidEmail(value) {
-    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
-  }
-
   function validateEmail(value) {
     if (!value.trim()) {
       return "Enter your email address.";
     }
 
-    return isValidEmail(value.trim()) ? "" : "Enter a valid email address, like name@example.com.";
+    return AstraUI.isValidEmail(value.trim()) ? "" : "Enter a valid email address, like name@example.com.";
   }
 
   const RULES = {
@@ -66,26 +60,12 @@
           return "Choose a username.";
         }
 
-        return USERNAME_PATTERN.test(value.trim())
+        return AstraUI.isValidUsername(value.trim())
           ? ""
           : "Use only letters, numbers, and single hyphens. Don't start or end with a hyphen.";
       },
-      password: function (value) {
-        if (!value) {
-          return "Enter a password.";
-        }
-
-        const isStrongEnough = value.length >= 8 && /\d/.test(value) && /[a-z]/.test(value);
-
-        return isStrongEnough ? "" : "Use at least 8 characters, including a number and a lowercase letter.";
-      },
-      confirm: function (value, form) {
-        if (!value) {
-          return "Re-type your password.";
-        }
-
-        return value === form.elements.password.value ? "" : "Passwords don't match.";
-      },
+      password: AstraUI.passwordRule,
+      confirm: AstraUI.confirmRule,
       country: function (value) {
         return value ? "" : "Select your country or region.";
       },
@@ -97,20 +77,10 @@
      Field errors (.has-error on the .auth-field wrapper)
      --------------------------------------------------------- */
 
-  function setFieldError(input, message) {
-    const wrapper = input.closest(".auth-field");
-    const errorMessage = wrapper.querySelector(".auth-error");
-
-    errorMessage.textContent = message;
-    wrapper.classList.toggle("has-error", Boolean(message));
-    input.setAttribute("aria-invalid", message ? "true" : "false");
-  }
-
-
   function validateField(input, form, kind) {
     const message = RULES[kind][input.name](input.value, form);
 
-    setFieldError(input, message);
+    AstraUI.setAuthFieldError(input, message);
 
     return !message;
   }
@@ -213,7 +183,7 @@
 
       // TODO: remove TEMP_ACCOUNT once login is checked by the backend.
       if (identifier !== TEMP_ACCOUNT.username || form.elements.password.value !== TEMP_ACCOUNT.password) {
-        setFieldError(form.elements.password, "Incorrect username or password.");
+        AstraUI.setAuthFieldError(form.elements.password, "Incorrect username or password.");
         form.elements.password.focus();
         return;
       }
@@ -309,9 +279,5 @@
   }
 
 
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", initAuthPage);
-  } else {
-    initAuthPage();
-  }
+  AstraUI.ready.then(initAuthPage);
 })();

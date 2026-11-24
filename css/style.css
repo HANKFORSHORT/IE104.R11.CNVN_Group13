@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,500;0,600;0,700;1,500&family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap");
+
 :root {
 
   color-scheme: light;
@@ -19,15 +21,12 @@
   --indigo: #6C6CE0;
   --indigo-dark: #5551C4;
 
-
-
   --ink: #14131F;
   --paper: #F7F7FB;
   --paper-dim: #EFEFF6;
 
   --line: rgba(108, 108, 224, 0.14);
   --line-strong: rgba(108, 108, 224, 0.3);
-
 
   --bg: var(--paper);
   --bg-alt: var(--paper-dim);
@@ -62,7 +61,6 @@
   --step-3: 2.05rem;
   --step-4: 2.75rem;
   --step-5: 3.6rem;
-
 
   --maxw: 1180px;
 
@@ -110,22 +108,6 @@
 html {
   scroll-behavior: smooth;
 }
-/*
-@media (prefers-reduced-motion: reduce) {
-  html {
-    scroll-behavior: auto;
-  }
-
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.001ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.001ms !important;
-  }
-}
-*************************************************************/ 
-
 /* ---------------------------------------------------------
    3.1. Toàn bộ trang
    --------------------------------------------------------- */
@@ -205,7 +187,6 @@ p {
   color: var(--text-muted);
 }
 
-
   /* Hiển thị khi điều hướng bằng bàn phím (là cái viền hiện ra khi bấm tab á, chủ yếu cho đẹp hơn thôi)*/ 
 
 :focus-visible {
@@ -271,7 +252,6 @@ p {
   color: var(--accent-2);
 }
 
-
 /* Nút nền trong suốt */
 .btn-ghost {
   background: transparent;
@@ -289,7 +269,6 @@ p {
   padding: 0.5em 1em;
   font-size: 0.8rem;
 }
-
 
 /*HEADER*/
 
@@ -459,7 +438,6 @@ p {
   transform: translateY(-7px) rotate(-45deg);
 }
 
-
 /* TRẠNG THÁI ĐĂNG NHẬP
    session.js đặt data-auth="in" hoặc "out" trên <html>.
    Phần tử có data-auth-only="in" chỉ hiện khi đã đăng nhập,
@@ -472,7 +450,6 @@ html:not([data-auth="in"]) [data-auth-only="in"] {
 html[data-auth="in"] [data-auth-only="out"] {
   display: none;
 }
-
 
 /* Nút chuông và nút Profile (màn hình rộng) */
 
@@ -549,7 +526,6 @@ html[data-auth="in"] [data-auth-only="out"] {
 [aria-expanded="true"] > .nav-chevron {
   transform: rotate(180deg);
 }
-
 
 /* Cửa sổ popup dưới header (thông báo, profile).
    Ẩn/hiện bằng thuộc tính hidden, main.js đóng khi bấm ra ngoài. */
@@ -689,7 +665,6 @@ html[data-auth="in"] [data-auth-only="out"] {
   background: var(--bg-alt);
 }
 
-
 /* Switch to the compact menu before the desktop controls run out of room. */
 
 @media (max-width: 1100px) {
@@ -776,7 +751,6 @@ html[data-auth="in"] [data-auth-only="out"] {
     color: var(--text);
   }
 }
-
 
 /* FOOTER */
 
@@ -878,7 +852,6 @@ html[data-auth="in"] [data-auth-only="out"] {
   height: 21px;
 }
 
-
 .footer-bottom {
   border-top: 1px solid rgba(234, 225, 200, 0.15);
   padding-block: 1.4rem;
@@ -896,7 +869,6 @@ html[data-auth="in"] [data-auth-only="out"] {
   gap: 1.4rem;
 }
 
-
 .page-header {
   margin-top: calc(-1 * var(--nav-h));
   padding: calc(var(--nav-h) + 3.5rem) 0 3rem;
@@ -909,7 +881,6 @@ html[data-auth="in"] [data-auth-only="out"] {
 .page-header p {
   color: rgba(234, 225, 200, 0.75);
 }
-
 
 .breadcrumb {
   font-family: var(--font-mono);
@@ -936,7 +907,6 @@ div {
   padding-block: clamp(3rem, 7vw, 5.5rem); 
 }
 
-
 .card {
   background: var(--card-bg);
   border: 1px solid var(--border);
@@ -949,6 +919,15 @@ div {
   transform: translateY(-3px);
   border-color: var(--accent-2); 
 }
+.card-icon svg {
+  width: 22px;
+  height: 22px;
+}
+
+[data-theme="dark"] .card-icon {
+  color: var(--teal);
+}
+
 .card-icon {
   width: 46px; height: 46px; border-radius: var(--radius-sm);
   display: flex; align-items: center; justify-content: center;
@@ -978,7 +957,6 @@ div {
   color: var(--accent); 
   font-size: 0.7em; 
 }
-
 
 .section-head { 
   max-width: 62ch; 
@@ -1134,4 +1112,98 @@ body:has(.site-dialog[open]) {
   .back-extra {
     transition: none;
   }
+}
+
+/* Shared editorial headings and inline links. */
+.contact-title,
+.report-title {
+  color: var(--peach);
+  margin: 0.5rem 0 1rem;
+  font-size: clamp(2.2rem, 5vw, 3.2rem);
+  letter-spacing: -0.02em;
+}
+
+.contact-lead,
+.report-lead {
+  color: rgba(234, 225, 200, 0.78);
+  font-size: 1.08rem;
+  max-width: 60ch;
+}
+
+.breadcrumb-current {
+  color: var(--sandy);
+}
+
+.info-card a,
+.faq-body-inner a,
+.docs-inline-link,
+.auth-link {
+  color: var(--accent);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+[data-theme="dark"] .info-card a,
+[data-theme="dark"] .faq-body-inner a,
+[data-theme="dark"] .auth-link {
+  color: var(--sandy);
+}
+
+/* Shared difficulty pill; each table stylesheet supplies its own colors. */
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: .4em;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  padding: 0.3em 0.75em;
+  border-radius: 999px;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+.filters-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  padding: 16px 20px;
+  margin-bottom: 24px;
+  background: var(--tbl-surface);
+  border: 1px solid var(--tbl-border);
+  border-radius: var(--tbl-radius);
+}
+
+.table-wrap {
+  overflow-x: auto;
+  background: var(--tbl-surface);
+}
+
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.filters-bar select,
+.filters-bar input {
+  height: 42px;
+  padding: 0 14px;
+  font: inherit;
+  font-size: 0.95rem;
+  color: var(--tbl-text);
+  border: 1px solid var(--tbl-border);
+  border-radius: 8px;
+  outline: none;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+.filters-bar select:focus,
+.filters-bar input:focus {
+  border-color: var(--tbl-accent);
+}
+
+.filters-bar input::placeholder {
+  color: var(--tbl-muted);
 }
