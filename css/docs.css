@@ -152,81 +152,33 @@
    --------------------------------------------------------- */
 
 .docs-overview-wrap {
-  max-width: 960px;
+  max-width: 820px;
   margin: 0 auto;
+  padding: 1rem 0 2rem;
 }
 
 .docs-hero-title {
   text-align: center;
   font-family: var(--font-display);
-  font-size: clamp(2.6rem, 5vw, 3.8rem);
+  font-size: clamp(2.1rem, 3.8vw, 2.9rem);
   font-weight: 600;
   letter-spacing: 0.01em;
-  line-height: 1.16;
+  line-height: 1.22;
   color: var(--brand);
-  margin: 0.5rem auto 2.5rem;
+  margin: 1rem auto 2rem;
 }
 
 .docs-intro-text {
-  font-size: 1.05rem;
-  line-height: 1.8;
+  font-size: clamp(1.02rem, 1.25vw, 1.12rem);
+  line-height: 1.85;
   color: var(--text);
   text-indent: 2rem;
-  max-width: 86ch;
-  margin: 0 auto 3.25rem;
+  max-width: 78ch;
+  margin: 0 auto;
 }
 
 [data-theme="dark"] .docs-intro-text {
   color: rgba(232, 230, 242, 0.9);
-}
-
-.docs-cards-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 1.5rem;
-  width: 100%;
-}
-
-.docs-card {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  padding: 1.85rem 2rem;
-  background: var(--card-bg);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  box-shadow: var(--shadow);
-  text-align: left;
-  transition: transform 0.2s var(--ease), border-color 0.2s var(--ease);
-}
-
-.docs-card:hover {
-  transform: translateY(-2px);
-  border-color: var(--accent-2);
-}
-
-.docs-card-tag {
-  font-family: var(--font-mono);
-  font-size: 0.76rem;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-  color: var(--accent-2);
-  margin-bottom: 0.55rem;
-}
-
-.docs-card h3 {
-  font-size: 1.28rem;
-  margin-bottom: 0.55rem;
-  color: var(--brand);
-}
-
-.docs-card p {
-  font-size: 0.96rem;
-  line-height: 1.65;
-  color: var(--text-muted);
-  margin: 0;
-  max-width: none;
 }
 
 /* ---------------------------------------------------------
