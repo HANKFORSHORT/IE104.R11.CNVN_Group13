@@ -17,8 +17,7 @@ Project/
 
 ## 2. Sơ đồ website (sitemap)
 
-Các trang dự kiến của Astra. Ô tròn là trang chủ, ô trong `Navbar` là các mục hiện trên thanh điều hướng.
-![Sitemap Astra](images/sitemap.png)
+Các trang dự kiến của Astra. Ô bo tròn là trang chủ; các mục trong `Navbar` xuất hiện trên thanh điều hướng.
 
 ```mermaid
 flowchart TD
@@ -68,6 +67,10 @@ flowchart TD
     Profile --> Etc["..."]
 
     Rankings -.->|xem hồ sơ người chơi| Profile
+
+    classDef page fill:#f0eeff,stroke:#a48cff,stroke-width:1px,color:#333333;
+    class Home,Problems,Contests,Gym,Rankings,Account,Guide,About,ProblemDetail,Description,Submissions,Editorial,Solutions,ContestList,ContestDetail,RoundDetail,RoundProblems,Standings,GymDetail,Profile,Notifications,Settings,History,Solved,Etc page;
+    style Navbar fill:#fffde8,stroke:#a48cff,stroke-width:1px,color:#333333
 ```
 
 ## 3. Màu sắc và font
