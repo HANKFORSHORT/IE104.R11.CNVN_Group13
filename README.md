@@ -20,7 +20,7 @@ Project/
 Các trang dự kiến của Astra. Ô bo tròn là trang chủ; các mục trong `Navbar` xuất hiện trên thanh điều hướng.
 
 ```mermaid
-flowchart TD
+flowchart LR
     Home(["Home"])
 
     subgraph Navbar
@@ -68,9 +68,12 @@ flowchart TD
 
     Rankings -.->|xem hồ sơ người chơi| Profile
 
+    Footer["Footer<br/>Docs, Guide, About, FAQ, Contact, Report an issue<br/>Links, Social accounts"]
+
     classDef page fill:#f0eeff,stroke:#a48cff,stroke-width:1px,color:#333333;
     class Home,Problems,Contests,Gym,Rankings,Account,Guide,About,ProblemDetail,Description,Submissions,Editorial,Solutions,ContestList,ContestDetail,RoundDetail,RoundProblems,Standings,GymDetail,Profile,Notifications,Settings,History,Solved,Etc page;
     style Navbar fill:#fffde8,stroke:#a48cff,stroke-width:1px,color:#333333
+    style Footer fill:#fff,stroke:#333,stroke-width:1px,stroke-dasharray:10 8
 ```
 
 ## 3. Màu sắc và font
