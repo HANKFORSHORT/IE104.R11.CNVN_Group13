@@ -110,7 +110,7 @@
     profileForm.elements.username.value = CURRENT_USER;
 
     profileForm.elements.displayName.value = saved.displayName || "";
-    profileForm.elements.email.value = saved.email || "you@example.com";
+    profileForm.elements.email.value = typeof saved.email === "string" ? saved.email : "";
     profileForm.elements.bio.value = saved.bio || "";
 
     ["emailNotifications", "publicSolved"].forEach(function (name) {

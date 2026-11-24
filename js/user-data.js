@@ -123,7 +123,7 @@
       activity[day] = (activity[day] || 0) + 1;
     });
     return {
-      handle: handle || "", email: typeof saved.email === "string" ? saved.email : "you@example.com",
+      handle: handle || "", email: typeof saved.email === "string" ? saved.email.trim() : "",
       bio: typeof saved.bio === "string" ? saved.bio : "", solved: solved().length,
       rank: handle === DEMO_USER ? 47158 : "—", points: solved().reduce((sum, row) => sum + row.score, 0),
       contribution: 0, submissions: activity,

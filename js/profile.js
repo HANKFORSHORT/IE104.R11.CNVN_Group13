@@ -18,7 +18,7 @@
   document.title = PROFILE.handle + ' · Astra';
   setText('pf-handle', PROFILE.handle);
   setText('nav-user', PROFILE.handle);   // optional: only exists if the page header has it
-  setText('pf-email', PROFILE.email);
+  setText('pf-email', PROFILE.email || 'Not added yet');
   setText('pf-solved', PROFILE.solved);
   setText('pf-rank', '#' + PROFILE.rank);
   setText('pf-points', Number(PROFILE.points).toFixed(2));
