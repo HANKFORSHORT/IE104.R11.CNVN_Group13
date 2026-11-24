@@ -14,6 +14,7 @@
   <script src="js/session.js"></script>
   <script src="js/main.js"></script>
   <!-- [EDIT] Thêm script xử lý sort / filter / phân trang cho trang Rankings -->
+  <script src="js/user-data.js"></script>
   <script src="js/rankings.js" defer></script>
 </head>
 <body>
@@ -21,13 +22,22 @@
 
   <main>
     <!-- Page-specific styles scoped to .rankings-page. -->
-
+    <div class="page-header">
+        <div class="container">
+            <div class="breadcrumb">
+                <a href="index.html">Home</a> / Rankings
+            </div>
+            <h1 style="color: var(--peach);">Rankings</h1>
+            <p style="max-width: 50ch;">
+                <em> "Success is the sum of small efforts, repeated." — R. Collier</em>
+            </p>
+        </div>
+    </div>
     <div class="rankings-page">
       <div class="rankings-shell">
         <!-- Page title and season context. -->
         <header class="rankings-intro">
           <div>
-            <h1>Rankings</h1>
             <p>See who is leading the field and track the ratings, progress, and momentum of the Astra community.</p>
           </div>
           <!-- [EDIT] Thêm id để JS cập nhật theo kỳ xếp hạng đang chọn -->

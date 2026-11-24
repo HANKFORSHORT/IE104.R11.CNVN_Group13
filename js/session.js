@@ -28,7 +28,7 @@
     if (url.origin !== ROOT.origin) return false;
     const name = url.pathname.split("/").pop();
     return PRIVATE_PAGES.has(name) ||
-      (["solved.html", "achievements.html"].includes(name) && !url.searchParams.get("user"));
+      (["solved.html", "achievements.html"].includes(name) && !url.searchParams.has("user"));
   }
 
   function safeNext(value) {
