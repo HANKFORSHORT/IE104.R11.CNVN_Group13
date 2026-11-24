@@ -513,11 +513,7 @@ th[aria-sort="descending"] .sort-down {
   background: color-mix(in srgb, var(--accent) 14%, transparent);
 }
 
-.rating-meter::-webkit-progress-value {
-  background: var(--accent);
-  border-radius: 999px;
-}
-
+.rating-meter::-webkit-progress-value,
 .rating-meter::-moz-progress-bar {
   background: var(--accent);
   border-radius: 999px;
