@@ -246,9 +246,9 @@
 
   source.addEventListener("input", codeChanged);
   source.addEventListener("scroll", function () { lineNumbers.scrollTop = source.scrollTop; });
-  source.addEventListener("click", updateCursor);
-  source.addEventListener("keyup", updateCursor);
-  source.addEventListener("select", updateCursor);
+  ["click", "keyup", "select"].forEach(function (type) {
+    source.addEventListener(type, updateCursor);
+  });
   source.addEventListener("blur", function () { releaseTab = false; });
   source.addEventListener("keydown", function (event) {
     if (event.key === "Escape") {
