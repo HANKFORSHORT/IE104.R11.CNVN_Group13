@@ -9,10 +9,6 @@
   const REQUIRED_FIELDS = ["fname", "lname", "email", "message"];
 
 
-  function isValidEmail(value) {
-    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
-  }
-
 
   function initReportForm() {
     const form = document.getElementById("reportForm");
@@ -45,7 +41,7 @@
           return;
         }
 
-        if (fieldId === "email" && !isValidEmail(value)) {
+        if (fieldId === "email" && !AstraUI.isValidEmail(value)) {
           wrapper.classList.add("has-error");
           isFormValid = false;
         }
