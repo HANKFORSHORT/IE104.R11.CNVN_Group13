@@ -833,6 +833,13 @@ details[open] > summary .disclosure-icon::before {
   border-radius: 50%;
 }
 
+.achievement-profile .achievement-avatar {
+  width: 12rem;
+  height: 12rem;
+  max-width: 100%;
+  font-size: 4rem;
+}
+
 .achievement-profile h2 {
   margin: 0;
   overflow-wrap: anywhere;
@@ -914,8 +921,14 @@ details[open] > summary .disclosure-icon::before {
     grid-template-columns: minmax(0, 1fr);
   }
 
-  .achievement-profile img {
+  .achievement-profile img,
+  .achievement-profile .achievement-avatar {
     width: 96px;
+    height: 96px;
+  }
+
+  .achievement-profile .achievement-avatar {
+    font-size: var(--step-2);
   }
 
   .solved-row {

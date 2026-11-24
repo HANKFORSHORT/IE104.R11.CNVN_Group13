@@ -3,19 +3,56 @@
 
   const query = new URLSearchParams(location.search);
   const current = AstraAuth.user();
-  const handle = query.get("user") || (current && current.identifier);
-  if (!handle) return;
+  const hasRequestedUser = query.has("user");
+  const requested = hasRequestedUser ? query.get("user") : current && current.identifier;
+  const user = AstraData.user(requested);
 
-  const earned = AstraData.achievements(handle);
+  if (!user) {
+    if (hasRequestedUser) {
+      document.getElementById("achievementContent").hidden = true;
+      document.getElementById("achievementNotfound").hidden = false;
+      document.getElementById("achievementSubtitle").textContent = "We could not find that competitor.";
+    }
+    return;
+  }
+
+  const handle = user.handle;
+  const own = Boolean(current && current.identifier.toLowerCase() === handle.toLowerCase());
+  const earned = user.detailsAvailable ? AstraData.achievements(handle) : [];
   const list = document.getElementById("achievementList");
   const dialog = document.getElementById("achievementDialog");
   const notice = document.getElementById("achievementNotice");
-  const own = Boolean(current && current.identifier === handle);
+  const profileUrl = own ? "profile.html" : "public-profile.html?user=" + encodeURIComponent(handle);
+  const parent = document.getElementById("achievementParent");
+  parent.href = profileUrl;
+  parent.textContent = own ? "Account" : handle;
+  document.getElementById("achievementSubtitle").textContent = own
+    ? "Small milestones. A collection of your progress."
+    : "Achievements for " + handle + ".";
   document.getElementById("achievementHandle").textContent = handle;
-  document.getElementById("achievementProfile").href = own ? "profile.html" : "public-profile.html?user=" + encodeURIComponent(handle);
-  document.getElementById("achievementCount").textContent = earned.length + " earned";
+  document.getElementById("achievementProfile").href = profileUrl;
+  document.getElementById("achievementCount").textContent = user.detailsAvailable
+    ? earned.length + " earned" : "Details unavailable";
   document.getElementById("achievementEmpty").hidden = earned.length > 0;
   document.querySelector("[data-sample-note]").hidden = handle !== AstraData.demoUser;
+
+  if (!own) {
+    document.getElementById("achievementOwnAvatar").hidden = true;
+    const avatar = document.getElementById("achievementPublicAvatar");
+    avatar.textContent = handle.slice(0, 2).toUpperCase();
+    avatar.hidden = false;
+    const back = document.getElementById("achievementBack");
+    back.dataset.href = profileUrl;
+    back.dataset.label = "to " + handle + "'s profile";
+  }
+
+  if (!user.detailsAvailable) {
+    document.getElementById("achievementEmptyTitle").textContent = "Achievement details unavailable";
+    document.getElementById("achievementEmptyText").textContent =
+      "This profile has no public badge history yet.";
+    document.getElementById("achievementEmptyAction").hidden = true;
+  }
+  document.title = handle + " · Achievements · Astra";
 
   function urlFor(id) {
     const url = new URL(location.href);
@@ -31,7 +68,9 @@
     notice.textContent = "";
     if (!badge) {
       if (id) {
-        notice.textContent = "This achievement is not in this user's earned collection.";
+        notice.textContent = user.detailsAvailable
+          ? "This achievement is not in this user's earned collection."
+          : "Achievement details are unavailable for this competitor.";
         history.replaceState(null, "", urlFor(null));
       }
       AstraUI.closeDialog(dialog);
