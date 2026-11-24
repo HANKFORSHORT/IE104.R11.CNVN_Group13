@@ -2,18 +2,11 @@
    DOCUMENTATION PAGE STYLES (css/docs.css)
    ========================================================= */
 
-
 .docs-page {
   display: flex;
   flex-direction: column;
   min-height: calc(100vh - var(--nav-h));
 }
-
-
-[hidden] {
-  display: none !important;
-}
-
 
 /* ---------------------------------------------------------
    1. Sub-header Bar (Astra Docs Branding)
@@ -29,7 +22,6 @@
   border-bottom: 1px solid var(--border);
 }
 
-
 .docs-topbar-brand {
   display: inline-flex;
   align-items: center;
@@ -40,13 +32,11 @@
   color: var(--brand);
 }
 
-
 .docs-topbar-divider {
   width: 1px;
   height: 1.3rem;
   background: var(--border);
 }
-
 
 .docs-topbar-tag {
   font-family: var(--font-mono);
@@ -55,7 +45,6 @@
   text-transform: uppercase;
   letter-spacing: 0.06em;
 }
-
 
 /* ---------------------------------------------------------
    2. Main Documentation Shell (Left Sidebar + Right Area)
@@ -69,7 +58,6 @@
   min-height: calc(100vh - var(--nav-h) - 56px);
 }
 
-
 /* ---------------------------------------------------------
    3. Left Navigation Sidebar
    --------------------------------------------------------- */
@@ -81,7 +69,6 @@
   flex-direction: column;
 }
 
-
 .docs-sidebar-top {
   padding: 1.4rem 1.5rem 1.2rem;
   border-bottom: 1px solid var(--border);
@@ -89,7 +76,6 @@
   flex-direction: column;
   gap: 0.55rem;
 }
-
 
 .docs-nav-overview {
   width: 100%;
@@ -104,12 +90,10 @@
   transition: color 0.2s var(--ease);
 }
 
-
 .docs-nav-overview:hover,
 .docs-nav-overview.active {
   color: var(--accent);
 }
-
 
 .docs-nav-list {
   padding: 1.25rem 1rem;
@@ -117,7 +101,6 @@
   flex-direction: column;
   gap: 0.35rem;
 }
-
 
 .docs-nav-btn {
   width: 100%;
@@ -134,12 +117,10 @@
   transition: color 0.2s var(--ease), background 0.2s var(--ease), border-color 0.2s var(--ease);
 }
 
-
 .docs-nav-btn:hover {
   color: var(--text);
   background: var(--bg-alt);
 }
-
 
 .docs-nav-btn.active {
   color: var(--text);
@@ -148,11 +129,9 @@
   font-weight: 600;
 }
 
-
 [data-theme="dark"] .docs-nav-btn.active {
   color: var(--peach);
 }
-
 
 /* ---------------------------------------------------------
    4. Right Content Area Wrapper
@@ -163,104 +142,44 @@
   padding: clamp(2.5rem, 5vw, 4rem) clamp(2rem, 5vw, 4.5rem);
 }
 
-
 .docs-panel {
   width: 100%;
   animation: docs-fade 0.25s var(--ease);
 }
-
 
 /* ---------------------------------------------------------
    5. Overview Panel (Centered & Balanced in Viewport)
    --------------------------------------------------------- */
 
 .docs-overview-wrap {
-  max-width: 960px;
+  max-width: 820px;
   margin: 0 auto;
+  padding: 1rem 0 2rem;
 }
-
 
 .docs-hero-title {
   text-align: center;
   font-family: var(--font-display);
-  font-size: clamp(2.6rem, 5vw, 3.8rem);
+  font-size: clamp(2.1rem, 3.8vw, 2.9rem);
   font-weight: 600;
   letter-spacing: 0.01em;
-  line-height: 1.16;
+  line-height: 1.22;
   color: var(--brand);
-  margin: 0.5rem auto 2.5rem;
+  margin: 1rem auto 2rem;
 }
-
 
 .docs-intro-text {
-  font-size: 1.05rem;
-  line-height: 1.8;
+  font-size: clamp(1.02rem, 1.25vw, 1.12rem);
+  line-height: 1.85;
   color: var(--text);
   text-indent: 2rem;
-  max-width: 86ch;
-  margin: 0 auto 3.25rem;
+  max-width: 78ch;
+  margin: 0 auto;
 }
-
 
 [data-theme="dark"] .docs-intro-text {
   color: rgba(232, 230, 242, 0.9);
 }
-
-
-.docs-cards-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 1.5rem;
-  width: 100%;
-}
-
-
-.docs-card {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  padding: 1.85rem 2rem;
-  background: var(--card-bg);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  box-shadow: var(--shadow);
-  text-align: left;
-  transition: transform 0.2s var(--ease), border-color 0.2s var(--ease);
-}
-
-
-.docs-card:hover {
-  transform: translateY(-2px);
-  border-color: var(--accent-2);
-}
-
-
-.docs-card-tag {
-  font-family: var(--font-mono);
-  font-size: 0.76rem;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-  color: var(--accent-2);
-  margin-bottom: 0.55rem;
-}
-
-
-.docs-card h3 {
-  font-size: 1.28rem;
-  margin-bottom: 0.55rem;
-  color: var(--brand);
-}
-
-
-.docs-card p {
-  font-size: 0.96rem;
-  line-height: 1.65;
-  color: var(--text-muted);
-  margin: 0;
-  max-width: none;
-}
-
 
 /* ---------------------------------------------------------
    6. Sub-page Article Layout (Article + Right "In this article" TOC)
@@ -275,11 +194,9 @@
   margin: 0 auto;
 }
 
-
 .docs-article {
   width: 100%;
 }
-
 
 .docs-breadcrumb {
   display: inline-flex;
@@ -291,7 +208,6 @@
   margin-bottom: 1.75rem;
 }
 
-
 .docs-breadcrumb-btn {
   padding: 0;
   border: none;
@@ -301,18 +217,15 @@
   transition: color 0.2s var(--ease);
 }
 
-
 .docs-breadcrumb-btn:hover {
   color: var(--accent);
   text-decoration: underline;
 }
 
-
 .docs-breadcrumb-current {
   color: var(--text);
   font-weight: 500;
 }
-
 
 .docs-article-title {
   font-family: var(--font-display);
@@ -323,7 +236,6 @@
   margin: 0 0 1.75rem;
 }
 
-
 .docs-lead {
   font-size: 1.04rem;
   line-height: 1.75;
@@ -332,17 +244,14 @@
   max-width: 72ch;
 }
 
-
 [data-theme="dark"] .docs-lead {
   color: rgba(232, 230, 242, 0.9);
 }
-
 
 .docs-block {
   margin-bottom: 2.5rem;
   scroll-margin-top: calc(var(--nav-h) + 2rem);
 }
-
 
 .docs-block h2 {
   font-size: 1.4rem;
@@ -350,14 +259,12 @@
   color: var(--brand);
 }
 
-
 .docs-block p {
   font-size: 1rem;
   line-height: 1.75;
   color: var(--text-muted);
   max-width: 72ch;
 }
-
 
 .docs-list {
   margin: 0.65rem 0 1rem 1.25rem;
@@ -370,18 +277,9 @@
   max-width: 70ch;
 }
 
-
 .docs-list strong {
   color: var(--text);
 }
-
-
-.docs-inline-link {
-  color: var(--accent);
-  text-decoration: underline;
-  text-underline-offset: 2px;
-}
-
 
 /* ---------------------------------------------------------
    7. Right Table of Contents ("In this article")
@@ -394,7 +292,6 @@
   border-left: 1px solid var(--border);
 }
 
-
 .docs-toc-title {
   font-family: var(--font-display);
   font-size: 1rem;
@@ -403,13 +300,11 @@
   margin: 0 0 0.85rem;
 }
 
-
 .docs-toc-list {
   display: flex;
   flex-direction: column;
   gap: 0.55rem;
 }
-
 
 .docs-toc-link {
   font-size: 0.92rem;
@@ -418,11 +313,9 @@
   transition: color 0.2s var(--ease);
 }
 
-
 .docs-toc-link:hover {
   color: var(--accent);
 }
-
 
 /* ---------------------------------------------------------
    8. Glossary Items
@@ -433,7 +326,6 @@
   gap: 1.15rem;
 }
 
-
 .glossary-item {
   padding: 1.35rem 1.6rem;
   background: var(--card-bg);
@@ -441,7 +333,6 @@
   border-radius: var(--radius);
   scroll-margin-top: calc(var(--nav-h) + 2rem);
 }
-
 
 .glossary-term {
   display: inline-block;
@@ -452,13 +343,11 @@
   margin-bottom: 0.4rem;
 }
 
-
 .glossary-item p {
   margin: 0;
   font-size: 0.96rem;
   max-width: none;
 }
-
 
 /* ---------------------------------------------------------
    9. Keyframes & Responsive Breakpoints
@@ -475,7 +364,6 @@
   }
 }
 
-
 @media (max-width: 1040px) {
   .docs-article-layout {
     grid-template-columns: 1fr;
@@ -490,7 +378,6 @@
     order: -1;
   }
 }
-
 
 @media (max-width: 860px) {
   .docs-layout {

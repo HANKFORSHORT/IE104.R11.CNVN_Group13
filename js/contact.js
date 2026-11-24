@@ -23,20 +23,21 @@
         }
 
         if (navigator.clipboard && navigator.clipboard.writeText) {
-          navigator.clipboard.writeText(email).then(function () {
-            showCopiedState(button, originalText);
-          });
+          navigator.clipboard.writeText(email).then(
+            function () { showCopyState(button, originalText, true); },
+            function () { showCopyState(button, originalText, false); }
+          );
         } else {
-          showCopiedState(button, originalText);
+          showCopyState(button, originalText, false);
         }
       });
     });
   }
 
 
-  function showCopiedState(button, originalText) {
-    button.textContent = "Copied!";
-    button.classList.add("is-copied");
+  function showCopyState(button, originalText, copied) {
+    button.textContent = copied ? "Copied!" : "Copy unavailable";
+    button.classList.toggle("is-copied", copied);
 
     setTimeout(function () {
       button.textContent = originalText;

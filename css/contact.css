@@ -2,11 +2,9 @@
    CONTACT PAGE STYLES (css/contact.css)
    ========================================================= */
 
-
 .contact-page {
   padding-bottom: 2rem;
 }
-
 
 /* ---------------------------------------------------------
    1. Page Header & Tagline
@@ -16,7 +14,6 @@
   position: relative;
   z-index: 1;
 }
-
 
 .contact-header::after {
   content: "";
@@ -31,22 +28,6 @@
   pointer-events: none;
 }
 
-
-.contact-title {
-  color: var(--peach);
-  margin: 0.5rem 0 1rem;
-  font-size: clamp(2.2rem, 5vw, 3.2rem);
-  letter-spacing: -0.02em;
-}
-
-
-.contact-lead {
-  color: rgba(234, 225, 200, 0.78);
-  font-size: 1.08rem;
-  max-width: 60ch;
-}
-
-
 .contact-tagline {
   font-family: var(--font-quote);
   font-style: italic;
@@ -55,12 +36,6 @@
   margin-top: 1.25rem;
   margin-bottom: 0;
 }
-
-
-.breadcrumb-current {
-  color: var(--sandy);
-}
-
 
 /* ---------------------------------------------------------
    2. Project Overview & Facts Table
@@ -73,12 +48,10 @@
   align-items: start;
 }
 
-
 .about-grid h2 {
   font-size: clamp(1.8rem, 3.5vw, 2.6rem);
   letter-spacing: -0.02em;
 }
-
 
 .facts-card {
   border: 1px solid var(--border);
@@ -87,7 +60,6 @@
   box-shadow: var(--shadow);
   overflow: hidden;
 }
-
 
 .fact-row {
   display: flex;
@@ -99,24 +71,20 @@
   font-size: 0.92rem;
 }
 
-
 .fact-row:last-child {
   border-bottom: none;
 }
-
 
 .fact-key {
   font-family: var(--font-mono);
   color: var(--text-muted);
 }
 
-
 .fact-value {
   font-weight: 600;
   color: var(--text);
   text-align: right;
 }
-
 
 /* ---------------------------------------------------------
    3. Team Section
@@ -126,11 +94,9 @@
   background: var(--bg-alt);
 }
 
-
 .section-head-desc {
   margin-inline: auto;
 }
-
 
 .team-grid {
   display: grid;
@@ -138,12 +104,10 @@
   gap: 1.2rem;
 }
 
-
 .member-card {
   text-align: center;
   padding: 1.85rem 1.35rem;
 }
-
 
 .member-avatar {
   width: 64px;
@@ -160,34 +124,28 @@
   background: var(--indigo);
 }
 
-
 .member-card:nth-child(2) .member-avatar {
   background: var(--teal);
   color: var(--oxford);
 }
-
 
 .member-card:nth-child(3) .member-avatar {
   background: var(--sandy);
   color: var(--oxford);
 }
 
-
 .member-card:nth-child(4) .member-avatar {
   background: var(--indigo-dark);
 }
-
 
 .member-card:nth-child(5) .member-avatar {
   background: var(--teal-dark);
 }
 
-
 .member-card h3 {
   font-size: 1.15rem;
   margin-bottom: 0.3rem;
 }
-
 
 .member-role {
   display: block;
@@ -200,12 +158,10 @@
   margin-bottom: 0.75rem;
 }
 
-
 .member-card p {
   font-size: 0.88rem;
   margin: 0 auto;
 }
-
 
 /* ---------------------------------------------------------
    4. Contact Channels
@@ -217,18 +173,15 @@
   gap: 1.2rem;
 }
 
-
 .channel-card h3 {
   font-size: 1.15rem;
   margin-bottom: 0.45rem;
 }
 
-
 .channel-card p {
   font-size: 0.92rem;
   margin-bottom: 1rem;
 }
-
 
 .channel-actions {
   display: flex;
@@ -237,7 +190,6 @@
   flex-wrap: wrap;
 }
 
-
 .channel-link {
   font-family: var(--font-mono);
   font-weight: 600;
@@ -245,11 +197,9 @@
   color: var(--accent);
 }
 
-
 .channel-link:hover {
   text-decoration: underline;
 }
-
 
 .copy-email-btn {
   padding: 0.3rem 0.65rem;
@@ -263,29 +213,15 @@
   transition: border-color 0.2s var(--ease), color 0.2s var(--ease);
 }
 
-
 .copy-email-btn:hover {
   border-color: var(--accent-2);
   color: var(--accent-2);
 }
 
-
 .copy-email-btn.is-copied {
   border-color: var(--teal);
   color: var(--teal);
 }
-
-
-.card-icon svg {
-  width: 22px;
-  height: 22px;
-}
-
-
-[data-theme="dark"] .card-icon {
-  color: var(--teal);
-}
-
 
 /* ---------------------------------------------------------
    5. Location & Map
@@ -295,14 +231,12 @@
   padding-top: 0;
 }
 
-
 .location-grid {
   display: grid;
   grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
   gap: clamp(2rem, 5vw, 4rem);
   align-items: center;
 }
-
 
 .hours-list {
   margin-top: 1.25rem;
@@ -312,11 +246,9 @@
   color: var(--text-muted);
 }
 
-
 .hours-list strong {
   color: var(--text);
 }
-
 
 .map-wrap {
   height: 300px;
@@ -326,13 +258,11 @@
   background: var(--bg-alt);
 }
 
-
 .map-frame {
   width: 100%;
   height: 100%;
   border: 0;
 }
-
 
 /* ---------------------------------------------------------
    6. Call To Action Banner
@@ -341,7 +271,6 @@
 .cta-section {
   padding-top: 0;
 }
-
 
 .contact-cta {
   display: flex;
@@ -355,19 +284,16 @@
   border: 1px solid var(--border);
 }
 
-
 .contact-cta h2 {
   color: var(--peach);
   font-size: clamp(1.5rem, 3vw, 2.2rem);
   margin: 0;
 }
 
-
 .contact-cta p {
   color: rgba(234, 225, 200, 0.72);
   margin: 0.5rem 0 0;
 }
-
 
 .cta-actions {
   display: flex;
@@ -376,18 +302,15 @@
   flex-shrink: 0;
 }
 
-
 .contact-cta .btn-secondary {
   color: var(--peach);
   border-color: rgba(234, 225, 200, 0.3);
 }
 
-
 .contact-cta .btn-secondary:hover {
   border-color: var(--teal);
   color: var(--teal);
 }
-
 
 /* ---------------------------------------------------------
    7. Responsive Breakpoints
