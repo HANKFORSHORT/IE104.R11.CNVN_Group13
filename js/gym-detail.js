@@ -2,9 +2,6 @@
 (function () {
   "use strict";
 
-  // Same rule as USERNAME_PATTERN in auth.js
-  const USERNAME_PATTERN = /^[A-Za-z0-9]+(?:-[A-Za-z0-9]+)*$/;
-
   const DIALOG_IDS = {
     "#start": "start-dialog",
     "#race": "race-dialog",
@@ -70,18 +67,9 @@
       return "Enter your friend's username.";
     }
 
-    return USERNAME_PATTERN.test(value.trim())
+    return AstraUI.isValidUsername(value.trim())
       ? ""
       : "Use only letters, numbers, and single hyphens. Don't start or end with a hyphen.";
-  }
-
-
-  function setFieldError(input, message) {
-    const wrapper = input.closest(".auth-field");
-
-    wrapper.querySelector(".auth-error").textContent = message;
-    wrapper.classList.toggle("has-error", Boolean(message));
-    input.setAttribute("aria-invalid", message ? "true" : "false");
   }
 
 
@@ -93,7 +81,7 @@
       status.textContent = "";
 
       if (input.getAttribute("aria-invalid") === "true") {
-        setFieldError(input, validateHandle(input.value));
+        AstraUI.setAuthFieldError(input, validateHandle(input.value));
       }
     });
 
@@ -102,7 +90,7 @@
 
       const message = validateHandle(input.value);
 
-      setFieldError(input, message);
+      AstraUI.setAuthFieldError(input, message);
 
       if (message) {
         input.focus();
