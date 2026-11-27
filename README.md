@@ -110,8 +110,8 @@ Theme được lưu trong `localStorage` (khóa `astra-theme`); lần đầu tru
 |---|---|
 | Bach | Home (Index), Rankings, Guide, About |
 | Khiet | Docs, FAQ, Contact, Report an issue |
-| Hoang Anh | Account (Sign in / Sign up / Profile) |
-| Bao | Problems |
-| Tung An | Contests, Gym |
+| Hoang Anh | achivements, forgot-password, login, notifications, profile, public-profile, register, settings, solved, submissions, common components|
+| Bao | problems, problem-detail |
+| Tung An | contest-standings, contest, contests, gym, gym-detail, workspace |
 
 ---
