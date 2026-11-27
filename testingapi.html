@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title id="page-title">Loading problem... · Astra</title>
+  <meta name="description" content="Read the problem statement, prepare your solution, and submit source code." />
+  <link rel="icon" href="images/favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/problems.css" />
+  <link rel="stylesheet" href="css/problem-detail.css" />
+  <script src="js/config.js"></script>
+  <script src="js/session.js"></script>
+  <script src="js/main.js" defer></script>
+  <script src="js/problem-detail.js" defer></script>
+  <script src="js/testingapi.js" defer></script>
+</head>
+<body>
+  <div data-include="header"></div>
+
+  <main class="problem-page">
+    <div class="page-header pd-header">
+      <div class="container">
+        <div class="breadcrumb">
+          <a href="index.html">Home</a> / <a href="problems.html">Problemset</a> / <span id="pd-breadcrumb-code">...</span>
+        </div>
+        <div class="pd-title-row">
+          <div>
+            <p class="pd-contest" id="pd-source">Loading...</p>
+            <h1 id="pd-title">Loading problem...</h1>
+          </div>
+          <span class="pill pd-rating" id="pd-rating">—</span>
+        </div>
+        <p class="pd-header-meta" id="pd-header-meta">
+          <span>Time limit: —</span>
+          <span>Memory limit: —</span>
+          <span>Checker: —</span>
+          <span>Languages: —</span>
+        </p>
+        <details class="pd-topics">
+          <summary>Topic tags</summary>
+          <div class="pd-topic-tags" id="pd-topic-tags"></div>
+        </details>
+      </div>
+    </div>
+
+    <div class="container pd-layout">
+      <nav class="pd-tabs" aria-label="Problem sections">
+        <a id="pd-nav-statement" href="#statement" aria-controls="statement" aria-current="page" data-problem-nav="statement">Statement</a>
+        <a id="pd-nav-submit" href="#submit" aria-controls="submit" data-problem-nav="submit" data-requires-auth>Submit</a>
+        <a id="pd-nav-submissions" href="#submissions" aria-controls="submissions" data-problem-nav="submissions" data-requires-auth>My submissions</a>
+        <a id="pd-nav-editorial" href="#editorial" aria-controls="editorial" data-problem-nav="editorial">Editorial</a>
+      </nav>
+
+      <div class="pd-main">
+        <p id="pd-api-status" class="pd-feedback" role="status" style="margin-bottom: 1rem;"></p>
+
+        <!-- STATEMENT -->
+        <section id="statement" class="card pd-panel pd-statement" aria-labelledby="pd-statement-title" data-problem-panel>
+          <h2 id="pd-statement-title" tabindex="-1">Problem statement</h2>
+          <div id="pd-description" style="white-space: pre-line;"></div>
+
+          <h3>Input</h3>
+          <p id="pd-input-format" style="white-space: pre-line;"></p>
+          <pre id="pd-constraints" class="pd-constraints" style="white-space: pre-wrap;"></pre>
+
+          <h3>Output</h3>
+          <p id="pd-output-format" style="white-space: pre-line;"></p>
+
+          <h3>Examples</h3>
+          <div id="pd-samples-container"></div>
+          <p class="pd-feedback" id="pd-copy-status" role="status"></p>
+        </section>
+
+        <!-- SUBMIT -->
+        <section id="submit" class="card pd-panel" aria-labelledby="pd-submit-title" data-problem-panel hidden>
+          <h2 id="pd-submit-title" tabindex="-1">Submit a solution</h2>
+          <p id="pd-submit-problem-label">...</p>
+          <p class="pd-notice">Practice mode: submissions are saved in this browser. They are not sent to an online judge or graded.</p>
+
+          <form data-requires-auth id="pd-submit-form" novalidate>
+            <div class="pd-form-row">
+              <label for="pd-language">Language</label>
+              <select id="pd-language" name="language"></select>
+            </div>
+
+            <div class="pd-source-heading">
+              <label for="pd-source">Source code</label>
+              <span id="pd-draft-status" class="pd-helper" role="status">Your draft is saved automatically.</span>
+            </div>
+            <div class="pd-editor">
+              <div id="pd-line-numbers" class="pd-line-numbers" aria-hidden="true">1</div>
+              <textarea id="pd-source" name="source" spellcheck="false" autocapitalize="off" autocomplete="off" autocorrect="off" wrap="off" aria-describedby="pd-source-help pd-source-error" placeholder="Write or paste your solution here…" required></textarea>
+            </div>
+            <div class="pd-editor-footer"><span id="pd-cursor">Ln 1, Col 1</span><span id="pd-code-size">0 B / 256 KB</span></div>
+            <p id="pd-source-error" class="pd-error" role="alert" hidden></p>
+            <p id="pd-source-help" class="pd-helper">Use Tab to indent. Press Escape, then Tab to leave the editor.</p>
+
+            <div class="pd-upload">
+              <label for="pd-source-file">Or load a source file</label>
+              <input id="pd-source-file" type="file" accept=".cpp,.cc,.cxx,.py,.java,.rs" aria-describedby="pd-file-help" />
+              <p id="pd-file-help" class="pd-helper">C++, Python, Java or Rust · up to 256 KB. Loading a file replaces the code above.</p>
+              <p id="pd-file-status" class="pd-helper" role="status"></p>
+            </div>
+
+            <div class="pd-submit-actions">
+              <button type="submit" class="btn btn-primary" id="pd-submit-button">Submit solution</button>
+              <button type="button" class="btn btn-secondary" id="pd-download-code">Download source</button>
+            </div>
+            <p id="pd-submit-status" class="pd-feedback" role="status"></p>
+          </form>
+        </section>
+
+        <!-- SUBMISSIONS -->
+        <section id="submissions" class="card pd-panel" aria-labelledby="pd-submissions-title" data-problem-panel hidden>
+          <div class="pd-section-heading">
+            <h2 id="pd-submissions-title" tabindex="-1">My submissions</h2>
+            <a href="#submit" class="btn btn-secondary btn-sm" data-requires-auth>New submission</a>
+          </div>
+          <p>Submissions saved for this problem in this browser. No judging results are available in practice mode.</p>
+          <div id="pd-submissions-empty" class="pd-empty">
+            <h3>No submissions yet</h3>
+            <p>Prepare your solution and save your first submission.</p>
+            <a href="#submit" class="btn btn-primary btn-sm" data-requires-auth>Submit a solution</a>
+          </div>
+          <div id="pd-submissions-table" class="table-wrap" hidden>
+            <table class="data-table pd-submissions-table">
+              <caption class="pd-helper">Up to 20 recent submissions are kept on this device. Download source code to keep a copy.</caption>
+              <thead><tr><th scope="col">Submitted</th><th scope="col">Language</th><th scope="col">Status</th><th scope="col">Source</th></tr></thead>
+              <tbody id="pd-submission-list"></tbody>
+            </table>
+          </div>
+          <p id="pd-history-status" class="pd-feedback" role="status"></p>
+        </section>
+
+        <!-- EDITORIAL -->
+        <section id="editorial" class="card pd-panel pd-statement" aria-labelledby="pd-editorial-title" data-problem-panel hidden>
+          <h2 id="pd-editorial-title" tabindex="-1">Editorial</h2>
+          <pre id="pd-editorial-body" style="white-space: pre-wrap; font-family: inherit;"></pre>
+        </section>
+      </div>
+
+      <span data-include="back-link" data-href="problems.html" data-label="to problemset"></span>
+    </div>
+  </main>
+
+  <div data-include="footer"></div>
+  <div data-include="auth-popup"></div>
+</body>
+</html>
