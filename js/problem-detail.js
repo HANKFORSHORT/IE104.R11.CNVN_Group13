@@ -9,6 +9,16 @@
     rust: { label: "Rust", extension: ".rs" }
   };
   const FILE_LANGUAGES = { cpp: "cpp20", cc: "cpp20", cxx: "cpp20", py: "python3", java: "java21", rs: "rust" };
+
+  const searchParams = new URLSearchParams(location.search);
+  const slug = searchParams.get("slug") || searchParams.get("problem");
+  const isLocal = searchParams.get("local") === "1";
+
+  if (!slug) {
+    window.location.replace(isLocal ? "problems.html?local=1" : "problems.html");
+    return;
+  }
+
   const source = document.getElementById("pd-source");
   const language = document.getElementById("pd-language");
   const lineNumbers = document.getElementById("pd-line-numbers");
@@ -34,7 +44,7 @@
 
   const session = AstraAuth.user();
   const owner = session ? session.identifier : "guest";
-  const storePrefix = "astra.problem.2264F." + encodeURIComponent(owner);
+  const storePrefix = "astra.problem." + encodeURIComponent(slug) + "." + encodeURIComponent(owner);
   const DRAFT_KEY = storePrefix + ".draft";
   const SUBMISSIONS_KEY = storePrefix + ".submissions";
 
@@ -121,7 +131,7 @@
     const stored = readStore(SUBMISSIONS_KEY, []);
     if (!Array.isArray(stored)) return [];
     return stored.filter(function (item) {
-      return item && Object.hasOwn(LANGUAGES, item.language) && typeof item.code === "string" &&
+      return item && typeof item.language === "string" && typeof item.code === "string" &&
         byteLength(item.code) <= MAX_BYTES && Number.isFinite(item.createdAt) &&
         !Number.isNaN(new Date(item.createdAt).getTime());
     }).slice(0, 20);
@@ -131,7 +141,8 @@
     const url = URL.createObjectURL(new Blob([code], { type: "text/plain;charset=utf-8" }));
     const link = document.createElement("a");
     link.href = url;
-    link.download = "2264F" + LANGUAGES[languageId].extension;
+    const ext = LANGUAGES[languageId] ? LANGUAGES[languageId].extension : ".txt";
+    link.download = slug + ext;
     document.body.appendChild(link);
     link.click();
     link.remove();
@@ -146,6 +157,7 @@
     document.getElementById("pd-submissions-table").hidden = submissions.length === 0;
 
     submissions.forEach(function (submission) {
+      const langLabel = LANGUAGES[submission.language] ? LANGUAGES[submission.language].label : submission.language;
       const row = document.createElement("tr");
       const timeCell = document.createElement("td");
       const time = document.createElement("time");
@@ -153,7 +165,7 @@
       time.textContent = new Date(submission.createdAt).toLocaleString(undefined, { dateStyle: "medium", timeStyle: "short" });
       timeCell.appendChild(time);
       const languageCell = document.createElement("td");
-      languageCell.textContent = LANGUAGES[submission.language].label;
+      languageCell.textContent = langLabel;
       const statusCell = document.createElement("td");
       statusCell.textContent = "Saved locally · not judged";
       const sourceCell = document.createElement("td");
@@ -161,7 +173,7 @@
       download.type = "button";
       download.className = "pd-text-button";
       download.textContent = "Download";
-      download.setAttribute("aria-label", "Download " + LANGUAGES[submission.language].label + " source submitted " + time.textContent);
+      download.setAttribute("aria-label", "Download " + langLabel + " source submitted " + time.textContent);
       download.addEventListener("click", function () { downloadCode(submission.code, submission.language); });
       sourceCell.appendChild(download);
       row.append(timeCell, languageCell, statusCell, sourceCell);
@@ -169,8 +181,6 @@
     });
   }
 
-  // TODO: send the validated source to a judging API when the backend exists.
-  // Local records deliberately have no Accepted/Wrong answer verdict or score.
   document.getElementById("pd-submit-form").addEventListener("submit", function (event) {
     event.preventDefault();
     if (!AstraAuth.requireLogin(location.pathname + location.search + "#submit")) return;
@@ -286,18 +296,6 @@
     downloadCode(source.value, language.value);
   });
 
-  document.querySelectorAll("[data-copy-sample]").forEach(function (button) {
-    button.addEventListener("click", async function () {
-      const status = document.getElementById("pd-copy-status");
-      try {
-        await navigator.clipboard.writeText(document.getElementById(button.dataset.copySample).textContent + "\n");
-        status.textContent = button.textContent.replace("Copy", "Copied") + ".";
-      } catch (error) {
-        status.textContent = "Clipboard access is unavailable. Select and copy the sample text manually.";
-      }
-    });
-  });
-
   window.addEventListener("hashchange", function () { showSection(true); });
   window.addEventListener("pagehide", saveDraft);
   document.addEventListener("visibilitychange", function () { if (document.hidden) saveDraft(); });
@@ -305,9 +303,156 @@
   const draft = readStore(DRAFT_KEY, null);
   if (draft && typeof draft.code === "string" && byteLength(draft.code) <= MAX_BYTES) {
     source.value = draft.code;
-    if (Object.hasOwn(LANGUAGES, draft.language)) language.value = draft.language;
+    if (draft.language) language.value = draft.language;
     draftStatus.textContent = "Draft restored from this device.";
   }
   updateEditor();
   showSection(false);
+
+  const apiStatus = document.getElementById("pd-api-status");
+  const apiBase = window.CONFIG.API_BASE_URL;
+  const requestTimeout = window.CONFIG.REQUEST_TIMEOUT || 60000;
+
+  function makeElement(tag, text, className) {
+    const node = document.createElement(tag);
+    if (text !== undefined && text !== null) node.textContent = text;
+    if (className) node.className = className;
+    return node;
+  }
+
+  function setApiStatus(message, isError) {
+    apiStatus.textContent = message;
+    apiStatus.style.color = isError ? "var(--danger, crimson)" : "";
+  }
+
+  function renderInlineMarkdown(node, text) {
+    node.replaceChildren();
+    String(text || "").split(/(\*\*[^*]+\*\*)/g).forEach(function (part) {
+      if (part.startsWith("**") && part.endsWith("**")) {
+        node.appendChild(makeElement("strong", part.slice(2, -2)));
+      } else if (part) {
+        node.appendChild(document.createTextNode(part));
+      }
+    });
+  }
+
+  function formatTimeLimit(ms) {
+    if (!ms) return "—";
+    return ms >= 1000 ? (ms / 1000) + " seconds" : ms + " ms";
+  }
+
+  function renderProblem(problem) {
+    const code = problem.code || problem.slug?.toUpperCase() || "PROB";
+    document.title = (problem.title || "Problem") + " · Astra";
+    document.getElementById("pd-breadcrumb-code").textContent = code;
+    document.getElementById("pd-source-label").textContent =
+      (problem.source || "Astra Archive") + (problem.difficulty ? " · " + problem.difficulty : "");
+    document.getElementById("pd-title").textContent = problem.title || "";
+    const ratingBadge = document.getElementById("pd-rating");
+    const rating = Number(problem.difficulty_rating ?? problem.difficulty);
+    ratingBadge.textContent = problem.difficulty_rating ?? problem.difficulty ?? "—";
+    ratingBadge.classList.remove("pill-easy", "pill-medium", "pill-hard");
+    if (Number.isFinite(rating)) {
+      ratingBadge.classList.add(rating < 1400 ? "pill-easy" : rating <= 2000 ? "pill-medium" : "pill-hard");
+    }
+    document.getElementById("pd-submit-problem-label").textContent = code + " · " + (problem.title || "");
+
+    const languages = Array.isArray(problem.languages) ? problem.languages : [];
+    const meta = document.getElementById("pd-header-meta");
+    meta.replaceChildren();
+    [
+      "Time limit: " + formatTimeLimit(problem.time_limit_ms),
+      "Memory limit: " + (problem.memory_limit_mb ? problem.memory_limit_mb + " MB" : "—"),
+      "Checker: " + (problem.checker_type || "standard"),
+      "Input: stdin",
+      "Output: stdout",
+      "Languages: " + (languages.map(function (item) { return item.name; }).join(", ") || "—")
+    ].forEach(function (item) { meta.appendChild(makeElement("span", item)); });
+
+    const tags = document.getElementById("pd-topic-tags");
+    tags.replaceChildren();
+    (problem.tags || []).forEach(function (tag) {
+      tags.appendChild(makeElement("span", tag.name, "tag"));
+    });
+
+    renderInlineMarkdown(document.getElementById("pd-description"), problem.description);
+    document.getElementById("pd-input-format").textContent = problem.input_format || "";
+    document.getElementById("pd-output-format").textContent = problem.output_format || "";
+    document.getElementById("pd-constraints").textContent = problem.constraints_text || "";
+
+    const samples = document.getElementById("pd-samples-container");
+    samples.replaceChildren();
+    (problem.samples || []).slice().sort(function (a, b) {
+      return (a.display_order || 0) - (b.display_order || 0);
+    }).forEach(function (sample, index) {
+      const example = makeElement("div", null, "pd-example");
+      [["Input", sample.input_data, "pd-input-"], ["Output", sample.expected_output, "pd-output-"]]
+        .forEach(function (entry) {
+          const box = makeElement("div", null, "pd-sample");
+          const heading = makeElement("div", null, "pd-sample-heading");
+          heading.appendChild(makeElement("strong", entry[0]));
+          const button = makeElement("button", "Copy " + entry[0].toLowerCase(), "pd-text-button");
+          button.type = "button";
+          button.dataset.copySample = entry[2] + (index + 1);
+          heading.appendChild(button);
+          const pre = makeElement("pre", entry[1] || "");
+          pre.id = button.dataset.copySample;
+          box.append(heading, pre);
+          example.appendChild(box);
+        });
+      samples.appendChild(example);
+    });
+
+    const languageSelect = document.getElementById("pd-language");
+    languageSelect.replaceChildren();
+    languages.forEach(function (item) {
+      const option = document.createElement("option");
+      option.value = item.code || item.slug || (item.name || "").toLowerCase();
+      option.textContent = item.compiler_version ? item.name + " (" + item.compiler_version + ")" : item.name;
+      languageSelect.appendChild(option);
+    });
+    if (draft && draft.language) {
+      languageSelect.value = draft.language;
+    }
+
+    document.getElementById("pd-editorial-body").textContent =
+      problem.editorial?.body || "No editorial available for this problem yet.";
+
+    samples.querySelectorAll("[data-copy-sample]").forEach(function (button) {
+      button.addEventListener("click", async function () {
+        const status = document.getElementById("pd-copy-status");
+        try {
+          await navigator.clipboard.writeText(document.getElementById(button.dataset.copySample).textContent + "\n");
+          status.textContent = button.textContent.replace("Copy", "Copied") + ".";
+        } catch (error) {
+          status.textContent = "Clipboard access is unavailable. Select and copy the sample text manually.";
+        }
+      });
+    });
+  }
+
+  async function loadProblem() {
+    const controller = new AbortController();
+    const timer = setTimeout(function () { controller.abort(); }, requestTimeout);
+    setApiStatus("Loading problem data...");
+    try {
+      const response = await fetch(apiBase + "/api/problems/" + encodeURIComponent(slug), {
+        headers: { Accept: "application/json" },
+        signal: controller.signal
+      });
+      const result = await response.json();
+      if (!response.ok || !result.success) throw new Error(result.message || "HTTP " + response.status);
+      renderProblem(result.data);
+      setApiStatus("");
+    } catch (error) {
+      setApiStatus(error.name === "AbortError"
+        ? "Request timed out. Server might be waking up, please refresh."
+        : "Failed to load problem: " + error.message, true);
+      console.error("Fetch error:", error);
+    } finally {
+      clearTimeout(timer);
+    }
+  }
+
+  loadProblem();
 })();

@@ -58,6 +58,10 @@
   padding: 0.4em 0.8em;
 }
 
+.pd-rating.pill-easy { color: var(--teal); }
+.pd-rating.pill-medium { color: var(--sandy); }
+.pd-rating.pill-hard { color: var(--orange); }
+
 .pd-layout {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
