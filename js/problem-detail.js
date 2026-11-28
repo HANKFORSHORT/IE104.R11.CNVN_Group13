@@ -353,7 +353,13 @@
     document.getElementById("pd-source-label").textContent =
       (problem.source || "Astra Archive") + (problem.difficulty ? " · " + problem.difficulty : "");
     document.getElementById("pd-title").textContent = problem.title || "";
-    document.getElementById("pd-rating").textContent = problem.difficulty_rating ?? problem.difficulty ?? "—";
+    const ratingBadge = document.getElementById("pd-rating");
+    const rating = Number(problem.difficulty_rating ?? problem.difficulty);
+    ratingBadge.textContent = problem.difficulty_rating ?? problem.difficulty ?? "—";
+    ratingBadge.classList.remove("pill-easy", "pill-medium", "pill-hard");
+    if (Number.isFinite(rating)) {
+      ratingBadge.classList.add(rating < 1400 ? "pill-easy" : rating <= 2000 ? "pill-medium" : "pill-hard");
+    }
     document.getElementById("pd-submit-problem-label").textContent = code + " · " + (problem.title || "");
 
     const languages = Array.isArray(problem.languages) ? problem.languages : [];
