@@ -73,6 +73,23 @@
     document.querySelectorAll("[data-current-user-row]").forEach((element) => {
       element.dataset.handle = user ? user.identifier : "";
     });
+    document.querySelectorAll(".nav-avatar-frame").forEach((frame) => {
+      const image = frame.querySelector(".nav-avatar");
+      const initials = frame.querySelector(".nav-avatar-initials");
+      initials.textContent = user ? user.identifier.slice(0, 2).toUpperCase() : "";
+      initials.hidden = false;
+      image.hidden = true;
+      image.onload = () => {
+        image.hidden = false;
+        initials.hidden = true;
+      };
+      image.onerror = () => {
+        image.hidden = true;
+        initials.hidden = false;
+      };
+      image.removeAttribute("src");
+      if (user && user.avatarUrl) image.src = user.avatarUrl;
+    });
   }
 
   // Capture before page handlers so a guest action cannot write local account data.
