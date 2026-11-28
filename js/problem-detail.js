@@ -9,6 +9,16 @@
     rust: { label: "Rust", extension: ".rs" }
   };
   const FILE_LANGUAGES = { cpp: "cpp20", cc: "cpp20", cxx: "cpp20", py: "python3", java: "java21", rs: "rust" };
+
+  const searchParams = new URLSearchParams(location.search);
+  const slug = searchParams.get("slug") || searchParams.get("problem");
+  const isLocal = searchParams.get("local") === "1";
+
+  if (!slug) {
+    window.location.replace(isLocal ? "problems.html?local=1" : "problems.html");
+    return;
+  }
+
   const source = document.getElementById("pd-source");
   const language = document.getElementById("pd-language");
   const lineNumbers = document.getElementById("pd-line-numbers");
@@ -34,7 +44,7 @@
 
   const session = AstraAuth.user();
   const owner = session ? session.identifier : "guest";
-  const storePrefix = "astra.problem.2264F." + encodeURIComponent(owner);
+  const storePrefix = "astra.problem." + encodeURIComponent(slug) + "." + encodeURIComponent(owner);
   const DRAFT_KEY = storePrefix + ".draft";
   const SUBMISSIONS_KEY = storePrefix + ".submissions";
 
@@ -121,7 +131,7 @@
     const stored = readStore(SUBMISSIONS_KEY, []);
     if (!Array.isArray(stored)) return [];
     return stored.filter(function (item) {
-      return item && Object.hasOwn(LANGUAGES, item.language) && typeof item.code === "string" &&
+      return item && typeof item.language === "string" && typeof item.code === "string" &&
         byteLength(item.code) <= MAX_BYTES && Number.isFinite(item.createdAt) &&
         !Number.isNaN(new Date(item.createdAt).getTime());
     }).slice(0, 20);
@@ -131,7 +141,8 @@
     const url = URL.createObjectURL(new Blob([code], { type: "text/plain;charset=utf-8" }));
     const link = document.createElement("a");
     link.href = url;
-    link.download = "2264F" + LANGUAGES[languageId].extension;
+    const ext = LANGUAGES[languageId] ? LANGUAGES[languageId].extension : ".txt";
+    link.download = slug + ext;
     document.body.appendChild(link);
     link.click();
     link.remove();
@@ -146,6 +157,7 @@
     document.getElementById("pd-submissions-table").hidden = submissions.length === 0;
 
     submissions.forEach(function (submission) {
+      const langLabel = LANGUAGES[submission.language] ? LANGUAGES[submission.language].label : submission.language;
       const row = document.createElement("tr");
       const timeCell = document.createElement("td");
       const time = document.createElement("time");
@@ -153,7 +165,7 @@
       time.textContent = new Date(submission.createdAt).toLocaleString(undefined, { dateStyle: "medium", timeStyle: "short" });
       timeCell.appendChild(time);
       const languageCell = document.createElement("td");
-      languageCell.textContent = LANGUAGES[submission.language].label;
+      languageCell.textContent = langLabel;
       const statusCell = document.createElement("td");
       statusCell.textContent = "Saved locally · not judged";
       const sourceCell = document.createElement("td");
@@ -161,7 +173,7 @@
       download.type = "button";
       download.className = "pd-text-button";
       download.textContent = "Download";
-      download.setAttribute("aria-label", "Download " + LANGUAGES[submission.language].label + " source submitted " + time.textContent);
+      download.setAttribute("aria-label", "Download " + langLabel + " source submitted " + time.textContent);
       download.addEventListener("click", function () { downloadCode(submission.code, submission.language); });
       sourceCell.appendChild(download);
       row.append(timeCell, languageCell, statusCell, sourceCell);
@@ -169,8 +181,6 @@
     });
   }
 
-  // TODO: send the validated source to a judging API when the backend exists.
-  // Local records deliberately have no Accepted/Wrong answer verdict or score.
   document.getElementById("pd-submit-form").addEventListener("submit", function (event) {
     event.preventDefault();
     if (!AstraAuth.requireLogin(location.pathname + location.search + "#submit")) return;
@@ -286,18 +296,6 @@
     downloadCode(source.value, language.value);
   });
 
-  document.querySelectorAll("[data-copy-sample]").forEach(function (button) {
-    button.addEventListener("click", async function () {
-      const status = document.getElementById("pd-copy-status");
-      try {
-        await navigator.clipboard.writeText(document.getElementById(button.dataset.copySample).textContent + "\n");
-        status.textContent = button.textContent.replace("Copy", "Copied") + ".";
-      } catch (error) {
-        status.textContent = "Clipboard access is unavailable. Select and copy the sample text manually.";
-      }
-    });
-  });
-
   window.addEventListener("hashchange", function () { showSection(true); });
   window.addEventListener("pagehide", saveDraft);
   document.addEventListener("visibilitychange", function () { if (document.hidden) saveDraft(); });
@@ -305,16 +303,13 @@
   const draft = readStore(DRAFT_KEY, null);
   if (draft && typeof draft.code === "string" && byteLength(draft.code) <= MAX_BYTES) {
     source.value = draft.code;
-    if (Object.hasOwn(LANGUAGES, draft.language)) language.value = draft.language;
+    if (draft.language) language.value = draft.language;
     draftStatus.textContent = "Draft restored from this device.";
   }
   updateEditor();
   showSection(false);
 
-  // Load the problem data for this detail page from the configured backend.
   const apiStatus = document.getElementById("pd-api-status");
-  const slug = new URLSearchParams(location.search).get("slug") ||
-    new URLSearchParams(location.search).get("problem") || "a-plus-b";
   const apiBase = window.CONFIG.API_BASE_URL;
   const requestTimeout = window.CONFIG.REQUEST_TIMEOUT || 60000;
 
@@ -416,10 +411,13 @@
       option.textContent = item.compiler_version ? item.name + " (" + item.compiler_version + ")" : item.name;
       languageSelect.appendChild(option);
     });
+    if (draft && draft.language) {
+      languageSelect.value = draft.language;
+    }
+
     document.getElementById("pd-editorial-body").textContent =
       problem.editorial?.body || "No editorial available for this problem yet.";
 
-    // Samples are inserted after initial setup, so attach their copy handlers here.
     samples.querySelectorAll("[data-copy-sample]").forEach(function (button) {
       button.addEventListener("click", async function () {
         const status = document.getElementById("pd-copy-status");
