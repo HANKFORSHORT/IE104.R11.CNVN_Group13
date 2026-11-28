@@ -228,10 +228,52 @@
      public-profile.html and solved.html  (?user=handle)
      --------------------------------------------------------- */
 
-  function initUserPages() {
-    const user = requestedUser();
+  async function initUserPages() {
+    const requested = new URLSearchParams(window.location.search).get("user");
+    let user = requestedUser();
     const notFound = document.querySelector("[data-user-notfound]");
     const profile = document.querySelector("[data-user-profile]");
+    const loading = document.querySelector("[data-user-loading]");
+
+    if (requested && /^[A-Za-z0-9_-]{1,40}$/.test(requested)) {
+      const controller = new AbortController();
+      const timeout = setTimeout(() => controller.abort(), window.CONFIG.REQUEST_TIMEOUT || 60000);
+      try {
+        const response = await fetch(
+          window.CONFIG.API_BASE_URL + "/api/profiles/" + encodeURIComponent(requested),
+          { signal: controller.signal }
+        );
+        if (response.ok) {
+          const body = await response.json();
+          const data = body && body.success && body.data;
+          if (!data || typeof data.handle !== "string") throw new Error("Invalid profile response");
+          user = {
+            handle: data.handle,
+            name: data.displayName || "",
+            location: data.countryCode || "",
+            bio: data.bio || "",
+            kind: "registered",
+            rating: Number(data.rating) || 0,
+            rank: null,
+            solved: Number(data.solved) || 0,
+            detailsAvailable: false
+          };
+        } else if (response.status !== 404) {
+          throw new Error("Profile request failed");
+        }
+      } catch (error) {
+        if (!user) {
+          notFound.querySelector("h1").textContent = "Profile unavailable";
+          notFound.querySelector(".page-header p").textContent = "We could not load this profile. Please try again later.";
+          notFound.querySelector(".empty-state h2").textContent = "Could not load profile";
+          notFound.querySelector(".empty-state p").textContent = "Check your connection and try again.";
+        }
+      } finally {
+        clearTimeout(timeout);
+      }
+    }
+
+    loading.hidden = true;
 
     if (!user) {
       notFound.hidden = false;
@@ -251,21 +293,27 @@
       solvedLabel: isContest ? "Contest problems solved" : "Problems solved",
       initials: user.handle.slice(0, 2).toUpperCase(),
       subtitle: [user.name, user.location].filter(Boolean).join(" · ") || "Astra competitor",
+      bio: user.bio || "",
     };
 
     document.querySelectorAll("[data-user-field]").forEach(function (element) {
       element.textContent = fields[element.dataset.userField];
+      if (element.dataset.userField === "bio") element.hidden = !fields.bio;
     });
 
     // Links to other per-user pages keep the same ?user=
     document.querySelectorAll("[data-user-link]").forEach(function (link) {
+      if (user.kind === "registered") {
+        link.hidden = true;
+        return;
+      }
       const url = new URL(link.href);
       url.searchParams.set("user", user.handle);
       link.href = url.href;
     });
 
     document.querySelectorAll("[data-owner-only]").forEach((element) => {
-      element.hidden = user.handle !== CURRENT_USER;
+      element.hidden = user.kind === "registered" || user.handle !== CURRENT_USER;
     });
     document.title = user.handle + " · Astra";
     profile.hidden = false;

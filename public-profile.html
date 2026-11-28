@@ -11,6 +11,7 @@
   <link rel="stylesheet" href="css/account.css" />
   <script src="js/session.js"></script>
   <script src="js/main.js"></script>
+  <script src="js/config.js"></script>
   <script src="js/user-data.js"></script>
   <script src="js/account.js" defer></script>
 </head>
@@ -18,6 +19,10 @@
   <div data-include="header"></div>
 
   <main class="account-page" data-account-page="public-profile">
+
+    <div class="page-header" data-user-loading role="status">
+      <div class="container"><p>Loading profile…</p></div>
+    </div>
 
     <div data-user-notfound hidden>
     <div class="page-header">
@@ -48,6 +53,7 @@
             <div>
               <h1 data-user-field="handle">username</h1>
               <p data-user-field="subtitle"></p>
+              <p data-user-field="bio" hidden></p>
             </div>
           </div>
         </div>
