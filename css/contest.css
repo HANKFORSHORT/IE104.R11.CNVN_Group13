@@ -94,3 +94,40 @@ body.light .modal {
   font-size: var(--step-1);
   color: var(--text);
 }
+
+/* Real problem titles and topic tags need room beside the action panel. */
+.problem-set-layout {
+  grid-template-columns: minmax(0, 2fr) minmax(14rem, 1fr);
+  align-items: start;
+}
+
+.problem-set-layout > * {
+  min-width: 0;
+}
+
+.problem-set-layout .tag {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  line-height: 1.5;
+  color: var(--text-muted);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius-sm);
+  padding: 0.15rem 0.45rem;
+  margin: 0.15rem 0.3rem 0.15rem 0;
+}
+
+.training-grid .card .btn {
+  margin-top: 1rem;
+}
+
+.collection-status {
+  margin: 0 0 1rem;
+  font-size: 0.9rem;
+}
+
+@media (max-width: 860px) {
+  .problem-set-layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

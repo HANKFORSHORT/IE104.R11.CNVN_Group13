@@ -1,12 +1,16 @@
-document.addEventListener("DOMContentLoaded", async () => {
-  await AstraAuth.ready;
-  const CONTEST_ID = "round-118";
+document.addEventListener("DOMContentLoaded", () => {
+  const selectedContest = AstraProblemSets.getSet("contest", new URLSearchParams(location.search).get("contest"));
+  if (!selectedContest) return;
+  const CONTEST_ID = selectedContest.id;
   const REGISTERED_KEY = AstraAuth.userKey("astra-registered-contests");
 
   const isLoggedIn = () => AstraAuth.isLoggedIn();
 
   const getRegistered = () => {
-    try { return JSON.parse(localStorage.getItem(REGISTERED_KEY)) || []; }
+    try {
+      const list = JSON.parse(localStorage.getItem(REGISTERED_KEY));
+      return Array.isArray(list) ? list : [];
+    }
     catch (e) { return []; }
   };
   const saveRegistered = (list) => {

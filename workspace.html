@@ -14,6 +14,7 @@
   <script src="js/session.js"></script>
   <script src="js/main.js" defer></script>
   <script src="js/table-filter.js" defer></script>
+  <script src="js/problem-sets.js" defer></script>
   <link rel="stylesheet" href="css/workspace.css">
 </head>
 <body>
@@ -22,10 +23,10 @@
   <main>
     <div class="page-header">
       <div class="container">
-        <div class="breadcrumb"><a href="index.html">Home</a> / <a href="contests.html">Contests</a> / <a href="contest.html">Round 118</a> / Workspace</div>
+        <div class="breadcrumb"><a href="index.html">Home</a> / <a id="wsCollectionLink" href="contests.html">Contests</a> / <a id="wsSetLink" href="contest.html">Contest</a> / Workspace</div>
         <div style="display:flex;justify-content:space-between;align-items:flex-end;gap:2rem;flex-wrap:wrap;">
           <div>
-            <h1 style="color:var(--peach);margin-bottom:.6rem;">Astra Round 118 (Div. 1 + Div. 2)</h1>
+            <h1 id="wsTitle" style="color:var(--peach);margin-bottom:.6rem;">Workspace</h1>
             <span class="ws-state" id="wsState" data-state="upcoming" style="color:var(--peach);">Not started</span>
           </div>
           <div style="min-width:260px;">
@@ -38,10 +39,11 @@
     </div>
 
     <section class="section" style="padding-top: 2.5rem">
-      <div class="container two-col" style="align-items: start;">
+      <div class="container two-col problem-set-layout">
 
         <div>
-          <h3>Problems</h3>
+          <h3>Problems (<span id="wsProblemCount">—</span>)</h3>
+          <p id="wsProblemsStatus" class="collection-status" role="status">Loading problems…</p>
           <div class="table-wrap">
             <table class="data-table">
               <thead>
@@ -52,15 +54,11 @@
           </div>
 
           <h3 style="margin-top:2rem;">Your submissions</h3>
-          <div class="ws-tabs" role="tablist" aria-label="Filter submissions">
-            <button role="tab" aria-selected="true" data-tab="all">All</button>
-            <button role="tab" aria-selected="false" data-tab="Accepted">Accepted</button>
-            <button role="tab" aria-selected="false" data-tab="rejected">Rejected</button>
-          </div>
+          <p>Recent submissions saved from the problem editor in this browser. These submissions have not been judged.</p>
           <div class="table-wrap">
             <table class="data-table">
               <thead>
-                <tr><th>ID</th><th>Time</th><th>Problem</th><th>Language</th><th>Verdict</th></tr>
+                <tr><th>Time</th><th>Problem</th><th>Language</th><th>Status</th><th></th></tr>
               </thead>
               <tbody id="wsSubs"></tbody>
             </table>
@@ -72,8 +70,8 @@
             <h4>Your participation</h4>
             <p style="font-size:.9rem;margin-bottom:.6rem;">Status: <strong id="wsPart">Not registered</strong></p>
             <div class="ws-score">
-              <div><strong id="wsSolved">0</strong>Solved</div>
-              <div><strong id="wsPenalty">0</strong>Penalty (min)</div>
+              <div><strong id="wsAttempted">0</strong>Problems attempted</div>
+              <div><strong id="wsSaved">0</strong>Saved submissions</div>
             </div>
             <button type="button" class="btn btn-primary btn-block" id="wsRegister" data-requires-auth style="margin-top:1.1rem;">Register for round</button>
             <p class="ws-msg" id="wsPartMsg" style="margin:.6rem 0 0;"></p>
@@ -85,18 +83,8 @@
               <label>Problem
                 <select id="wsProblemSel"></select>
               </label>
-              <label>Language
-                <select id="wsLang">
-                  <option>C++20</option>
-                  <option>Python 3</option>
-                  <option>Java 21</option>
-                  <option>Rust</option>
-                </select>
-              </label>
-              <label>Source code
-                <textarea id="wsCode" spellcheck="false" placeholder="Paste your code here"></textarea>
-              </label>
-              <button type="button" class="btn btn-primary btn-block" id="wsSubmit" data-requires-auth>Submit solution</button>
+              <p>Open the problem's submission editor to write code, upload a source file, or continue your saved draft.</p>
+              <button type="submit" class="btn btn-primary btn-block" id="wsSubmit" data-requires-auth disabled>Open submission editor</button>
               <p class="ws-msg" id="wsMsg" role="status"></p>
             </form>
           </div>
@@ -109,8 +97,8 @@
   <dialog class="site-dialog auth-dialog" id="wsVirtualDialog" aria-labelledby="wsVirtualTitle">
     <div class="dialog-body">
       <h2 id="wsVirtualTitle">Start virtual practice?</h2>
-      <p>Practice this round after it has ended. Your submissions are unrated and do not change your score or penalty.</p>
-      <p class="modal-note">Choose a problem and submit a solution in the workspace.</p>
+      <p id="wsVirtualDescription">Start a timed practice session using the problems in this set.</p>
+      <p class="modal-note">Your code and submission history remain available in each problem's editor.</p>
       <div class="dialog-actions">
         <button type="button" class="btn btn-secondary" data-dialog-close>Cancel</button>
         <button type="button" class="btn btn-primary" id="wsVirtualConfirm">Start practicing</button>
@@ -120,7 +108,7 @@
 
   <div data-include="footer"></div>
 
-  <script src="js/workspace.js"></script>
+  <script src="js/workspace.js" defer></script>
   <div data-include="auth-popup"></div>
 </body>
 </html>
