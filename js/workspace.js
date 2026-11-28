@@ -1,4 +1,5 @@
-(function () {
+(async function () {
+  await AstraAuth.ready;
   "use strict";
   if (!AstraAuth.isLoggedIn()) return;
 

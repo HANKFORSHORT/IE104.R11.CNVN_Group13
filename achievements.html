@@ -9,9 +9,10 @@
   <link rel="stylesheet" href="css/style.css" />
   <link rel="stylesheet" href="css/problems.css" />
   <link rel="stylesheet" href="css/account.css" />
+  <script src="js/config.js"></script>
+  <script src="js/api.js"></script>
   <script src="js/session.js"></script>
   <script src="js/main.js"></script>
-  <script src="js/user-data.js"></script>
   <script src="js/achievements.js" defer></script>
 </head>
 <body>
@@ -23,7 +24,7 @@
     </div></div>
     <section class="account-section"><div class="container achievement-layout" id="achievementContent">
       <aside class="achievement-profile" aria-label="Achievement owner">
-        <img id="achievementOwnAvatar" src="images/profile-picture.jpg" alt="Your profile picture" width="200" height="200" />
+        <img id="achievementOwnAvatar" src="images/logo.svg" alt="Your profile picture" width="200" height="200" />
         <span class="avatar achievement-avatar" id="achievementPublicAvatar" aria-hidden="true" hidden></span>
         <h2 id="achievementHandle"></h2>
         <a class="btn btn-secondary btn-sm" id="achievementProfile" href="profile.html">View profile</a>
@@ -31,7 +32,7 @@
       </aside>
       <div>
         <div class="toolbar"><h2>Earned achievements</h2><span id="achievementCount"></span></div>
-        <p class="sample-note" data-sample-note hidden>Sample earned badges for the demo account.</p>
+        <span data-sample-note hidden></span>
         <p id="achievementNotice" role="status"></p>
         <div class="achievement-grid" id="achievementList"></div>
         <div class="panel empty-state" id="achievementEmpty" hidden><h3 id="achievementEmptyTitle">Your collection is waiting</h3><p id="achievementEmptyText">Earned badges will appear here as you reach new milestones.</p><a class="btn btn-primary" id="achievementEmptyAction" href="problems.html">Explore problems</a></div>

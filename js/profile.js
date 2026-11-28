@@ -1,11 +1,35 @@
 (function () {
   'use strict';
 
-  function init() {
-
+  async function init() {
+  await AstraAuth.ready;
   if (!AstraAuth.isLoggedIn()) return;
-  var PROFILE = AstraData.profile();
-  document.querySelector('[data-profile-sample]').hidden = PROFILE.handle !== AstraData.demoUser;
+  var data;
+  try {
+    data = await AstraAPI.request('/api/v1/me');
+  } catch (error) {
+    var status = document.createElement('p');
+    status.setAttribute('role', 'alert');
+    status.textContent = error.message;
+    document.querySelector('.pf-main').prepend(status);
+    return;
+  }
+  var activity = {};
+  (data.activity || []).forEach(function (row) { activity[row.day] = row.count; });
+  var earned = (data.achievements || []).map(function (row) {
+    return {
+      id: row.code, name: row.name, image: row.imagePath, earnedAt: row.earnedAt,
+      href: 'achievements.html?tab=achievements&achievement=' + encodeURIComponent(row.code)
+    };
+  });
+  var PROFILE = {
+    handle: data.username, email: data.email, bio: data.bio,
+    solved: data.solvedCount, rating: data.rating, maxRating: data.maxRating,
+    submissionCount: data.submissionCount, submissions: activity,
+    badges: earned, achievements: earned
+  };
+  document.querySelector('[data-profile-sample]').hidden = true;
+  if (data.avatarUrl) document.getElementById('pf-avatar').src = data.avatarUrl;
 
   function $(id) { return document.getElementById(id); }
   // Null-safe text setter: a missing element must never stop the rest of the page rendering.
@@ -20,9 +44,9 @@
   setText('nav-user', PROFILE.handle);   // optional: only exists if the page header has it
   setText('pf-email', PROFILE.email || 'Not added yet');
   setText('pf-solved', PROFILE.solved);
-  setText('pf-rank', '#' + PROFILE.rank);
-  setText('pf-points', Number(PROFILE.points).toFixed(2));
-  setText('pf-contrib', PROFILE.contribution);
+  setText('pf-rank', PROFILE.rating);
+  setText('pf-points', PROFILE.maxRating);
+  setText('pf-contrib', PROFILE.submissionCount);
   var bio = $('pf-bio');
   if (bio) {
     bio.textContent = PROFILE.bio || 'You have not shared any information.';
@@ -38,12 +62,15 @@
       link.className = 'pf-badge';
       link.href = 'achievements.html?tab=achievements&achievement=' + encodeURIComponent(badge.id);
       link.setAttribute('aria-label', 'View ' + badge.name + ' achievement');
-      var image = document.createElement('img');
-      image.src = badge.image;
-      image.alt = badge.name;
-      image.width = 64;
-      image.height = 64;
-      link.appendChild(image);
+      if (badge.image) {
+        var image = document.createElement('img');
+        image.src = badge.image;
+        image.alt = badge.name;
+        image.width = 64;
+        image.height = 64;
+        link.appendChild(image);
+      }
+      link.appendChild(document.createTextNode(badge.name));
       badges.appendChild(link);
     });
   }

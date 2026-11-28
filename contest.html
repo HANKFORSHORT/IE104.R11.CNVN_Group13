@@ -10,8 +10,9 @@
     <link rel="stylesheet" href="css/contest.css">
     <link rel="stylesheet" href="css/table.css">
     <script src="js/config.js"></script>
-    <script src="js/session.js"></script>
-    <script src="js/main.js" defer></script>
+  <script src="js/api.js"></script>
+  <script src="js/session.js"></script>
+  <script src="js/main.js" defer></script>
     <script src="js/table-filter.js" defer></script>
     <script src="js/problem-sets.js" defer></script>
     <script src="js/contest.js" defer></script>
@@ -34,7 +35,7 @@
         </div>
 
         <section class="section" style="padding-top: 2.5rem">
-            <div class="container two-col problem-set-layout">
+            <div class="container two-col problem-set-layout" style="align-items: start; ">
                 <div>
                     <h3>About this round</h3>
                     <p><span data-set-field="count">—</span> problems selected from the Astra problemset. Open a problem to read its statement, or use the workspace to prepare your solutions.</p>
@@ -54,7 +55,7 @@
                             <tbody id="set-problems"></tbody>
                         </table>
                     </div>
-                    
+
                     <h3 style="margin-top:2rem;">Rules</h3>
                     <ul style="display:flex;flex-direction:column;gap:0.6rem;color:var(--text-muted);font-size:0.94rem;">
                         <li>&mdash; Registration closes 5 minutes before the round starts.</li>

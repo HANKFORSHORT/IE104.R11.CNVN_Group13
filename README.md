@@ -115,3 +115,20 @@ Theme được lưu trong `localStorage` (khóa `astra-theme`); lần đầu tru
 | Tung An | contest-standings, contest, contests, gym, gym-detail, workspace |
 
 ---
+
+
+## User accounts
+
+The login, register, password reset, own/public profile, settings, solved,
+submissions, notifications, and achievements pages use the backend API via
+`js/api.js`. The API base URL is in `js/config.js`. `?local=1` on a page URL
+selects `http://localhost:3000` for local backend development. Serve the FE
+over HTTP (for example, `python3 -m http.server 5500`) rather than opening
+HTML with `file://`. Set `FRONTEND_ORIGIN=http://localhost:5500` and
+`FRONTEND_URL=http://localhost:5500/` in the local backend environment.
+
+The deployed GitHub Pages site uses the Render backend URL from `js/config.js`.
+Sign-in sessions use an httpOnly cookie; the browser sends it with
+`credentials: 'include'`. Do not store the session token in localStorage.
+For the public profile, use `public-profile.html?u=username`; the old `?user=`
+link remains accepted.
