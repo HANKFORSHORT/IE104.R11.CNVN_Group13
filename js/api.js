@@ -42,7 +42,12 @@
     if (!["google", "facebook"].includes(provider)) throw new TypeError("Unknown provider");
     const url = new URL("/api/v1/auth/" + provider + (link ? "/link" : ""),
       window.CONFIG.API_BASE_URL);
-    url.searchParams.set("returnTo", returnTo);
+    const destination = new URL(returnTo, window.location.href);
+    const localHosts = ["localhost", "127.0.0.1"];
+    // A hosted backend cannot redirect to a local page; use its configured FE instead.
+    if (!localHosts.includes(destination.hostname) || localHosts.includes(url.hostname)) {
+      url.searchParams.set("returnTo", destination.href);
+    }
     return url.href;
   }
 
