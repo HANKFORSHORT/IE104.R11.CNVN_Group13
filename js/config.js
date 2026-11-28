@@ -1,6 +1,6 @@
 // js/config.js
 (function () {
-  // Thêm ?local=1 vào URL (vd: testingapi.html?local=1) nếu muốn gọi backend dưới máy
+  // Thêm ?local=1 vào URL nếu muốn gọi backend dưới máy.
   const useLocalBackend = new URLSearchParams(location.search).get("local") === "1";
 
   const CONFIG = {

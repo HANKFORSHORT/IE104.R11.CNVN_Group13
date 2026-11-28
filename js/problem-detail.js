@@ -310,4 +310,145 @@
   }
   updateEditor();
   showSection(false);
+
+  // Load the problem data for this detail page from the configured backend.
+  const apiStatus = document.getElementById("pd-api-status");
+  const slug = new URLSearchParams(location.search).get("slug") ||
+    new URLSearchParams(location.search).get("problem") || "a-plus-b";
+  const apiBase = window.CONFIG.API_BASE_URL;
+  const requestTimeout = window.CONFIG.REQUEST_TIMEOUT || 60000;
+
+  function makeElement(tag, text, className) {
+    const node = document.createElement(tag);
+    if (text !== undefined && text !== null) node.textContent = text;
+    if (className) node.className = className;
+    return node;
+  }
+
+  function setApiStatus(message, isError) {
+    apiStatus.textContent = message;
+    apiStatus.style.color = isError ? "var(--danger, crimson)" : "";
+  }
+
+  function renderInlineMarkdown(node, text) {
+    node.replaceChildren();
+    String(text || "").split(/(\*\*[^*]+\*\*)/g).forEach(function (part) {
+      if (part.startsWith("**") && part.endsWith("**")) {
+        node.appendChild(makeElement("strong", part.slice(2, -2)));
+      } else if (part) {
+        node.appendChild(document.createTextNode(part));
+      }
+    });
+  }
+
+  function formatTimeLimit(ms) {
+    if (!ms) return "—";
+    return ms >= 1000 ? (ms / 1000) + " seconds" : ms + " ms";
+  }
+
+  function renderProblem(problem) {
+    const code = problem.code || problem.slug?.toUpperCase() || "PROB";
+    document.title = (problem.title || "Problem") + " · Astra";
+    document.getElementById("pd-breadcrumb-code").textContent = code;
+    document.getElementById("pd-source-label").textContent =
+      (problem.source || "Astra Archive") + (problem.difficulty ? " · " + problem.difficulty : "");
+    document.getElementById("pd-title").textContent = problem.title || "";
+    document.getElementById("pd-rating").textContent = problem.difficulty_rating ?? problem.difficulty ?? "—";
+    document.getElementById("pd-submit-problem-label").textContent = code + " · " + (problem.title || "");
+
+    const languages = Array.isArray(problem.languages) ? problem.languages : [];
+    const meta = document.getElementById("pd-header-meta");
+    meta.replaceChildren();
+    [
+      "Time limit: " + formatTimeLimit(problem.time_limit_ms),
+      "Memory limit: " + (problem.memory_limit_mb ? problem.memory_limit_mb + " MB" : "—"),
+      "Checker: " + (problem.checker_type || "standard"),
+      "Input: stdin",
+      "Output: stdout",
+      "Languages: " + (languages.map(function (item) { return item.name; }).join(", ") || "—")
+    ].forEach(function (item) { meta.appendChild(makeElement("span", item)); });
+
+    const tags = document.getElementById("pd-topic-tags");
+    tags.replaceChildren();
+    (problem.tags || []).forEach(function (tag) {
+      tags.appendChild(makeElement("span", tag.name, "tag"));
+    });
+
+    renderInlineMarkdown(document.getElementById("pd-description"), problem.description);
+    document.getElementById("pd-input-format").textContent = problem.input_format || "";
+    document.getElementById("pd-output-format").textContent = problem.output_format || "";
+    document.getElementById("pd-constraints").textContent = problem.constraints_text || "";
+
+    const samples = document.getElementById("pd-samples-container");
+    samples.replaceChildren();
+    (problem.samples || []).slice().sort(function (a, b) {
+      return (a.display_order || 0) - (b.display_order || 0);
+    }).forEach(function (sample, index) {
+      const example = makeElement("div", null, "pd-example");
+      [["Input", sample.input_data, "pd-input-"], ["Output", sample.expected_output, "pd-output-"]]
+        .forEach(function (entry) {
+          const box = makeElement("div", null, "pd-sample");
+          const heading = makeElement("div", null, "pd-sample-heading");
+          heading.appendChild(makeElement("strong", entry[0]));
+          const button = makeElement("button", "Copy " + entry[0].toLowerCase(), "pd-text-button");
+          button.type = "button";
+          button.dataset.copySample = entry[2] + (index + 1);
+          heading.appendChild(button);
+          const pre = makeElement("pre", entry[1] || "");
+          pre.id = button.dataset.copySample;
+          box.append(heading, pre);
+          example.appendChild(box);
+        });
+      samples.appendChild(example);
+    });
+
+    const languageSelect = document.getElementById("pd-language");
+    languageSelect.replaceChildren();
+    languages.forEach(function (item) {
+      const option = document.createElement("option");
+      option.value = item.code || item.slug || (item.name || "").toLowerCase();
+      option.textContent = item.compiler_version ? item.name + " (" + item.compiler_version + ")" : item.name;
+      languageSelect.appendChild(option);
+    });
+    document.getElementById("pd-editorial-body").textContent =
+      problem.editorial?.body || "No editorial available for this problem yet.";
+
+    // Samples are inserted after initial setup, so attach their copy handlers here.
+    samples.querySelectorAll("[data-copy-sample]").forEach(function (button) {
+      button.addEventListener("click", async function () {
+        const status = document.getElementById("pd-copy-status");
+        try {
+          await navigator.clipboard.writeText(document.getElementById(button.dataset.copySample).textContent + "\n");
+          status.textContent = button.textContent.replace("Copy", "Copied") + ".";
+        } catch (error) {
+          status.textContent = "Clipboard access is unavailable. Select and copy the sample text manually.";
+        }
+      });
+    });
+  }
+
+  async function loadProblem() {
+    const controller = new AbortController();
+    const timer = setTimeout(function () { controller.abort(); }, requestTimeout);
+    setApiStatus("Loading problem data...");
+    try {
+      const response = await fetch(apiBase + "/api/problems/" + encodeURIComponent(slug), {
+        headers: { Accept: "application/json" },
+        signal: controller.signal
+      });
+      const result = await response.json();
+      if (!response.ok || !result.success) throw new Error(result.message || "HTTP " + response.status);
+      renderProblem(result.data);
+      setApiStatus("");
+    } catch (error) {
+      setApiStatus(error.name === "AbortError"
+        ? "Request timed out. Server might be waking up, please refresh."
+        : "Failed to load problem: " + error.message, true);
+      console.error("Fetch error:", error);
+    } finally {
+      clearTimeout(timer);
+    }
+  }
+
+  loadProblem();
 })();
