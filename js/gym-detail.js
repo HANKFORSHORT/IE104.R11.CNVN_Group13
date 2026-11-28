@@ -111,6 +111,12 @@
   function initGymDetail() {
     document.querySelectorAll(".site-dialog").forEach(initDialog);
 
+    const startButton = document.querySelector("[data-start-url]");
+    startButton.addEventListener("click", function () {
+      if (startButton.disabled || !startButton.dataset.url || !AstraAuth.requireLogin()) return;
+      location.href = startButton.dataset.url;
+    });
+
     const raceForm = document.querySelector("[data-race-form]");
 
     if (raceForm) {
