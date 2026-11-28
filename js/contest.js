@@ -1,4 +1,5 @@
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", async () => {
+  await AstraAuth.ready;
   const CONTEST_ID = "round-118";
   const REGISTERED_KEY = AstraAuth.userKey("astra-registered-contests");
 

@@ -9,10 +9,11 @@
   <link rel="stylesheet" href="css/style.css" />
   <link rel="stylesheet" href="css/problems.css" />
   <link rel="stylesheet" href="css/account.css" />
+  <script src="js/config.js"></script>
+  <script src="js/api.js"></script>
   <script src="js/session.js"></script>
   <script src="js/main.js"></script>
-  <script src="js/config.js"></script>
-  <script src="js/user-data.js"></script>
+
   <script src="js/account.js" defer></script>
 </head>
 <body>
@@ -50,6 +51,7 @@
           <div class="breadcrumb"><a href="index.html">Home</a> / <a href="rankings.html">Rankings</a> / Profile</div>
           <div class="profile-head">
             <span class="avatar" aria-hidden="true" data-user-field="initials">?</span>
+            <img class="avatar" data-user-avatar alt="" hidden />
             <div>
               <h1 data-user-field="handle">username</h1>
               <p data-user-field="subtitle"></p>
@@ -70,6 +72,7 @@
           <div class="actions">
             <a class="btn btn-primary" href="solved.html" data-user-link>Solved problems</a>
             <a class="btn btn-secondary" href="submissions.html" data-owner-only hidden>My Submissions</a>
+            <a class="btn btn-secondary" href="settings.html" data-edit-profile hidden>Edit profile</a>
             <a class="btn btn-secondary" href="achievements.html?tab=achievements" data-user-link>Achievements</a>
             <span data-include="back-link" data-href="rankings.html" data-label="to Rankings"></span>
           </div>

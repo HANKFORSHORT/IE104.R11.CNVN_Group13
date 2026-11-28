@@ -9,9 +9,10 @@
   <link rel="stylesheet" href="css/style.css" />
   <link rel="stylesheet" href="css/problems.css" />
   <link rel="stylesheet" href="css/account.css" />
+  <script src="js/config.js"></script>
+  <script src="js/api.js"></script>
   <script src="js/session.js"></script>
   <script src="js/main.js"></script>
-  <script src="js/user-data.js"></script>
   <script src="js/account.js" defer></script>
 </head>
 <body>
@@ -44,8 +45,8 @@
             <div class="panel-body">
           <div class="field">
             <label class="field-label" for="username">Username</label>
-            <input class="field-input" type="text" id="username" name="username" aria-invalid="false" aria-describedby="username-error username-hint" value="oppixelnew246" readonly />
-            <p class="field-hint" id="username-hint">Usernames cannot be changed.</p>
+            <input class="field-input" type="text" id="username" name="username" aria-invalid="false" aria-describedby="username-error username-hint" maxlength="40" autocomplete="username" />
+            <p class="field-hint" id="username-hint">Use 3–40 letters, numbers, underscores or hyphens.</p>
             <p class="field-error" id="username-error" role="alert"></p>
           </div>
           <div class="field">
@@ -55,8 +56,18 @@
           </div>
           <div class="field">
             <label class="field-label" for="settings-email">Email</label>
-            <input class="field-input" type="email" id="settings-email" name="email" aria-invalid="false" aria-describedby="settings-email-error" autocomplete="email" required />
+            <input class="field-input" type="email" id="settings-email" name="email" aria-invalid="false" aria-describedby="settings-email-error" autocomplete="email" readonly />
             <p class="field-error" id="settings-email-error" role="alert"></p>
+          </div>
+          <div class="field">
+            <label class="field-label" for="avatar-url">Avatar URL</label>
+            <input class="field-input" type="url" id="avatar-url" name="avatarUrl" aria-invalid="false" aria-describedby="avatar-url-error" maxlength="2048" placeholder="https://example.com/avatar.png" />
+            <p class="field-error" id="avatar-url-error" role="alert"></p>
+          </div>
+          <div class="field">
+            <label class="field-label" for="country-code">Country code</label>
+            <input class="field-input" type="text" id="country-code" name="country" aria-invalid="false" aria-describedby="country-code-error" maxlength="2" placeholder="VN" />
+            <p class="field-error" id="country-code-error" role="alert"></p>
           </div>
           <div class="field">
             <label class="field-label" for="bio">Bio</label>
@@ -75,7 +86,7 @@
           <form class="panel" id="password-form" novalidate aria-labelledby="password-heading">
             <div class="panel-head">
               <h2 id="password-heading">Change password</h2>
-              <p>Use at least 8 characters, including a number and a lowercase letter.</p>
+              <p>Use a new password of 12–72 UTF-8 bytes.</p>
             </div>
             <div class="panel-body">
           <div class="field">
@@ -108,7 +119,7 @@
             </div>
             <div class="panel-body">
               <label class="check"><input type="checkbox" name="emailNotifications" checked /> Email me about contests and replies</label>
-              <label class="check"><input type="checkbox" name="publicSolved" checked /> Show my solved problems on my public profile</label>
+              <label class="check"><input type="checkbox" name="publicProfile" checked /> Make my profile public</label>
             </div>
             <div class="panel-foot">
               <button type="submit" class="btn btn-primary">Save preferences</button>

@@ -24,13 +24,14 @@
   }
 
   function isValidUsername(value) {
-    return /^[A-Za-z0-9]+(?:-[A-Za-z0-9]+)*$/.test(value);
+    return /^[A-Za-z0-9_-]{3,40}$/.test(value);
   }
 
   function passwordRule(value) {
     if (!value) return "Enter a password.";
-    return value.length >= 8 && /\d/.test(value) && /[a-z]/.test(value)
-      ? "" : "Use at least 8 characters, including a number and a lowercase letter.";
+    const bytes = new TextEncoder().encode(value).length;
+    return bytes >= 12 && bytes <= 72
+      ? "" : "Use a password of 12–72 UTF-8 bytes.";
   }
 
   function confirmRule(value, form) {
@@ -135,15 +136,6 @@
   applyTheme(savedTheme() || (prefersDark ? "dark" : "light"));
 
 
-  const READ_KEY = Auth.userKey("astra-notifications-read");
-
-  function readReadIds() {
-    try {
-      const ids = JSON.parse(localStorage.getItem(READ_KEY));
-      return Array.isArray(ids) ? ids : [];
-    } catch (error) { return []; }
-  }
-
   async function requestLogout(trigger) {
     await ready;
     if (!Auth.isLoggedIn()) return;
@@ -155,10 +147,15 @@
     openDialog(dialog, returnTo);
   }
 
-  function logout() {
+  async function logout() {
     if (!document.getElementById("logoutDialog").open) return;
-    if (Auth.setSession(null)) location.href = new URL("index.html", ROOT).href;
-    else document.getElementById("logoutStatus").textContent = "Could not log out. Please try again.";
+    try {
+      await window.AstraAPI.request("/api/v1/auth/logout", { method: "POST" });
+      await Auth.refresh();
+      location.href = new URL("index.html", ROOT).href;
+    } catch (error) {
+      document.getElementById("logoutStatus").textContent = error.message;
+    }
   }
 
   /* ---------------------------------------------------------
@@ -167,32 +164,14 @@
 
   let notifications = [];
 
-  function textOf(parent, selector) {
-    const el = parent.querySelector(selector);
-    return el ? el.textContent.trim() : "";
-  }
-
   async function loadNotifications() {
     if (!Auth.isLoggedIn() || !document.querySelector("[data-notification-list]")) return;
 
     try {
-      // TODO: replace with an API call. For now notifications.html is the only copy of the list.
-      const url = new URL("notifications.html", ROOT);
-      const res = await fetch(url);
-      if (!res.ok) throw new Error("Could not load " + url + " (" + res.status + ")");
-
-      const doc = new DOMParser().parseFromString(await res.text(), "text/html");
-      notifications = [...doc.querySelectorAll("[data-notification-id]")].map((item) => {
-        const link = item.querySelector(".notice-link");
-        return {
-          id: item.dataset.notificationId,
-          meta: textOf(item, ".notice-meta"),
-          title: textOf(item, ".notice-title"),
-          href: link ? link.getAttribute("href") : "notifications.html",
-        };
-      });
+      const page = await window.AstraAPI.request("/api/v1/me/notifications?limit=5");
+      notifications = page.items;
     } catch (err) {
-      console.error(err);
+      notifications = [];
     }
     renderNotifications();
   }
@@ -203,7 +182,6 @@
     const dot = document.querySelector("[data-unread-dot]");
     if (!list) return;
 
-    const readIds = readReadIds();
     list.replaceChildren();
 
     notifications.forEach((item) => {
@@ -213,10 +191,11 @@
       const title = document.createElement("span");
 
       link.className = "nav-popup-item";
-      link.href = new URL(item.href, ROOT).href;
-      link.dataset.read = String(readIds.includes(item.id));
+      link.href = /^[A-Za-z0-9_-]+\.html(?:[?#][A-Za-z0-9_=&%.-]*)?$/.test(item.linkPath || "")
+        ? new URL(item.linkPath, ROOT).href : new URL("notifications.html", ROOT).href;
+      link.dataset.read = String(Boolean(item.readAt));
       meta.className = "nav-popup-meta";
-      meta.textContent = item.meta;
+      meta.textContent = item.type + " · " + new Date(item.createdAt).toLocaleDateString();
       title.className = "nav-popup-title";
       title.textContent = item.title;
 
@@ -232,16 +211,12 @@
       list.appendChild(empty);
     }
 
-    const unread = notifications.filter((item) => !readIds.includes(item.id)).length;
+    const unread = notifications.filter((item) => !item.readAt).length;
     if (label) label.textContent = unread ? unread + " unread" : "All caught up";
     if (dot) dot.hidden = unread === 0;
   }
 
-  // account.js fires this after "Mark as read"; "storage" covers other tabs.
-  document.addEventListener("astra:notifications-read", renderNotifications);
-  window.addEventListener("storage", (e) => {
-    if (e.key === READ_KEY) renderNotifications();
-  });
+  document.addEventListener("astra:notifications-read", loadNotifications);
 
 
   const includes = new Map();
@@ -299,6 +274,7 @@
     } catch (err) {
       console.error(err);
     }
+    await Auth.ready;
     applyTheme(html.getAttribute("data-theme"));
     markActiveLink();
     resolveReady();

@@ -8,6 +8,8 @@
   <link rel="icon" href="images/favicon.svg" type="image/svg+xml" />
   <link rel="stylesheet" href="css/style.css" />
   <link rel="stylesheet" href="css/auth.css" />
+  <script src="js/config.js"></script>
+  <script src="js/api.js"></script>
   <script src="js/session.js"></script>
   <script src="js/main.js"></script>
   <script src="js/auth.js" defer></script>
@@ -42,7 +44,7 @@
         <div class="auth-field" id="wrap-username">
           <label for="username" class="auth-label">Username<span class="required-mark" aria-hidden="true">*</span></label>
           <input type="text" id="username" name="username" class="auth-input" placeholder="Username" autocomplete="username" aria-invalid="false" aria-describedby="username-hint username-error" required aria-required="true" />
-          <p class="auth-hint" id="username-hint">Username may only contain alphanumeric characters or single hyphens, and cannot begin or end with a hyphen.</p>
+          <p class="auth-hint" id="username-hint">Use 3–40 letters, numbers, underscores or hyphens.</p>
           <p class="auth-error" id="username-error"></p>
         </div>
 
@@ -52,7 +54,7 @@
             <input type="password" id="password" name="password" class="auth-input" placeholder="Enter your password" autocomplete="new-password" aria-invalid="false" aria-describedby="password-hint password-error" required aria-required="true" />
             <span data-include="password-toggle"></span>
           </div>
-          <p class="auth-hint" id="password-hint">Password should be at least 8 characters including a number and a lowercase letter.</p>
+          <p class="auth-hint" id="password-hint">Use a password of 12–72 UTF-8 bytes.</p>
           <p class="auth-error" id="password-error"></p>
         </div>
 
@@ -70,7 +72,7 @@
           <select id="country" name="country" class="auth-input" aria-invalid="false" aria-describedby="country-hint country-error" required aria-required="true" data-country-select>
             <option value="">Select your country or region</option>
           </select>
-          <p class="auth-hint" id="country-hint">For compliance reasons, we're required to collect country information to send you occasional updates and announcements.</p>
+          <p class="auth-hint" id="country-hint">Shown as a country code on your public profile.</p>
           <p class="auth-error" id="country-error"></p>
         </div>
 

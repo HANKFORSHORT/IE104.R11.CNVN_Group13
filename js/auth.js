@@ -2,7 +2,7 @@
    AUTH PAGES SCRIPTS (js/auth.js)
    Used by login.html, register.html and forgot-password.html.
    Each <form> declares its kind with data-auth-form:
-   "login" | "register" | "forgot".
+   "login" | "register" | "forgot" | "reset".
 
    Theme switching is already handled by main.js.
    ========================================================= */
@@ -10,9 +10,6 @@
 (function () {
   "use strict";
 
-
-  // TODO: temporary test account so the logged-in header can be tried without a backend.
-  const TEMP_ACCOUNT = { username: "123", password: "123" };
 
   const COUNTRY_CODES = (
     "AD AE AF AG AI AL AM AO AQ AR AS AT AU AW AX AZ BA BB BD BE BF BG BH BI BJ BL BM BN BO BQ BR BS BT BV BW BY BZ " +
@@ -43,11 +40,13 @@
     forgot: {
       email: validateEmail,
     },
+    reset: {
+      password: AstraUI.passwordRule,
+      confirm: AstraUI.confirmRule,
+    },
 
     login: {
-      identifier: function (value) {
-        return value.trim() ? "" : "Enter your username or email address.";
-      },
+      email: validateEmail,
       password: function (value) {
         return value ? "" : "Enter your password.";
       },
@@ -62,7 +61,7 @@
 
         return AstraUI.isValidUsername(value.trim())
           ? ""
-          : "Use only letters, numbers, and single hyphens. Don't start or end with a hyphen.";
+          : "Use 3–40 letters, numbers, underscores or hyphens.";
       },
       password: AstraUI.passwordRule,
       confirm: AstraUI.confirmRule,
@@ -165,43 +164,76 @@
   }
 
 
-  /* ---------------------------------------------------------
-     Submit
-     TODO: replace the redirects below with real API calls once the
-     backend exists. For now the forms only validate on the client.
-     --------------------------------------------------------- */
+  function destination() {
+    const params = new URLSearchParams(location.search);
+    return AstraAuth.safeNext(params.get("returnTo") || params.get("next") || "profile.html");
+  }
 
-  function handleValidSubmit(kind, form) {
-    if (kind === "forgot") {
-      // Same message whether or not the email exists
-      showBanner("If an account exists for that email, we've sent a password reset link.");
-      return;
-    }
-
-    if (kind === "login") {
-      const identifier = form.elements.identifier.value.trim();
-
-      // TODO: remove TEMP_ACCOUNT once login is checked by the backend.
-      if (identifier !== TEMP_ACCOUNT.username || form.elements.password.value !== TEMP_ACCOUNT.password) {
-        AstraUI.setAuthFieldError(form.elements.password, "Incorrect username or password.");
-        form.elements.password.focus();
+  async function handleValidSubmit(kind, form) {
+    const submit = form.querySelector('[type="submit"]');
+    submit.disabled = true;
+    try {
+      if (kind === "forgot") {
+        await AstraAPI.request("/api/v1/auth/forgot-password", {
+          method: "POST", body: { email: form.elements.email.value.trim() }
+        });
+        showBanner("If an account exists for that email, a reset link is on its way.");
         return;
       }
-
-      if (!AstraAuth.setSession({ identifier: identifier })) {
-        showBanner("Sign in could not be saved. Allow browser storage and try again.");
+      if (kind === "reset") {
+        const token = new URLSearchParams(location.search).get("token");
+        if (!token) { showBanner("This reset link is missing its token."); return; }
+        await AstraAPI.request("/api/v1/auth/reset-password", {
+          method: "POST", body: { token, newPassword: form.elements.password.value }
+        });
+        location.href = "login.html?reset=1";
         return;
       }
+      if (kind === "login") {
+        await AstraAPI.request("/api/v1/auth/login", {
+          method: "POST",
+          body: {
+            email: form.elements.email.value.trim(),
+            password: form.elements.password.value
+          }
+        });
+      } else {
+        await AstraAPI.request("/api/v1/auth/register", {
+          method: "POST",
+          body: {
+            username: form.elements.username.value.trim(),
+            email: form.elements.email.value.trim(),
+            password: form.elements.password.value,
+            country: form.elements.country.value,
+            emailNotifications: form.elements.marketing.checked
+          }
+        });
+      }
+      await AstraAuth.refresh();
+      if (!AstraAuth.isLoggedIn()) {
+        showBanner("Sign-in succeeded, but the browser did not keep the session cookie. Allow cookies for this site and try again.");
+        return;
+      }
+      const params = new URLSearchParams(location.search);
+      if (kind === "login" && params.get("auth_error") === "ACCOUNT_LINK_REQUIRED" &&
+          params.get("provider") === "facebook") {
+        location.href = AstraAPI.oauthUrl("facebook", destination(), true);
+      } else {
+        location.href = destination();
+      }
+    } catch (error) {
+      const field = {
+        EMAIL_TAKEN: "email", INVALID_EMAIL: "email",
+        USERNAME_TAKEN: "username", INVALID_USERNAME: "username",
+        INVALID_PASSWORD: "password", INVALID_CREDENTIALS: "password"
+      }[error.code];
+      if (field && form.elements[field]) {
+        AstraUI.setAuthFieldError(form.elements[field], error.message);
+        form.elements[field].focus();
+      } else showBanner(error.message);
+    } finally {
+      submit.disabled = false;
     }
-
-    let target = kind === "register" ? "login.html?registered=1" : "index.html";
-
-    if (kind === "login") {
-      const next = new URLSearchParams(window.location.search).get("next");
-      target = AstraAuth.safeNext(next);
-    }
-
-    window.location.href = target;
   }
 
 
@@ -229,7 +261,7 @@
         }
 
         // Changing the password re-checks the confirmation if it was filled in
-        if (kind === "register" && input.name === "password" && form.elements.confirm.value) {
+        if (["register", "reset"].includes(kind) && input.name === "password" && form.elements.confirm.value) {
           validateField(form.elements.confirm, form, kind);
         }
       });
@@ -268,6 +300,17 @@
     if (new URLSearchParams(window.location.search).get("reset") === "1") {
       showBanner("Password updated. Sign in with your new password.");
     }
+
+    const params = new URLSearchParams(location.search);
+    if (params.get("auth_error") === "ACCOUNT_LINK_REQUIRED") {
+      showBanner("This Facebook email matches an Astra account. Sign in with your Astra email and password to link Facebook.");
+    } else if (params.has("auth_error")) {
+      showBanner("Social sign-in could not be completed. Please try again.");
+    }
+
+    document.querySelectorAll("[data-auth-provider]").forEach(function (link) {
+      link.href = AstraAPI.oauthUrl(link.dataset.authProvider, destination());
+    });
 
     document.addEventListener("click", function (event) {
       const toggle = event.target.closest("[data-toggle-password]");

@@ -8,9 +8,10 @@
   <link rel="icon" href="images/favicon.svg" type="image/svg+xml" />
   <link rel="stylesheet" href="css/style.css" />
   <link rel="stylesheet" href="css/profile.css" />
+  <script src="js/config.js"></script>
+  <script src="js/api.js"></script>
   <script src="js/session.js"></script>
   <script src="js/main.js"></script>
-  <script src="js/user-data.js"></script>
   <script src="js/profile.js"></script>
 </head>
 <body>
@@ -21,7 +22,7 @@
 
       <aside class="pf-side" aria-label="Profile summary">
         <div class="pf-id">
-          <img id="pf-avatar" class="pf-avatar" src="images/profile-picture.jpg" alt="Your profile picture" width="200" height="200" />
+          <img id="pf-avatar" class="pf-avatar" src="images/logo.svg" alt="Your profile picture" width="200" height="200" />
           <div class="pf-id-text">
             <h1 class="pf-handle" id="pf-handle">username</h1>
             <p class="pf-bio" id="pf-bio"></p>
@@ -37,9 +38,9 @@
 
         <dl class="pf-stats">
           <div class="pf-stat"><dt>Problems solved</dt><dd id="pf-solved">0</dd></div>
-          <div class="pf-stat"><dt>Rank by points</dt><dd id="pf-rank">#—</dd></div>
-          <div class="pf-stat"><dt>Total points</dt><dd id="pf-points">0.00</dd></div>
-          <div class="pf-stat"><dt>Contribution</dt><dd id="pf-contrib">0</dd></div>
+          <div class="pf-stat"><dt>Current rating</dt><dd id="pf-rank">0</dd></div>
+          <div class="pf-stat"><dt>Best rating</dt><dd id="pf-points">0</dd></div>
+          <div class="pf-stat"><dt>Submissions</dt><dd id="pf-contrib">0</dd></div>
         </dl>
 
         <a class="pf-link" href="submissions.html" id="pf-subs-link">My Submissions</a>
@@ -58,7 +59,7 @@
         <div class="pf-panel" id="panel-about" role="tabpanel" aria-labelledby="tab-about" data-panel="about">
 
           <h2 class="pf-h2">Badges &amp; Awards</h2>
-          <p class="sample-note" data-profile-sample hidden>Sample progress for the demo account.</p>
+          <p class="sample-note" data-profile-sample hidden></p>
           <div id="pf-badges" class="pf-badges"></div>
 
           <h2 class="pf-h2" id="pf-heat-title">0 submissions in the last year</h2>

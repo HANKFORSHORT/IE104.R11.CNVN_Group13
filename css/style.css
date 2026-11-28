@@ -447,6 +447,10 @@ html:not([data-auth="in"]) [data-auth-only="in"] {
   display: none;
 }
 
+html[data-auth="pending"] [data-auth-only="out"] {
+  display: none;
+}
+
 html[data-auth="in"] [data-auth-only="out"] {
   display: none;
 }
